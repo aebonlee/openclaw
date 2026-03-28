@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState, lazy, Suspense, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 
@@ -9,7 +9,18 @@ const SIDEBAR_SECTIONS = [
   { id: 'advanced', icon: 'fa-wand-magic-sparkles', color: 'blue', ko: '고급 기법', en: 'Advanced Techniques' },
   { id: 'practice', icon: 'fa-laptop-code', color: 'purple', ko: '실습', en: 'Practice' },
   { id: 'quiz', icon: 'fa-question-circle', color: 'orange', ko: '퀴즈', en: 'Quiz' },
-  { id: 'gallery', icon: 'fa-gem', color: 'blue', ko: '프롬프트 갤러리', en: 'Prompt Gallery' },
+];
+
+const GALLERY_CATEGORIES = [
+  { id: 'all', ko: '전체', en: 'All', icon: 'fa-border-all' },
+  { id: 'education', ko: '교육/학습', en: 'Education', icon: 'fa-graduation-cap' },
+  { id: 'coding', ko: '코딩/개발', en: 'Coding', icon: 'fa-code' },
+  { id: 'writing', ko: '글쓰기/콘텐츠', en: 'Writing', icon: 'fa-pen-fancy' },
+  { id: 'business', ko: '비즈니스', en: 'Business', icon: 'fa-briefcase' },
+  { id: 'data', ko: '데이터 분석', en: 'Data Analysis', icon: 'fa-chart-bar' },
+  { id: 'creative', ko: '창작/아이디어', en: 'Creative', icon: 'fa-lightbulb' },
+  { id: 'research', ko: '연구/분석', en: 'Research', icon: 'fa-flask' },
+  { id: 'productivity', ko: '업무 생산성', en: 'Productivity', icon: 'fa-rocket' },
 ];
 
 const BASIC_EXAMPLES = [
@@ -268,6 +279,8 @@ export default function PromptPractice() {
   const [quizAnswers, setQuizAnswers] = useState(Array(5).fill(-1));
   const [showQuizResults, setShowQuizResults] = useState(false);
   const [promptInput, setPromptInput] = useState('');
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [galleryCategory, setGalleryCategory] = useState('all');
 
   const quizQuestions = isKo ? QUIZ_QUESTIONS.ko : QUIZ_QUESTIONS.en;
   const quizScore = quizAnswers.reduce((sum, ans, idx) => sum + (ans === quizQuestions[idx].answer ? 1 : 0), 0);
@@ -303,6 +316,41 @@ export default function PromptPractice() {
                 <span>{isKo ? sec.ko : sec.en}</span>
               </button>
             ))}
+
+            {/* Gallery section with sub-categories */}
+            <div style={{ borderTop: '1px solid var(--border-light)', marginTop: 8, paddingTop: 8 }}>
+              <div className={`ck-nav-group ${activeSection === 'gallery' ? 'active' : ''}`}>
+                <button
+                  className="ck-nav-parent ck-np--blue"
+                  onClick={() => {
+                    setGalleryOpen(!galleryOpen);
+                    setActiveSection('gallery');
+                  }}
+                >
+                  <span className="ck-np-icon"><i className="fa-solid fa-gem" /></span>
+                  <span>{isKo ? '프롬프트 갤러리' : 'Prompt Gallery'}</span>
+                  <i className={`fa-solid fa-chevron-down ck-nav-arrow ${galleryOpen ? 'open' : ''}`} />
+                </button>
+                {galleryOpen && (
+                  <ul className="ck-nav-children">
+                    {GALLERY_CATEGORIES.map(cat => (
+                      <li key={cat.id}>
+                        <button
+                          className={`ck-nav-child ${activeSection === 'gallery' && galleryCategory === cat.id ? 'active' : ''}`}
+                          onClick={() => {
+                            setGalleryCategory(cat.id);
+                            setActiveSection('gallery');
+                          }}
+                        >
+                          <span className="ck-nc-icon"><i className={`fa-solid ${cat.icon}`} /></span>
+                          <span>{isKo ? cat.ko : cat.en}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
           </nav>
         </aside>
 
@@ -670,7 +718,7 @@ export default function PromptPractice() {
           {/* Gallery Section */}
           {activeSection === 'gallery' && (
             <Suspense fallback={<div style={{ textAlign: 'center', padding: 60 }}><div className="loading-spinner" /></div>}>
-              <PromptGalleryContent />
+              <PromptGalleryContent initialCategory={galleryCategory} />
             </Suspense>
           )}
         </div>

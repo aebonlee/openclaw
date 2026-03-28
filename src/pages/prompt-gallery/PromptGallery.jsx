@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 
@@ -3210,9 +3210,10 @@ Include final recommendation with rationale and adoption roadmap (PoC → Pilot 
   },
 ];
 
-export function GalleryContent() {
+export function GalleryContent({ initialCategory = 'all' }) {
   const { language } = useLanguage();
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
+  useEffect(() => { setActiveCategory(initialCategory); }, [initialCategory]);
   const [expandedId, setExpandedId] = useState(null);
   const [copiedId, setCopiedId] = useState(null);
   const isKo = language === 'ko';

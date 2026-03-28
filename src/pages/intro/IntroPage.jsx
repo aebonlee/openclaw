@@ -113,15 +113,16 @@ export default function IntroPage() {
   };
 
   return (
-    <div className="intro-page">
+    <div className="ck-page">
       <SEOHead
         title={t('intro.title')}
         description={isKo ? 'OpenClaw - AI 학습의 새로운 패러다임. AI, 프로그래밍, 데이터 사이언스를 체계적으로 학습하세요.' : 'OpenClaw - A New Paradigm for AI Learning. Systematically learn AI, programming, and data science.'}
         path="/intro"
       />
 
+      <div className="ck-layout">
       {/* Sidebar */}
-      <aside className="intro-sidebar">
+      <aside className="ck-sidebar">
         <div className="ck-sb-header">
           <i className="fa-solid fa-info-circle" />
           <span>{t('intro.title')}</span>
@@ -141,7 +142,7 @@ export default function IntroPage() {
       </aside>
 
       {/* Main Content */}
-      <div className="intro-content">
+      <div className="ck-main">
         {/* About Section */}
         <section id="about" className="ck-content-box">
           <div className="ck-content-header ck-ch--blue">
@@ -329,6 +330,7 @@ export default function IntroPage() {
             ))}
           </div>
         </section>
+      </div>
       </div>
     </div>
   );

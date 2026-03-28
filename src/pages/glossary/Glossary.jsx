@@ -383,15 +383,16 @@ export default function Glossary() {
   };
 
   return (
-    <div className="intro-page">
+    <div className="ck-page">
       <SEOHead
         title={isKo ? 'AI 용어사전' : 'AI Glossary'}
         description={isKo ? 'AI, 머신러닝, 딥러닝, 프로그래밍 관련 핵심 용어를 한눈에 정리한 용어사전입니다.' : 'A comprehensive glossary of key terms in AI, machine learning, deep learning, and programming.'}
         path="/glossary"
       />
 
+      <div className="ck-layout">
       {/* Sidebar */}
-      <aside className="intro-sidebar">
+      <aside className="ck-sidebar">
         <div className="ck-sb-header">
           <i className="fa-solid fa-book" />
           <span>{isKo ? 'AI 용어사전' : 'AI Glossary'}</span>
@@ -418,7 +419,7 @@ export default function Glossary() {
       </aside>
 
       {/* Main Content */}
-      <div className="intro-content">
+      <div className="ck-main">
         <section className="ck-content-box">
           <div className="ck-content-header ck-ch--blue">
             <i className="fa-solid fa-book" />
@@ -590,6 +591,7 @@ export default function Glossary() {
             )}
           </div>
         </section>
+      </div>
       </div>
     </div>
   );
