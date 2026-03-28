@@ -938,14 +938,32 @@ export default function Resources() {
                 )}
               </div>
 
-              {/* 프롬프트 갤러리 (2차 메뉴 + 카테고리 하위) */}
+              {/* 프롬프트 예시 (2차 메뉴 + 카테고리 하위) */}
               <div className={`ck-nav-group ${galleryOpen ? 'active' : ''}`}>
                 <button
-                  className="ck-nav-parent ck-np--blue"
                   onClick={() => { setGalleryOpen(!galleryOpen); if (!galleryOpen) { setPromptOpen(false); setActiveCategory(null); } }}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 4, width: 'calc(100% - 16px)',
+                    margin: '6px 8px', padding: '9px 12px', borderRadius: 10, fontSize: 13, fontWeight: 700,
+                    background: galleryOpen
+                      ? 'linear-gradient(135deg, #5B21B6, #7C3AED)'
+                      : 'linear-gradient(135deg, rgba(91,33,182,0.08), rgba(124,58,237,0.04))',
+                    color: galleryOpen ? '#fff' : '#5B21B6',
+                    border: galleryOpen ? 'none' : '1px solid rgba(91,33,182,0.15)',
+                    cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left',
+                    transition: 'all 0.2s ease',
+                  }}
                 >
-                  <span>{isKo ? '프롬프트 갤러리' : 'Prompt Gallery'}</span>
-                  <i className={`fa-solid fa-chevron-down ck-nav-arrow ${galleryOpen ? 'open' : ''}`} />
+                  <i className="fa-solid fa-gem" style={{ fontSize: 12, marginRight: 2 }} />
+                  <span style={{ flex: 1 }}>{isKo ? '프롬프트 예시' : 'Prompt Examples'}</span>
+                  <span style={{
+                    fontSize: 10, fontWeight: 600, padding: '2px 6px', borderRadius: 4,
+                    background: galleryOpen ? 'rgba(255,255,255,0.2)' : 'rgba(91,33,182,0.1)',
+                  }}>40</span>
+                  <i className={`fa-solid fa-chevron-down`} style={{
+                    fontSize: 10, marginLeft: 4, transition: 'transform 0.2s',
+                    transform: galleryOpen ? 'rotate(180deg)' : 'rotate(0)',
+                  }} />
                 </button>
                 {galleryOpen && (
                   <ul className="ck-nav-children">
