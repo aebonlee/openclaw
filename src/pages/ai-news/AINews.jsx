@@ -298,11 +298,7 @@ export default function AINews() {
               <i className="fa-solid fa-fire" style={{ color: '#EF4444' }} />
               {isKo ? '최신 뉴스' : 'Latest News'}
             </h2>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: 16,
-            }}>
+            <div className="edu-course-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))' }}>
               {cardItems.map(item => {
                 const badge = getCategoryBadge(item.cat);
                 const catLabel = CATEGORIES.find(c => c.id === item.cat);

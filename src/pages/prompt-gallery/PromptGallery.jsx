@@ -3446,10 +3446,8 @@ export default function PromptGallery() {
         </div>
 
         {/* Prompt Cards Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: 20,
+        <div className="edu-course-grid" style={{
+          gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
         }}>
           {filtered.map(item => {
             const isExpanded = expandedId === item.id;

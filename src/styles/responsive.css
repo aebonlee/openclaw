@@ -1,19 +1,27 @@
 /* ============================================
-   Teaching AI - Responsive
-   3 Breakpoints: 1100px / 1024px / 768px
+   OpenClaw - Responsive
+   Desktop(1200+) / Tablet(768-1100) / Mobile(~768) / Small(~480)
    ============================================ */
 
+/* ============================================
+   Tablet & Small Desktop (max-width: 1100px)
+   ============================================ */
 @media (max-width: 1100px) {
+    /* Navbar: hide links, show mobile toggle */
     .nav-links { display: none; }
     .navbar-actions .color-picker-wrapper,
     .navbar-actions .lang-toggle {
         display: none;
     }
+    .nav-auth-group { gap: 4px; }
+    .nav-auth-btn { padding: 6px 14px; font-size: 13px; }
     .mobile-menu-toggle { display: flex; }
 
+    /* Hero */
     .hero-title { font-size: 42px; }
     .hero-description { font-size: 17px; }
 
+    /* AI Tools two-column */
     .ai-two-column {
         grid-template-columns: 1fr;
     }
@@ -21,57 +29,113 @@
         position: static;
     }
 
+    /* Footer */
     .footer-content {
         grid-template-columns: 1fr 1fr;
     }
+
+    /* Sidebar pages */
+    .ck-sidebar { width: 230px; }
+    .ck-main { padding: 20px 24px 40px; }
 }
 
+/* ============================================
+   Tablet (max-width: 1024px)
+   ============================================ */
 @media (max-width: 1024px) {
     .container { padding: 0 24px; }
     .navbar-inner { padding: 0 24px; }
 
+    /* Hero */
     .hero { padding-bottom: 72px; }
     .hero-title { font-size: 38px; }
     .hero-content { max-width: 100%; }
 
+    /* Sections */
     .section-title { font-size: 34px; }
     .section-header { margin-bottom: 48px; }
 
+    /* Grids */
     .features-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .providers-grid { grid-template-columns: repeat(2, 1fr); }
+    .workflow-steps { flex-wrap: wrap; gap: 24px; }
+    .step-arrow { display: none; }
 
+    /* Carousel */
     .carousel-arrow { display: none; }
+
+    /* AI News 4-col → 2-col */
+    .edu-course-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* ============================================
+   Mobile (max-width: 768px)
+   ============================================ */
 @media (max-width: 768px) {
     :root {
         --nav-height: 64px;
         --section-padding: 56px;
     }
-    .container { padding: 0 20px; }
+    .container { padding: 0 16px; }
     .navbar-inner { padding: 0 16px; }
 
+    /* Hero */
     .hero {
         min-height: auto;
         padding-top: calc(var(--nav-height) + 32px);
         padding-bottom: 56px;
     }
-    .hero-title { font-size: 32px; }
+    .hero-title { font-size: 28px; }
     .hero-description { font-size: 15px; margin-bottom: 28px; }
     .hero-buttons { flex-direction: column; }
     .hero-buttons .btn { width: 100%; justify-content: center; }
-
     .hero-badge { font-size: 12px; padding: 6px 12px; }
     .carousel-dots { bottom: 16px; gap: 10px; }
     .carousel-dot { width: 10px; height: 10px; }
     .scroll-indicator { display: none; }
 
-    .section-title { font-size: 28px; }
-    .section-subtitle { font-size: 15px; }
+    /* Sections */
+    .section-title { font-size: 24px; }
+    .section-subtitle { font-size: 14px; }
 
+    /* Grids → 1 col */
     .features-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .providers-grid { grid-template-columns: repeat(2, 1fr); }
+    .workflow-steps { flex-direction: column; gap: 16px; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .stat-number { font-size: 36px; }
+    .edu-course-grid { grid-template-columns: 1fr; }
+
+    /* Sidebar pages: stack vertically */
+    .ck-layout { flex-direction: column; }
+    .ck-mobile-toggle { display: flex; }
+    .ck-sidebar {
+        position: fixed; left: -290px; top: var(--nav-height); z-index: 90;
+        width: 272px; transition: left 0.3s ease;
+        box-shadow: none; height: calc(100vh - var(--nav-height));
+    }
+    .ck-sidebar.open { left: 0; box-shadow: 4px 0 20px rgba(0,0,0,0.15); }
+    .ck-main { padding: 16px 16px 60px; }
+    .ck-content-header { padding: 18px 20px; }
+    .ck-content-body { padding: 18px 20px; }
+
+    /* Intro/Glossary sidebar (ck-page uses same) */
+    .intro-page { flex-direction: column; }
+    .intro-sidebar {
+        width: 100%; position: relative; top: auto; height: auto;
+        border-right: none; border-bottom: 1px solid var(--border-light);
+    }
+    .intro-content { padding: 16px; }
+
+    /* EduHub */
+    .edu-hub-hero { padding: 32px 16px; }
+    .edu-hub-hero h1 { font-size: 22px; }
+    .edu-hub-stats { gap: 20px; }
+    .edu-category-tabs { gap: 6px; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 8px; }
+    .edu-category-tabs::-webkit-scrollbar { display: none; }
 
     /* AI Tools */
     .ai-page-header { padding: calc(var(--nav-height) + 24px) 0 32px; }
@@ -81,32 +145,19 @@
     .provider-select { gap: 6px; }
     .provider-chip { padding: 6px 12px; font-size: 12px; }
     .export-toolbar { flex-wrap: wrap; }
-
-    /* AI Tool Cards */
     .ai-tools-grid { grid-template-columns: 1fr; }
 
     /* Footer */
     .footer { padding: 48px 0 24px; }
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
-    .footer-bottom {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-    }
+    .footer-content { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .footer-bottom-info { font-size: 11px; }
 
     /* Auth */
-    .auth-container { padding: 24px 16px; }
-    .auth-card { padding: 24px; }
-
-    /* Dashboard */
-    .dashboard-grid { grid-template-columns: 1fr; }
-    .quick-access-grid { grid-template-columns: repeat(2, 1fr); }
-
-    /* Settings */
-    .settings-layout { grid-template-columns: 1fr; }
+    .auth-page { padding: calc(var(--nav-height) + 20px) 16px 40px; }
+    .auth-container { padding: 0; }
+    .auth-card { padding: 24px 20px; }
+    .social-login { flex-direction: column; }
 
     /* Community */
     .board-filters { flex-direction: column; }
@@ -119,14 +170,64 @@
     .admin-layout { grid-template-columns: 1fr; }
     .admin-sidebar { display: none; }
 
+    /* Dashboard */
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .quick-access-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Settings */
+    .settings-layout { grid-template-columns: 1fr; }
+
+    /* Prompt Gallery: 2-col → 1-col */
+    .prompt-gallery-grid { grid-template-columns: 1fr; }
+
     /* Buttons */
-    .btn { padding: 12px 24px; font-size: 14px; }
-    .btn-primary-large { padding: 14px 32px; font-size: 16px; }
+    .btn { padding: 10px 20px; font-size: 14px; }
+    .btn-lg { padding: 12px 28px; font-size: 15px; }
+
+    /* Tables */
+    table { font-size: 13px; }
+    th, td { padding: 8px 10px; }
+
+    /* Code blocks */
+    pre { font-size: 12px; padding: 12px; }
 }
 
+/* ============================================
+   Small Mobile (max-width: 480px)
+   ============================================ */
 @media (max-width: 480px) {
-    .hero-title { font-size: 28px; }
+    .hero-title { font-size: 24px; }
+    .hero-description { font-size: 14px; }
     .stat-number { font-size: 28px; }
+    .stat-label { font-size: 13px; }
     .quick-access-grid { grid-template-columns: 1fr; }
     .navbar-logo { font-size: 18px; }
+    .nav-auth-group { display: none; }
+
+    /* Section titles */
+    .section-title { font-size: 20px; }
+    .section-subtitle { font-size: 13px; }
+
+    /* Cards compact */
+    .feature-card { padding: 24px 20px; }
+    .edu-course-card { padding: 16px; }
+    .edu-course-card h3 { font-size: 14px; }
+    .edu-course-card p { font-size: 12px; }
+
+    /* Providers 2-col → 1-col */
+    .providers-grid { grid-template-columns: 1fr; }
+
+    /* Footer */
+    .footer-logo { font-size: 18px; }
+    .footer-description { font-size: 13px; }
+    .footer-link-list a { font-size: 13px; }
+
+    /* Auth */
+    .auth-card h1 { font-size: 22px; }
+
+    /* Content pages */
+    .ck-content-header h2 { font-size: 18px; }
+    .ck-content-body { font-size: 14px; }
+    .theory-h3 { font-size: 15px; }
+    .theory-p { font-size: 13px; }
 }
