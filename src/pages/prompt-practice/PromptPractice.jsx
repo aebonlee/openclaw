@@ -385,7 +385,7 @@ export default function PromptPractice({ embeddedSection = null }) {
                 </div>
               </div>
               <div className="ck-content-body">
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 20 }}>
+                <div className="edu-course-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
                   {TECHNIQUE_CARDS.map(card => {
                     const content = isKo ? card.ko : card.en;
                     return (
