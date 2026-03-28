@@ -137,7 +137,19 @@ Run `supabase/schema.sql` in Supabase SQL Editor to create tables.
 | 12 | Teaching AI Integration |
 | 13 | Development Log |
 
-## License
+## License / 라이선스
+
+**저작권 (c) 2025-2026 드림아이티비즈 (이애본 박사). 모든 권리 보유.**
+
+본 소프트웨어는 저작권법 및 지적재산권법에 의해 보호되는 독점 소프트웨어입니다. 본 프로젝트는 소프트웨어 저작권 등록이 완료되어 법적 보호를 받습니다.
+
+- 본 소프트웨어의 무단 복제, 수정, 배포 또는 사용은 엄격히 금지됩니다.
+- 저작권자의 사전 서면 허가 없이 본 소프트웨어의 어떠한 부분도 복제하거나 전송할 수 없습니다.
+- 본 소프트웨어는 OpenClaw 플랫폼(https://openclaw.dreamitbiz.com)을 통한 교육 목적으로만 제공됩니다.
+
+라이선스 문의: aebon@dreamitbiz.com
+
+---
 
 **Copyright (c) 2025-2026 DreamIT Biz (Ph.D Aebon Lee). All Rights Reserved.**
 
