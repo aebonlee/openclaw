@@ -18,6 +18,7 @@ const IntroPage = lazy(() => import('../pages/intro/IntroPage'));
 const Glossary = lazy(() => import('../pages/glossary/Glossary'));
 const Roadmap = lazy(() => import('../pages/roadmap/Roadmap'));
 const AINews = lazy(() => import('../pages/ai-news/AINews'));
+const OpenClawGuide = lazy(() => import('../pages/openclaw-guide/OpenClawGuide'));
 const PromptGallery = lazy(() => import('../pages/prompt-gallery/PromptGallery'));
 const AdminDashboard = lazy(() => import('../pages/admin/AdminDashboard'));
 const NotFound = lazy(() => import('../pages/NotFound'));
@@ -48,6 +49,7 @@ export default function PublicLayout() {
             <Route path="/glossary" element={<Glossary />} />
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/ai-news" element={<AINews />} />
+            <Route path="/openclaw-guide" element={<OpenClawGuide />} />
             <Route path="/prompt-gallery" element={<PromptGallery />} />
             <Route path="/community/board" element={<Board />} />
             <Route path="/community/board/:id" element={<BoardDetail />} />

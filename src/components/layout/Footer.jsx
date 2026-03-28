@@ -20,6 +20,7 @@ export default function Footer() {
             <h4>{t('footer.quickLinks')}</h4>
             <ul className="footer-link-list">
               <li><Link to="/intro">{language === 'ko' ? '소개' : 'About'}</Link></li>
+              <li><Link to="/openclaw-guide">{language === 'ko' ? 'OpenClaw 강의' : 'OpenClaw Guide'}</Link></li>
               <li><Link to="/resources">{t('nav.resources')}</Link></li>
               <li><Link to="/prompt-practice">{t('nav.promptPractice')}</Link></li>
               <li><Link to="/glossary">{language === 'ko' ? 'AI 용어사전' : 'AI Glossary'}</Link></li>
