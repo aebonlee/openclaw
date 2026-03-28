@@ -13,6 +13,7 @@
 .auth-container {
     width: 100%;
     max-width: 440px;
+    margin: 0 auto;
 }
 .auth-card {
     background: var(--bg-white);
@@ -20,6 +21,15 @@
     border-radius: var(--radius-xl);
     padding: 40px;
     box-shadow: var(--shadow-lg);
+    width: 100%;
+    box-sizing: border-box;
+}
+.auth-card h1 {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 28px;
+    color: var(--text-primary);
 }
 .auth-header {
     text-align: center;
@@ -42,7 +52,8 @@
 }
 
 /* Social Login */
-.social-login-group {
+.social-login-group,
+.social-login {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -96,6 +107,28 @@
 /* Form */
 .auth-form { display: flex; flex-direction: column; gap: 16px; }
 .auth-form .form-input { padding: 14px 16px; }
+.auth-form .form-group { display: flex; flex-direction: column; gap: 6px; }
+.auth-form .form-group label {
+    font-size: 14px; font-weight: 600; color: var(--text-primary);
+}
+.auth-form .form-group input {
+    width: 100%; padding: 12px 14px; font-size: 14px;
+    border: 1px solid var(--border-light); border-radius: var(--radius-sm);
+    font-family: inherit; color: var(--text-primary);
+    background: var(--bg-white); box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+.auth-form .form-group input:focus {
+    outline: none; border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(27, 58, 107, 0.08);
+}
+.btn-block { width: 100%; }
+.auth-links {
+    text-align: center; margin-top: 16px; font-size: 13px;
+}
+.auth-links a {
+    color: var(--primary-blue); font-weight: 500;
+}
 .auth-form-actions {
     display: flex;
     justify-content: space-between;
@@ -154,3 +187,12 @@
 .password-strength-bar.weak { background: #EF4444; }
 .password-strength-bar.medium { background: #F59E0B; }
 .password-strength-bar.strong { background: #10B981; }
+
+/* Auth Responsive */
+@media (max-width: 480px) {
+    .auth-page { padding: calc(var(--nav-height) + 20px) 16px 32px; }
+    .auth-card { padding: 28px 20px; }
+    .auth-card h1 { font-size: 20px; margin-bottom: 20px; }
+    .social-btn { padding: 10px; font-size: 14px; }
+    .auth-form .form-group input { padding: 10px 12px; }
+}
