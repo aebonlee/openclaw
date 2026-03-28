@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 
@@ -334,6 +334,10 @@ export default function Glossary() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeSection, setActiveSection] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
+  const [viewMode, setViewMode] = useState('glossary'); // 'glossary' | 'quiz'
+  const [quizAnswers, setQuizAnswers] = useState({});
+  const [showQuizResults, setShowQuizResults] = useState(false);
+  const [quizSeed, setQuizSeed] = useState(0);
   const PAGE_SIZE = 5;
   const isKo = language === 'ko';
 
@@ -353,6 +357,20 @@ export default function Glossary() {
 
   const totalPages = Math.ceil(sortedTerms.length / PAGE_SIZE);
   const pagedTerms = sortedTerms.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
+  const quizData = useMemo(() => {
+    const shuffled = [...GLOSSARY_TERMS].sort(() => 0.5 - Math.random()).slice(0, 10);
+    return shuffled.map((term, idx) => {
+      const wrongDefs = GLOSSARY_TERMS
+        .filter(t => t.term !== term.term)
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3)
+        .map(t => isKo ? t.ko.def.slice(0, 80) : t.en.def.slice(0, 80));
+      const correctDef = isKo ? term.ko.def.slice(0, 80) : term.en.def.slice(0, 80);
+      const options = [...wrongDefs, correctDef].sort(() => 0.5 - Math.random());
+      return { id: idx, term: term.term, enTerm: term.enTerm, correct: correctDef, options };
+    });
+  }, [quizSeed, isKo]);
 
   const handleCategoryChange = (catId) => {
     setActiveCategory(catId);
@@ -400,8 +418,8 @@ export default function Glossary() {
           {sidebarSections.map(sec => (
             <button
               key={sec.id}
-              className={`ck-nav-child ${activeCategory === sec.id ? 'active' : ''}`}
-              onClick={() => handleCategoryChange(sec.id)}
+              className={`ck-nav-child ${viewMode === 'glossary' && activeCategory === sec.id ? 'active' : ''}`}
+              onClick={() => { handleCategoryChange(sec.id); setViewMode('glossary'); }}
             >
               <span>{sec.label}</span>
               <span style={{ marginLeft: 'auto', fontSize: 11, opacity: 0.6 }}>
@@ -411,11 +429,130 @@ export default function Glossary() {
               </span>
             </button>
           ))}
+
+          {/* AI 용어 퀴즈 메뉴 */}
+          <button
+            onClick={() => { setViewMode('quiz'); setShowQuizResults(false); setQuizAnswers({}); setQuizSeed(s => s + 1); }}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 4, width: 'calc(100% - 16px)',
+              margin: '10px 8px 6px', padding: '10px 12px', borderRadius: 10, fontSize: 13, fontWeight: 700,
+              background: viewMode === 'quiz'
+                ? 'linear-gradient(135deg, #065F46, #059669)'
+                : 'linear-gradient(135deg, rgba(6,95,70,0.08), rgba(5,150,105,0.04))',
+              color: viewMode === 'quiz' ? '#fff' : '#065F46',
+              border: viewMode === 'quiz' ? 'none' : '1px solid rgba(6,95,70,0.15)',
+              cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <i className="fa-solid fa-brain" style={{ fontSize: 12, marginRight: 2 }} />
+            <span style={{ flex: 1 }}>{isKo ? 'AI 용어 퀴즈' : 'AI Term Quiz'}</span>
+            <span style={{
+              fontSize: 10, fontWeight: 600, padding: '2px 6px', borderRadius: 4,
+              background: viewMode === 'quiz' ? 'rgba(255,255,255,0.2)' : 'rgba(6,95,70,0.1)',
+            }}>10</span>
+          </button>
         </nav>
       </aside>
 
       {/* Main Content */}
       <div className="ck-main">
+        {viewMode === 'quiz' && (() => {
+          const score = quizData.filter((q, i) => quizAnswers[i] === q.correct).length;
+          return (
+            <section className="ck-content-box">
+              <div className="ck-content-header" style={{ background: 'linear-gradient(135deg, #065F46, #059669)', color: '#fff' }}>
+                <i className="fa-solid fa-brain" style={{ color: '#fff' }} />
+                <div className="ck-ch-text">
+                  <h2 style={{ color: '#fff' }}>{isKo ? 'AI 용어 퀴즈' : 'AI Term Quiz'}</h2>
+                  <p style={{ color: 'rgba(255,255,255,0.8)' }}>{isKo ? '용어의 정의를 맞춰보세요! 10문제' : 'Match the definitions! 10 questions'}</p>
+                </div>
+              </div>
+              <div className="ck-content-body">
+                {showQuizResults ? (
+                  <div style={{ textAlign: 'center', padding: '32px 0' }}>
+                    <div style={{ fontSize: 56, fontWeight: 800, color: score >= 8 ? '#059669' : score >= 5 ? '#3B82F6' : '#EF4444' }}>
+                      {score}/10
+                    </div>
+                    <p style={{ fontSize: 16, color: 'var(--text-secondary)', margin: '12px 0 24px' }}>
+                      {score >= 8
+                        ? (isKo ? 'AI 용어 마스터! 훌륭합니다!' : 'AI Term Master! Excellent!')
+                        : score >= 5
+                        ? (isKo ? '좋습니다! 용어사전을 더 학습해보세요.' : 'Good! Study the glossary more.')
+                        : (isKo ? '용어사전을 복습해보세요.' : 'Review the glossary.')}
+                    </p>
+                    <button
+                      onClick={() => { setShowQuizResults(false); setQuizAnswers({}); setQuizSeed(s => s + 1); }}
+                      style={{
+                        padding: '10px 28px', borderRadius: 8, fontSize: 14, fontWeight: 600,
+                        background: '#065F46', color: '#fff', border: 'none', cursor: 'pointer',
+                      }}
+                    >
+                      {isKo ? '다시 도전' : 'Try Again'}
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    {quizData.map((q, idx) => (
+                      <div key={idx} style={{
+                        padding: 20, marginBottom: 16, borderRadius: 12,
+                        border: '1px solid var(--border-light)', background: 'var(--bg-white)',
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+                          <span style={{
+                            width: 28, height: 28, borderRadius: '50%', background: '#065F46', color: '#fff',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            fontSize: 13, fontWeight: 700, flexShrink: 0,
+                          }}>{idx + 1}</span>
+                          <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
+                            {q.term}
+                          </h3>
+                          <span style={{ fontSize: 12, color: 'var(--text-light)', fontStyle: 'italic' }}>{q.enTerm}</span>
+                        </div>
+                        <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 12 }}>
+                          {isKo ? '이 용어의 올바른 설명은?' : 'What is the correct definition?'}
+                        </p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                          {q.options.map((opt, oi) => (
+                            <button
+                              key={oi}
+                              onClick={() => setQuizAnswers(prev => ({ ...prev, [idx]: opt }))}
+                              style={{
+                                padding: '10px 14px', borderRadius: 8, fontSize: 13, textAlign: 'left',
+                                border: quizAnswers[idx] === opt ? '2px solid #065F46' : '1px solid var(--border-light)',
+                                background: quizAnswers[idx] === opt ? 'rgba(6,95,70,0.06)' : 'var(--bg-white)',
+                                color: 'var(--text-primary)', cursor: 'pointer', fontFamily: 'inherit',
+                                fontWeight: quizAnswers[idx] === opt ? 600 : 400,
+                              }}
+                            >
+                              {opt}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                    <div style={{ textAlign: 'center', marginTop: 8 }}>
+                      <button
+                        onClick={() => setShowQuizResults(true)}
+                        disabled={Object.keys(quizAnswers).length < 10}
+                        style={{
+                          padding: '12px 36px', borderRadius: 10, fontSize: 15, fontWeight: 700,
+                          background: Object.keys(quizAnswers).length < 10 ? 'var(--border-light)' : '#065F46',
+                          color: Object.keys(quizAnswers).length < 10 ? 'var(--text-light)' : '#fff',
+                          border: 'none', cursor: Object.keys(quizAnswers).length < 10 ? 'not-allowed' : 'pointer',
+                        }}
+                      >
+                        {isKo ? `결과 확인 (${Object.keys(quizAnswers).length}/10)` : `Check Results (${Object.keys(quizAnswers).length}/10)`}
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </section>
+          );
+        })()}
+
+        {viewMode === 'glossary' && (
         <section className="ck-content-box">
           <div className="ck-content-header ck-ch--blue">
             <i className="fa-solid fa-book" />
@@ -587,6 +724,7 @@ export default function Glossary() {
             )}
           </div>
         </section>
+        )}
       </div>
       </div>
     </div>
