@@ -805,8 +805,8 @@ export default function Resources() {
   const [activeCategory, setActiveCategory] = useState('ai-theory');
   const [activeTopic, setActiveTopic] = useState('ml');
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [promptOpen, setPromptOpen] = useState(true);
-  const [galleryOpen, setGalleryOpen] = useState(true);
+  const [promptOpen, setPromptOpen] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false);
 
   const currentCategory = CATEGORIES.find(c => c.id === activeCategory);
   const topicContent = TOPIC_CONTENT[activeTopic];
@@ -871,7 +871,7 @@ export default function Resources() {
               </div>
             ))}
             {/* Prompt Section */}
-            <div style={{ borderTop: '1px solid var(--border-light)', marginTop: 8, paddingTop: 8 }}>
+            <div>
               {/* 프롬프트 (2차 메뉴 + 하위) */}
               <div className={`ck-nav-group ${promptOpen ? 'active' : ''}`}>
                 <button
@@ -971,7 +971,7 @@ export default function Resources() {
               </div>
 
               {/* 실습 & 퀴즈 (마지막 메뉴) */}
-              <div className="ck-nav-group" style={{ borderTop: '1px solid var(--border-light)', marginTop: 4, paddingTop: 4 }}>
+              <div className="ck-nav-group">
                 <Link to="/prompt-practice" className="ck-nav-parent ck-np--orange" style={{ textDecoration: 'none' }}>
                   <span className="ck-np-icon"><i className="fa-solid fa-laptop-code" /></span>
                   <span>{isKo ? '실습 & 퀴즈' : 'Practice & Quiz'}</span>
