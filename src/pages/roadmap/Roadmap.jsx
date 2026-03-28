@@ -82,7 +82,7 @@ export default function Roadmap() {
       <div className="ck-layout">
         {/* Sidebar */}
         <aside className="ck-sidebar">
-          <div className="ck-sb-header" style={{ marginLeft: 0 }}>
+          <div className="ck-sb-header">
             <i className="fa-solid fa-route" />
             <span>{isKo ? '학습 로드맵' : 'Learning Roadmap'}</span>
           </div>
@@ -92,7 +92,6 @@ export default function Roadmap() {
                 key={track.id}
                 className={`ck-nav-child ${activeTrack === track.id ? 'active' : ''}`}
                 onClick={() => setActiveTrack(track.id)}
-                style={{ marginLeft: 10, paddingLeft: 10 }}
               >
                 <span className="ck-nc-icon"><i className={`fa-solid ${track.icon}`} /></span>
                 <span>{isKo ? track.ko.title : track.en.title}</span>

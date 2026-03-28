@@ -27,12 +27,12 @@
   overflow-y: auto; overflow-x: hidden;
 }
 .ck-sb-header {
-  display: flex; align-items: center; gap: 2px;
-  padding: 16px 10px 14px 0; margin-left: -18px; font-size: 15px; font-weight: 700;
+  display: flex; align-items: center; gap: 6px;
+  padding: 16px 10px 14px 10px; font-size: 15px; font-weight: 700;
   color: var(--primary-blue); border-bottom: 1px solid var(--border-light);
 }
-.ck-sb-header i { font-size: 18px; }
-.ck-sb-nav { padding: 8px 0; }
+.ck-sb-header i { font-size: 16px; }
+.ck-sb-nav { padding: 6px 0; }
 
 /* Nav Group */
 .ck-nav-group { border-bottom: 1px solid var(--border-light); }
@@ -41,8 +41,8 @@
 
 /* Parent button */
 .ck-nav-parent {
-  display: flex; align-items: center; gap: 0; width: 100%;
-  padding: 10px 10px 10px 0; margin-left: -18px; font-size: 13px; font-weight: 600;
+  display: flex; align-items: center; gap: 4px; width: 100%;
+  padding: 10px 10px 10px 10px; font-size: 13px; font-weight: 600;
   color: var(--text-secondary); background: none; border: none;
   border-left: 3px solid transparent;
   cursor: pointer; font-family: inherit; text-align: left; transition: all 0.15s ease;
@@ -62,8 +62,8 @@
 /* Children list */
 .ck-nav-children { list-style: none; padding: 2px 0 6px; margin: 0; }
 .ck-nav-child {
-  display: flex; align-items: center; gap: 0; width: 100%;
-  padding: 7px 10px 7px 0; margin-left: -16px;
+  display: flex; align-items: center; gap: 4px; width: 100%;
+  padding: 7px 10px 7px 20px;
   font-size: 13px; color: var(--text-light); background: none; border: none;
   cursor: pointer; font-family: inherit; text-align: left; transition: all 0.15s ease;
 }
