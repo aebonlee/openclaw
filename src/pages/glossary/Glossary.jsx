@@ -333,6 +333,8 @@ export default function Glossary() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeSection, setActiveSection] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const PAGE_SIZE = 5;
   const isKo = language === 'ko';
 
   const filteredTerms = GLOSSARY_TERMS.filter(item => {
@@ -348,6 +350,19 @@ export default function Glossary() {
   const sortedTerms = [...filteredTerms].sort((a, b) =>
     a.term.localeCompare(b.term, isKo ? 'ko' : 'en')
   );
+
+  const totalPages = Math.ceil(sortedTerms.length / PAGE_SIZE);
+  const pagedTerms = sortedTerms.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
+  const handleCategoryChange = (catId) => {
+    setActiveCategory(catId);
+    setCurrentPage(1);
+  };
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
 
   const sidebarSections = [
     { id: 'all', label: isKo ? '전체' : 'All' },
@@ -386,7 +401,7 @@ export default function Glossary() {
             <button
               key={sec.id}
               className={`ck-nav-child ${activeCategory === sec.id ? 'active' : ''}`}
-              onClick={() => setActiveCategory(sec.id)}
+              onClick={() => handleCategoryChange(sec.id)}
             >
               <span className="ck-nc-icon">
                 <i className={`fa-solid ${sec.icon || 'fa-border-all'}`} />
@@ -425,7 +440,7 @@ export default function Glossary() {
                 type="text"
                 placeholder={isKo ? '용어를 검색하세요... (예: 트랜스포머, GPT, Python)' : 'Search terms... (e.g., Transformer, GPT, Python)'}
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearch}
                 style={{
                   width: '100%', padding: '12px 16px 12px 40px',
                   borderRadius: 10, border: '1px solid var(--border-light)',
@@ -444,7 +459,7 @@ export default function Glossary() {
                 <button
                   key={cat.id}
                   className={`board-category-filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
-                  onClick={() => setActiveCategory(cat.id)}
+                  onClick={() => handleCategoryChange(cat.id)}
                   style={{ fontSize: 13 }}
                 >
                   <i className={`fa-solid ${cat.icon}`} style={{ marginRight: 4 }} />
@@ -462,7 +477,7 @@ export default function Glossary() {
 
             {/* Glossary Cards */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {sortedTerms.map((item, idx) => {
+              {pagedTerms.map((item, idx) => {
                 const badge = getCategoryBadge(item.cat);
                 const catLabel = CATEGORIES.find(c => c.id === item.cat);
                 return (
@@ -515,6 +530,54 @@ export default function Glossary() {
                 );
               })}
             </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div style={{
+                display: 'flex', justifyContent: 'center', alignItems: 'center',
+                gap: 6, marginTop: 24, flexWrap: 'wrap',
+              }}>
+                <button
+                  className="board-category-filter-btn"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(p => p - 1)}
+                  style={{ opacity: currentPage === 1 ? 0.4 : 1 }}
+                >
+                  <i className="fa-solid fa-chevron-left" />
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 2)
+                  .reduce((acc, p, i, arr) => {
+                    if (i > 0 && p - arr[i - 1] > 1) acc.push('...');
+                    acc.push(p);
+                    return acc;
+                  }, [])
+                  .map((p, i) =>
+                    p === '...' ? (
+                      <span key={`dot-${i}`} style={{ padding: '0 4px', color: 'var(--text-light)' }}>...</span>
+                    ) : (
+                      <button
+                        key={p}
+                        className={`board-category-filter-btn ${currentPage === p ? 'active' : ''}`}
+                        onClick={() => setCurrentPage(p)}
+                      >
+                        {p}
+                      </button>
+                    )
+                  )}
+                <button
+                  className="board-category-filter-btn"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(p => p + 1)}
+                  style={{ opacity: currentPage === totalPages ? 0.4 : 1 }}
+                >
+                  <i className="fa-solid fa-chevron-right" />
+                </button>
+                <span style={{ fontSize: 12, color: 'var(--text-light)', marginLeft: 8 }}>
+                  {currentPage} / {totalPages}
+                </span>
+              </div>
+            )}
 
             {sortedTerms.length === 0 && (
               <div style={{
