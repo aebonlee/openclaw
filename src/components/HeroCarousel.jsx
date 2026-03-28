@@ -74,7 +74,7 @@ export default function HeroCarousel() {
       <div className="container">
         <div className="hero-content">
           <div className={`hero-badge hero-text-animate ${animating ? 'fade' : ''}`} key={`badge-${current}`}>
-            <i className="fa-solid fa-wand-magic-sparkles" /> {content.badge}
+            🪄 {content.badge}
           </div>
           <h1 className={`hero-title hero-text-animate ${animating ? 'fade' : ''}`} key={`title-${current}`}>
             {content.title}
