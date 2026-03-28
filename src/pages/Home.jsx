@@ -6,10 +6,10 @@ import CTA from '../components/CTA';
 import { LEARNING_PATHS } from '../config/site';
 
 const WORKFLOW_STEPS = [
-  { icon: 'fa-route', key: 'step1', descKey: 'step1desc' },
+  { icon: 'fa-play-circle', key: 'step1', descKey: 'step1desc' },
   { icon: 'fa-book-open', key: 'step2', descKey: 'step2desc' },
-  { icon: 'fa-robot', key: 'step3', descKey: 'step3desc' },
-  { icon: 'fa-file-export', key: 'step4', descKey: 'step4desc' },
+  { icon: 'fa-terminal', key: 'step3', descKey: 'step3desc' },
+  { icon: 'fa-users', key: 'step4', descKey: 'step4desc' },
 ];
 
 const FEATURE_ITEMS = [
@@ -17,13 +17,6 @@ const FEATURE_ITEMS = [
   { icon: 'fa-laptop-code', key: 'practice' },
   { icon: 'fa-language', key: 'multilingual' },
   { icon: 'fa-users', key: 'community' },
-];
-
-const AI_PROVIDERS = [
-  { name: 'ChatGPT', color: '#10A37F', desc: 'OpenAI GPT-4o' },
-  { name: 'Claude', color: '#D97706', desc: 'Anthropic Claude 4' },
-  { name: 'Gemini', color: '#4285F4', desc: 'Google Gemini 2.5' },
-  { name: 'Genspark', color: '#8B5CF6', desc: 'Genspark AI' },
 ];
 
 export default function Home() {
@@ -48,7 +41,7 @@ export default function Home() {
             {LEARNING_PATHS.map(path => (
               <Link
                 key={path.id}
-                to="/edu-hub"
+                to="/resources"
                 className="tool-card"
                 style={{ '--tool-color': path.color }}
               >
@@ -93,25 +86,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AI Providers Section */}
-      <section className="home-providers-section">
-        <div className="container">
-          <h2 className="section-title">{t('home.providersTitle')}</h2>
-          <p className="section-subtitle">{t('home.providersSubtitle')}</p>
-          <div className="providers-grid">
-            {AI_PROVIDERS.map(provider => (
-              <div key={provider.name} className="provider-card" style={{ '--provider-color': provider.color }}>
-                <div className="provider-icon" style={{ background: provider.color }}>
-                  <i className="fa-solid fa-microchip" />
-                </div>
-                <h3>{provider.name}</h3>
-                <span className="model-tag">{provider.desc}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Features Section */}
       <section className="home-features-section">
         <div className="container">
@@ -140,12 +114,12 @@ export default function Home() {
               <span className="stat-label">{t('stats.paths')}</span>
             </div>
             <div className="stat-item">
-              <span className="stat-number">42+</span>
-              <span className="stat-label">{t('stats.courses')}</span>
+              <span className="stat-number">16</span>
+              <span className="stat-label">{t('stats.topics')}</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">4</span>
-              <span className="stat-label">{t('stats.providers')}</span>
+              <span className="stat-label">{t('stats.categories')}</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">2</span>

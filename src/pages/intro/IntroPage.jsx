@@ -12,12 +12,6 @@ const SECTIONS = [
 
 const FEATURES = [
   {
-    icon: 'fa-robot',
-    color: '#4285F4',
-    ko: { title: 'AI 학습 도구', desc: '강의계획서, 루브릭, 과제, 피드백, 평가까지 AI가 자동으로 생성합니다. OpenAI, Claude, Gemini, Genspark 4대 AI를 모두 활용할 수 있습니다.' },
-    en: { title: 'AI Learning Tools', desc: 'AI automatically generates syllabi, rubrics, assignments, feedback, and evaluations. Access all 4 major AI providers: OpenAI, Claude, Gemini, and Genspark.' },
-  },
-  {
     icon: 'fa-wand-magic-sparkles',
     color: '#10A37F',
     ko: { title: '프롬프트 엔지니어링', desc: 'AI와 효과적으로 소통하는 프롬프트 작성법을 배우고 실습합니다. Zero-shot, Few-shot, Chain of Thought 등 다양한 기법을 익힙니다.' },
@@ -26,8 +20,8 @@ const FEATURES = [
   {
     icon: 'fa-road',
     color: '#FF6F00',
-    ko: { title: '체계적 학습 경로', desc: 'AI 기초, 프로그래밍, 데이터 사이언스 등 분야별 체계적인 커리큘럼으로 단계적 학습이 가능합니다.' },
-    en: { title: 'Structured Learning Paths', desc: 'Step-by-step learning through structured curricula across AI fundamentals, programming, data science, and more.' },
+    ko: { title: '체계적 학습 자료', desc: 'AI 기초, 프로그래밍, 데이터 사이언스 등 분야별 체계적인 커리큘럼으로 단계적 학습이 가능합니다.' },
+    en: { title: 'Structured Learning Resources', desc: 'Step-by-step learning through structured curricula across AI fundamentals, programming, data science, and more.' },
   },
   {
     icon: 'fa-users',
@@ -44,78 +38,64 @@ const GUIDE_STEPS = [
     en: { title: 'Sign Up', desc: 'Sign up easily with Google or email. It takes just 30 seconds.' },
   },
   {
-    icon: 'fa-key',
-    ko: { title: 'API 키 등록', desc: 'AI 도구 사용을 위해 API 키를 설정 페이지에서 등록하세요. 가이드를 참고하여 무료 키를 발급받을 수 있습니다.' },
-    en: { title: 'Register API Key', desc: 'Register your API key in Settings for AI tools. Follow the guide to get free keys.' },
-  },
-  {
     icon: 'fa-route',
-    ko: { title: '학습 경로 선택', desc: 'AI 기초, 웹개발, 데이터 사이언스, 프롬프트 엔지니어링 등 관심 분야의 학습 경로를 선택하세요.' },
+    ko: { title: '학습경로 선택', desc: 'AI 기초, 웹개발, 데이터 사이언스, 프롬프트 엔지니어링 등 관심 분야의 학습 경로를 선택하세요.' },
     en: { title: 'Choose Learning Path', desc: 'Select a learning path in AI fundamentals, web development, data science, prompt engineering, and more.' },
   },
   {
-    icon: 'fa-tools',
-    ko: { title: 'AI 도구 활용', desc: '강의계획서, 루브릭, 과제, 피드백, 평가 도구를 활용하여 교수학습 자료를 생성하세요.' },
-    en: { title: 'Use AI Tools', desc: 'Generate teaching materials using syllabus, rubric, assignment, feedback, and evaluation tools.' },
-  },
-  {
     icon: 'fa-laptop-code',
-    ko: { title: 'AI 실습', desc: '프롬프트 실습, AI 체크리스트, 학습 자료를 통해 실무 역량을 키우세요.' },
-    en: { title: 'AI Practice', desc: 'Build practical skills through prompt practice, AI checklists, and learning resources.' },
+    ko: { title: '자료 학습 / 프롬프트 실습', desc: '체계적인 학습 자료로 이론을 익히고, 프롬프트 엔지니어링 실습으로 실무 역량을 키우세요.' },
+    en: { title: 'Learn Resources / Prompt Practice', desc: 'Study theory with structured resources and build practical skills through prompt engineering exercises.' },
   },
   {
-    icon: 'fa-file-export',
-    ko: { title: '결과 활용', desc: '생성된 자료를 PDF, Markdown, JSON, CSV, HTML 등 다양한 형식으로 내보내어 활용하세요.' },
-    en: { title: 'Export Results', desc: 'Export generated materials in PDF, Markdown, JSON, CSV, HTML, and other formats.' },
+    icon: 'fa-comments',
+    ko: { title: '커뮤니티 참여', desc: '질문 게시판, 자료 공유, 자유 토론에 참여하며 다른 학습자들과 함께 성장하세요.' },
+    en: { title: 'Join the Community', desc: 'Participate in Q&A boards, share resources, and engage in discussions to grow with fellow learners.' },
   },
 ];
 
 const FAQ_ITEMS = [
   {
-    ko: { q: 'OpenClaw는 무료인가요?', a: '네, OpenClaw 플랫폼 자체는 완전 무료입니다. 단, AI 도구를 사용하려면 각 AI 서비스 제공자의 API 키가 필요하며, API 사용에 따른 비용은 각 제공자의 요금 정책에 따릅니다. 대부분의 제공자가 무료 크레딧을 제공합니다.' },
-    en: { q: 'Is OpenClaw free?', a: 'Yes, the OpenClaw platform itself is completely free. However, to use AI tools, you need API keys from each AI service provider, and API usage costs depend on each provider\'s pricing. Most providers offer free credits.' },
+    ko: { q: 'OpenClaw는 무료인가요?', a: '네, OpenClaw는 완전 무료 플랫폼입니다. 모든 학습 자료, 프롬프트 실습, 커뮤니티 기능을 무료로 이용하실 수 있습니다.' },
+    en: { q: 'Is OpenClaw free?', a: 'Yes, OpenClaw is completely free. All learning resources, prompt practice, and community features are available at no cost.' },
   },
   {
-    ko: { q: 'AI 도구를 사용하려면 프로그래밍 지식이 필요한가요?', a: '전혀 필요하지 않습니다! OpenClaw의 AI 도구는 사용자 친화적인 인터페이스로 설계되어 있어, 누구나 쉽게 사용할 수 있습니다. 프롬프트 입력만으로 원하는 결과를 얻을 수 있습니다.' },
-    en: { q: 'Do I need programming knowledge to use AI tools?', a: 'Not at all! OpenClaw\'s AI tools are designed with a user-friendly interface so anyone can use them easily. You can get the results you want just by entering prompts.' },
+    ko: { q: '어떤 내용을 배울 수 있나요?', a: 'AI 기초, 프롬프트 엔지니어링, 웹 개발, 데이터 사이언스, Python, AI 도구 활용 등 6가지 학습 경로를 제공합니다. 각 경로에는 체계적인 커리큘럼과 학습 자료가 준비되어 있습니다.' },
+    en: { q: 'What can I learn?', a: 'We offer 6 learning paths: AI Fundamentals, Prompt Engineering, Web Development, Data Science, Python, and AI Tool Usage. Each path includes structured curricula and learning resources.' },
   },
   {
-    ko: { q: '어떤 AI를 지원하나요?', a: 'OpenAI (GPT-4o, GPT-4o-mini), Anthropic Claude (Claude Sonnet, Haiku), Google Gemini (Gemini Pro, Flash), Genspark 총 4개 제공자의 다양한 모델을 지원합니다.' },
-    en: { q: 'Which AI providers are supported?', a: 'We support multiple models from 4 providers: OpenAI (GPT-4o, GPT-4o-mini), Anthropic Claude (Claude Sonnet, Haiku), Google Gemini (Gemini Pro, Flash), and Genspark.' },
+    ko: { q: '프로그래밍 초보도 가능한가요?', a: '물론입니다! AI 기초와 Python 학습 경로는 프로그래밍 경험이 없는 분도 처음부터 단계적으로 학습할 수 있도록 설계되어 있습니다.' },
+    en: { q: 'Can beginners use this?', a: 'Absolutely! The AI Fundamentals and Python learning paths are designed for complete beginners to learn step by step from the basics.' },
   },
   {
-    ko: { q: '누가 사용할 수 있나요?', a: '대학교 교수, 초중고 교사, 교육 관련 전문가, 학생, AI를 배우고 싶은 모든 분이 사용할 수 있습니다. 특히 교수학습 자료 작성에 AI를 활용하고 싶은 교육자에게 유용합니다.' },
-    en: { q: 'Who can use this?', a: 'University professors, K-12 teachers, education professionals, students, and anyone who wants to learn AI. It\'s especially useful for educators who want to use AI for creating teaching materials.' },
+    ko: { q: '한국어 지원하나요?', a: '네, OpenClaw는 한국어와 영어를 완전히 지원합니다. 상단 네비게이션의 언어 전환 버튼으로 언제든 전환할 수 있습니다.' },
+    en: { q: 'Is Korean supported?', a: 'Yes, OpenClaw fully supports both Korean and English. You can switch anytime using the language toggle in the top navigation.' },
   },
   {
-    ko: { q: '생성된 자료를 어떻게 활용할 수 있나요?', a: 'PDF, Markdown, JSON, CSV, HTML 등 5가지 형식으로 내보내기가 가능합니다. 생성된 강의계획서는 LMS에 업로드하거나, 루브릭은 채점에 활용하는 등 실무에 바로 적용할 수 있습니다.' },
-    en: { q: 'How can I use the generated materials?', a: 'You can export in 5 formats: PDF, Markdown, JSON, CSV, and HTML. Generated syllabi can be uploaded to LMS, rubrics can be used for grading, and more - all directly applicable in practice.' },
+    ko: { q: '커뮤니티는 어떻게 참여하나요?', a: '회원가입 후 커뮤니티 게시판에서 질문, 자료 공유, 자유 토론에 참여할 수 있습니다. 다른 학습자들의 경험과 팁을 공유하며 함께 성장하세요.' },
+    en: { q: 'How do I join the community?', a: 'After signing up, you can participate in Q&A, resource sharing, and free discussions on the community board. Share experiences and tips with fellow learners.' },
   },
   {
-    ko: { q: '한국어와 영어 모두 지원하나요?', a: '네, OpenClaw는 완전한 한국어/영어 이중 언어를 지원합니다. 상단 네비게이션의 언어 전환 버튼으로 언제든 전환할 수 있으며, AI 생성 결과도 원하는 언어로 출력 가능합니다.' },
-    en: { q: 'Does it support both Korean and English?', a: 'Yes, OpenClaw fully supports Korean/English bilingual mode. You can switch anytime using the language toggle in the top navigation, and AI-generated results can be output in your preferred language.' },
-  },
-  {
-    ko: { q: '데이터는 안전하게 보관되나요?', a: 'API 키는 Supabase에 암호화되어 안전하게 저장되며, 생성된 자료는 사용자 본인만 접근할 수 있습니다. 개인정보 보호를 최우선으로 합니다.' },
-    en: { q: 'Is my data stored securely?', a: 'API keys are encrypted and stored securely in Supabase, and generated materials are accessible only by the user. Privacy protection is our top priority.' },
+    ko: { q: '모바일에서도 사용 가능한가요?', a: '네, OpenClaw는 반응형 디자인으로 모바일, 태블릿, 데스크톱 등 모든 기기에서 최적화된 학습 환경을 제공합니다.' },
+    en: { q: 'Can I use it on mobile?', a: 'Yes, OpenClaw features responsive design and provides an optimized learning experience on mobile, tablet, and desktop devices.' },
   },
 ];
 
 const TARGET_AUDIENCE = [
   {
     icon: 'fa-graduation-cap',
-    ko: { title: '학생', desc: 'AI, 프로그래밍, 데이터 사이언스를 체계적으로 학습하고 싶은 대학생 및 대학원생' },
-    en: { title: 'Students', desc: 'University and graduate students who want to systematically learn AI, programming, and data science' },
+    ko: { title: 'AI 학습자', desc: 'AI, 프로그래밍, 데이터 사이언스를 체계적으로 학습하고 싶은 학생 및 직장인' },
+    en: { title: 'AI Learners', desc: 'Students and professionals who want to systematically learn AI, programming, and data science' },
+  },
+  {
+    icon: 'fa-code',
+    ko: { title: '프로그래밍 입문자', desc: 'Python, 웹 개발 등 프로그래밍을 처음 시작하거나 역량을 키우고 싶은 분' },
+    en: { title: 'Programming Beginners', desc: 'Anyone starting out or wanting to build skills in Python, web development, and more' },
   },
   {
     icon: 'fa-chalkboard-teacher',
-    ko: { title: '교육자', desc: '강의계획서, 루브릭, 과제, 평가 자료를 AI로 효율적으로 작성하고 싶은 교수 및 교사' },
-    en: { title: 'Educators', desc: 'Professors and teachers who want to efficiently create syllabi, rubrics, assignments, and evaluations with AI' },
-  },
-  {
-    icon: 'fa-briefcase',
-    ko: { title: '직장인/전문가', desc: 'AI 도구 활용 역량을 키우고 싶은 직장인과 업무에 AI를 적용하고 싶은 전문가' },
-    en: { title: 'Professionals', desc: 'Working professionals who want to build AI tool proficiency and apply AI in their work' },
+    ko: { title: '교육자', desc: 'AI와 프로그래밍 교육에 활용할 학습 자료와 커리큘럼이 필요한 교수 및 교사' },
+    en: { title: 'Educators', desc: 'Professors and teachers who need learning resources and curricula for AI and programming education' },
   },
 ];
 
@@ -174,13 +154,13 @@ export default function IntroPage() {
           <div className="ck-content-body">
             <p className="theory-p">
               {isKo
-                ? 'OpenClaw는 AI(인공지능), 프로그래밍, 데이터 사이언스를 체계적으로 학습할 수 있는 종합 교육 플랫폼입니다. 교수자와 학습자 모두를 위한 AI 기반 도구와 풍부한 학습 콘텐츠를 제공하여, 교수학습의 효율성을 극대화합니다.'
-                : 'OpenClaw is a comprehensive educational platform for systematically learning AI (Artificial Intelligence), programming, and data science. It provides AI-based tools and rich learning content for both educators and learners, maximizing the efficiency of teaching and learning.'}
+                ? 'OpenClaw는 AI(인공지능), 프로그래밍, 데이터 사이언스를 체계적으로 학습할 수 있는 무료 학습 플랫폼입니다. 초보자부터 중급자까지 단계별로 학습할 수 있는 체계적인 커리큘럼과 풍부한 학습 자료를 제공합니다.'
+                : 'OpenClaw is a free learning platform for systematically studying AI (Artificial Intelligence), programming, and data science. It provides structured curricula and rich learning resources for step-by-step learning from beginner to intermediate level.'}
             </p>
             <p className="theory-p">
               {isKo
-                ? '4대 AI 서비스(OpenAI, Claude, Gemini, Genspark)를 통합 지원하며, 강의계획서, 루브릭, 과제, 피드백, 학생 평가 등 교수학습 자료를 AI로 자동 생성할 수 있습니다. 또한 프롬프트 엔지니어링, AI 역량 체크리스트, 학습 자료 등 다양한 교육 콘텐츠를 제공합니다.'
-                : 'It integrates 4 major AI services (OpenAI, Claude, Gemini, Genspark) and can automatically generate teaching materials like syllabi, rubrics, assignments, feedback, and student evaluations using AI. It also provides various educational content including prompt engineering, AI competency checklists, and learning resources.'}
+                ? '프롬프트 엔지니어링 실습을 통해 AI 활용 역량을 키우고, 커뮤니티 게시판에서 다른 학습자들과 질문과 자료를 공유하며 함께 성장할 수 있습니다. 한국어와 영어를 모두 지원하며, 5가지 컬러 테마와 다크/라이트 모드로 편안한 학습 환경을 제공합니다.'
+                : 'Build AI skills through prompt engineering practice, and grow together with other learners by sharing questions and resources on the community board. The platform supports both Korean and English, and offers 5 color themes with dark/light mode for a comfortable learning experience.'}
             </p>
 
             <h3 className="theory-h3" style={{ marginTop: 28 }}>
@@ -212,12 +192,11 @@ export default function IntroPage() {
               {isKo ? '핵심 특징' : 'Key Highlights'}
             </h3>
             <ul className="theory-list">
-              <li><strong>{isKo ? '통합 AI 지원' : 'Integrated AI Support'}</strong> - {isKo ? 'OpenAI, Claude, Gemini, Genspark 4대 AI를 하나의 플랫폼에서' : '4 major AI providers in one platform: OpenAI, Claude, Gemini, Genspark'}</li>
-              <li><strong>{isKo ? '5가지 AI 도구' : '5 AI Tools'}</strong> - {isKo ? '강의계획서, 루브릭, 과제, 피드백, 평가 자동 생성' : 'Auto-generate syllabi, rubrics, assignments, feedback, and evaluations'}</li>
-              <li><strong>{isKo ? '5종 내보내기' : '5 Export Formats'}</strong> - {isKo ? 'PDF, Markdown, JSON, CSV, HTML 형식 지원' : 'Support for PDF, Markdown, JSON, CSV, HTML formats'}</li>
-              <li><strong>{isKo ? '이중 언어' : 'Bilingual'}</strong> - {isKo ? '한국어와 영어 완전 지원' : 'Full Korean and English support'}</li>
-              <li><strong>{isKo ? '실시간 스트리밍' : 'Real-time Streaming'}</strong> - {isKo ? 'AI 응답을 실시간으로 확인하며 토큰 사용량과 비용 추적' : 'View AI responses in real-time with token usage and cost tracking'}</li>
+              <li><strong>{isKo ? '체계적인 학습 자료' : 'Structured Learning Resources'}</strong> - {isKo ? 'AI, 프로그래밍, 데이터 사이언스 분야의 체계적인 커리큘럼' : 'Structured curricula across AI, programming, and data science'}</li>
+              <li><strong>{isKo ? '프롬프트 엔지니어링 실습' : 'Prompt Engineering Practice'}</strong> - {isKo ? '다양한 프롬프트 기법을 직접 실습하며 AI 활용 역량 강화' : 'Hands-on practice with various prompt techniques to build AI skills'}</li>
               <li><strong>{isKo ? '학습 커뮤니티' : 'Learning Community'}</strong> - {isKo ? '게시판, 자료 공유, Q&A를 통한 협력 학습' : 'Collaborative learning through boards, resource sharing, and Q&A'}</li>
+              <li><strong>{isKo ? '다크모드 / 컬러 테마' : 'Dark Mode / Color Themes'}</strong> - {isKo ? '5가지 컬러 테마와 다크/라이트 모드로 편안한 학습 환경' : '5 color themes with dark/light mode for comfortable learning'}</li>
+              <li><strong>{isKo ? '이중 언어' : 'Bilingual'}</strong> - {isKo ? '한국어와 영어 완전 지원' : 'Full Korean and English support'}</li>
             </ul>
           </div>
         </section>
@@ -228,7 +207,7 @@ export default function IntroPage() {
             <i className="fa-solid fa-star" />
             <div className="ck-ch-text">
               <h2>{isKo ? '주요 기능' : 'Key Features'}</h2>
-              <p>{isKo ? 'OpenClaw의 4가지 핵심 기능을 소개합니다' : 'Introducing 4 key features of OpenClaw'}</p>
+              <p>{isKo ? 'OpenClaw의 3가지 핵심 기능을 소개합니다' : 'Introducing 3 key features of OpenClaw'}</p>
             </div>
           </div>
           <div className="ck-content-body">
@@ -264,7 +243,7 @@ export default function IntroPage() {
             <i className="fa-solid fa-map-signs" />
             <div className="ck-ch-text">
               <h2>{isKo ? '사용 가이드' : 'Usage Guide'}</h2>
-              <p>{isKo ? '6단계로 시작하는 OpenClaw 활용법' : 'Get started with OpenClaw in 6 steps'}</p>
+              <p>{isKo ? '4단계로 시작하는 OpenClaw 활용법' : 'Get started with OpenClaw in 4 steps'}</p>
             </div>
           </div>
           <div className="ck-content-body">
@@ -294,9 +273,9 @@ export default function IntroPage() {
                   <i className="fa-solid fa-user-plus" />
                   {isKo ? '회원가입' : 'Sign Up'}
                 </Link>
-                <Link to="/api-guide" className="board-write-btn" style={{ background: 'var(--text-secondary)' }}>
-                  <i className="fa-solid fa-key" />
-                  {isKo ? 'API 키 가이드' : 'API Key Guide'}
+                <Link to="/resources" className="board-write-btn" style={{ background: 'var(--text-secondary)' }}>
+                  <i className="fa-solid fa-book-open" />
+                  {isKo ? '학습 자료 보기' : 'Browse Resources'}
                 </Link>
               </div>
             </div>
