@@ -57,9 +57,9 @@ const TOPIC_CONTENT = {
         { type: 'p', text: '머신러닝(Machine Learning)은 컴퓨터가 명시적으로 프로그래밍되지 않아도 데이터로부터 학습하여 패턴을 인식하고 예측을 수행하는 인공지능의 한 분야입니다. 1959년 Arthur Samuel이 처음 정의한 이후, 빅데이터와 컴퓨팅 파워의 발전으로 현재 AI의 핵심 기술이 되었습니다.' },
         { type: 'h3', text: '머신러닝의 3가지 유형' },
         { type: 'list', items: [
-          { bold: '지도학습 (Supervised Learning)', text: '레이블이 있는 데이터로 학습합니다. 분류(Classification)와 회귀(Regression)로 나뉩니다. 예: 스팸 메일 분류, 주택 가격 예측' },
-          { bold: '비지도학습 (Unsupervised Learning)', text: '레이블 없이 데이터의 구조를 파악합니다. 군집화(Clustering), 차원 축소(Dimensionality Reduction)가 대표적입니다. 예: 고객 세분화, 이상 탐지' },
-          { bold: '강화학습 (Reinforcement Learning)', text: '환경과 상호작용하며 보상을 최대화하는 정책을 학습합니다. 예: 게임 AI, 로봇 제어, 자율주행' },
+          { bold: '지도학습 (Supervised Learning)', text: '레이블이 있는 데이터로 학습합니다. 분류(Classification)와 회귀(Regression)로 나뉩니다.\n예: 스팸 메일 분류, 주택 가격 예측' },
+          { bold: '비지도학습 (Unsupervised Learning)', text: '레이블 없이 데이터의 구조를 파악합니다. 군집화(Clustering), 차원 축소(Dimensionality Reduction)가 대표적입니다.\n예: 고객 세분화, 이상 탐지' },
+          { bold: '강화학습 (Reinforcement Learning)', text: '환경과 상호작용하며 보상을 최대화하는 정책을 학습합니다.\n예: 게임 AI, 로봇 제어, 자율주행' },
         ]},
         { type: 'h3', text: '핵심 알고리즘' },
         { type: 'table', headers: ['알고리즘', '유형', '주요 용도'], rows: [
@@ -772,7 +772,7 @@ function renderContent(sections) {
         return (
           <ul key={idx} className="theory-list">
             {section.items.map((item, i) => (
-              <li key={i}><strong>{item.bold}</strong> - {item.text}</li>
+              <li key={i} style={{ whiteSpace: 'pre-line' }}><strong>{item.bold}</strong> - {item.text}</li>
             ))}
           </ul>
         );

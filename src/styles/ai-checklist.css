@@ -35,35 +35,30 @@
 .ck-sb-nav { padding: 6px 0; }
 
 /* Nav Group */
-.ck-nav-group { border-bottom: 1px solid var(--border-light); }
-.ck-nav-group:last-child { border-bottom: none; }
+.ck-nav-group { }
 .ck-nav-group.active { background: rgba(27,58,107,0.02); }
 
 /* Parent button */
 .ck-nav-parent {
   display: flex; align-items: center; gap: 4px; width: 100%;
-  padding: 10px 10px 10px 10px; font-size: 13px; font-weight: 600;
+  padding: 8px 10px 8px 10px; font-size: 13px; font-weight: 600;
   color: var(--text-secondary); background: none; border: none;
-  border-left: 3px solid transparent;
   cursor: pointer; font-family: inherit; text-align: left; transition: all 0.15s ease;
 }
-.ck-nav-parent:hover { background: var(--bg-light-gray); }
+.ck-nav-parent:hover { background: var(--bg-light-gray); color: var(--text-primary); }
 .ck-np-icon { width: 16px; text-align: center; font-size: 12px; flex-shrink: 0; }
 .ck-nav-parent span { flex: 1; }
 .ck-nav-arrow { font-size: 10px; color: var(--text-light); transition: transform 0.2s ease; }
 .ck-nav-arrow.open { transform: rotate(180deg); }
 
-/* Parent color accents (active state) */
-.ck-nav-group.active .ck-np--green { color: #00855A; border-left: 3px solid #00855A; }
-.ck-nav-group.active .ck-np--blue { color: #1B3A6B; border-left: 3px solid #1B3A6B; }
-.ck-nav-group.active .ck-np--purple { color: #8B1AC8; border-left: 3px solid #8B1AC8; }
-.ck-nav-group.active .ck-np--orange { color: #C87200; border-left: 3px solid #C87200; }
+/* Parent active state */
+.ck-nav-group.active .ck-nav-parent { color: var(--text-primary); font-weight: 700; }
 
 /* Children list */
 .ck-nav-children { list-style: none; padding: 2px 0 6px; margin: 0; }
 .ck-nav-child {
   display: flex; align-items: center; gap: 4px; width: 100%;
-  padding: 7px 10px 7px 20px;
+  padding: 7px 10px 7px 22px;
   font-size: 13px; color: var(--text-light); background: none; border: none;
   cursor: pointer; font-family: inherit; text-align: left; transition: all 0.15s ease;
 }
