@@ -291,11 +291,11 @@ export default function OpenClawGuide() {
              ════════════════════════════════════════════════════════════════ */}
           {activeSection === 'slides' && (
             <div className="ck-content-box">
-              <div className="ck-content-header ck-ch--blue">
-                <i className="fa-solid fa-file-pdf" />
+              <div className="ck-content-header" style={{ background: 'linear-gradient(135deg, #1B3A6B, #2d5aa0)', color: '#fff' }}>
+                <i className="fa-solid fa-file-pdf" style={{ color: '#fff' }} />
                 <div className="ck-ch-text" style={{ flex: 1 }}>
-                  <h2>{isKo ? '학습 자료 : PT' : 'Slides : PT'}</h2>
-                  <p>{isKo ? 'OpenClaw 강의 프레젠테이션 자료' : 'OpenClaw lecture presentation material'}</p>
+                  <h2 style={{ color: '#fff' }}>{isKo ? '학습 자료 : PT' : 'Slides : PT'}</h2>
+                  <p style={{ color: 'rgba(255,255,255,0.8)' }}>{isKo ? 'OpenClaw 강의 프레젠테이션 자료' : 'OpenClaw lecture presentation material'}</p>
                 </div>
                 <a
                   href="/files/openclaw_2603.pdf"
@@ -303,12 +303,12 @@ export default function OpenClawGuide() {
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: 6,
                     padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600,
-                    background: '#fff', color: 'var(--primary-blue)',
-                    border: '1px solid var(--primary-blue)', textDecoration: 'none',
+                    background: 'rgba(255,255,255,0.15)', color: '#fff',
+                    border: '1px solid rgba(255,255,255,0.4)', textDecoration: 'none',
                     transition: 'all 0.2s ease', flexShrink: 0,
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--primary-blue)'; e.currentTarget.style.color = '#fff'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = 'var(--primary-blue)'; }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.3)'; e.currentTarget.style.borderColor = '#fff'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'; }}
                 >
                   <i className="fa-solid fa-download" /> {isKo ? '다운로드' : 'Download'}
                 </a>
