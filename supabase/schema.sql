@@ -193,7 +193,15 @@ FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 -- 10. check_user_status RPC (계정 상태 확인)
 -- ============================================
 
-DROP FUNCTION IF EXISTS check_user_status(UUID, TEXT);
+DO $$ BEGIN
+  DROP FUNCTION IF EXISTS check_user_status(UUID, TEXT) CASCADE;
+EXCEPTION WHEN OTHERS THEN
+  -- 시그니처가 다를 수 있으므로 이름으로 삭제 시도
+  BEGIN
+    DROP FUNCTION IF EXISTS check_user_status CASCADE;
+  EXCEPTION WHEN OTHERS THEN NULL;
+  END;
+END $$;
 CREATE OR REPLACE FUNCTION check_user_status(target_user_id UUID, current_domain TEXT)
 RETURNS JSON AS $$
 DECLARE

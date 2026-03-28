@@ -805,6 +805,8 @@ export default function Resources() {
   const [activeCategory, setActiveCategory] = useState('ai-theory');
   const [activeTopic, setActiveTopic] = useState('ml');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [promptOpen, setPromptOpen] = useState(true);
+  const [galleryOpen, setGalleryOpen] = useState(true);
 
   const currentCategory = CATEGORIES.find(c => c.id === activeCategory);
   const topicContent = TOPIC_CONTENT[activeTopic];
@@ -868,39 +870,112 @@ export default function Resources() {
                 )}
               </div>
             ))}
-            {/* Prompt Practice & Gallery Section */}
+            {/* Prompt Section */}
             <div style={{ borderTop: '1px solid var(--border-light)', marginTop: 8, paddingTop: 8 }}>
-              <div className="ck-nav-group active">
-                <div className="ck-nav-parent ck-np--purple" style={{ cursor: 'default' }}>
+              {/* 프롬프트 (2차 메뉴 + 하위) */}
+              <div className={`ck-nav-group ${promptOpen ? 'active' : ''}`}>
+                <button
+                  className="ck-nav-parent ck-np--purple"
+                  onClick={() => setPromptOpen(!promptOpen)}
+                >
                   <span className="ck-np-icon"><i className="fa-solid fa-wand-magic-sparkles" /></span>
                   <span>{isKo ? '프롬프트' : 'Prompts'}</span>
-                </div>
-                <ul className="ck-nav-children">
-                  <li>
-                    <Link to="/prompt-practice" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                      <span className="ck-nc-icon"><i className="fa-solid fa-pen" /></span>
-                      <span>{isKo ? '기본 프롬프트' : 'Basic Prompts'}</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/prompt-practice" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                      <span className="ck-nc-icon"><i className="fa-solid fa-wand-magic-sparkles" /></span>
-                      <span>{isKo ? '고급 기법' : 'Advanced'}</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/prompt-practice" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                      <span className="ck-nc-icon"><i className="fa-solid fa-laptop-code" /></span>
-                      <span>{isKo ? '실습 & 퀴즈' : 'Practice & Quiz'}</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/prompt-gallery" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                      <span className="ck-nc-icon"><i className="fa-solid fa-gem" /></span>
-                      <span>{isKo ? '프롬프트 갤러리' : 'Prompt Gallery'}</span>
-                    </Link>
-                  </li>
-                </ul>
+                  <i className={`fa-solid fa-chevron-down ck-nav-arrow ${promptOpen ? 'open' : ''}`} />
+                </button>
+                {promptOpen && (
+                  <ul className="ck-nav-children">
+                    <li>
+                      <Link to="/prompt-practice" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                        <span className="ck-nc-icon"><i className="fa-solid fa-pen" /></span>
+                        <span>{isKo ? '기본 프롬프트' : 'Basic Prompts'}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/prompt-practice" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                        <span className="ck-nc-icon"><i className="fa-solid fa-wand-magic-sparkles" /></span>
+                        <span>{isKo ? '고급 기법' : 'Advanced'}</span>
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+              </div>
+
+              {/* 프롬프트 갤러리 (2차 메뉴 + 카테고리 하위) */}
+              <div className={`ck-nav-group ${galleryOpen ? 'active' : ''}`}>
+                <button
+                  className="ck-nav-parent ck-np--blue"
+                  onClick={() => setGalleryOpen(!galleryOpen)}
+                >
+                  <span className="ck-np-icon"><i className="fa-solid fa-gem" /></span>
+                  <span>{isKo ? '프롬프트 갤러리' : 'Prompt Gallery'}</span>
+                  <i className={`fa-solid fa-chevron-down ck-nav-arrow ${galleryOpen ? 'open' : ''}`} />
+                </button>
+                {galleryOpen && (
+                  <ul className="ck-nav-children">
+                    <li>
+                      <Link to="/prompt-gallery" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                        <span className="ck-nc-icon"><i className="fa-solid fa-border-all" /></span>
+                        <span>{isKo ? '전체' : 'All'}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/prompt-gallery?cat=education" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                        <span className="ck-nc-icon"><i className="fa-solid fa-graduation-cap" /></span>
+                        <span>{isKo ? '교육/학습' : 'Education'}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/prompt-gallery?cat=coding" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                        <span className="ck-nc-icon"><i className="fa-solid fa-code" /></span>
+                        <span>{isKo ? '코딩/개발' : 'Coding'}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/prompt-gallery?cat=writing" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                        <span className="ck-nc-icon"><i className="fa-solid fa-pen-fancy" /></span>
+                        <span>{isKo ? '글쓰기/콘텐츠' : 'Writing'}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/prompt-gallery?cat=business" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                        <span className="ck-nc-icon"><i className="fa-solid fa-briefcase" /></span>
+                        <span>{isKo ? '비즈니스' : 'Business'}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/prompt-gallery?cat=data" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                        <span className="ck-nc-icon"><i className="fa-solid fa-chart-bar" /></span>
+                        <span>{isKo ? '데이터 분석' : 'Data'}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/prompt-gallery?cat=creative" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                        <span className="ck-nc-icon"><i className="fa-solid fa-lightbulb" /></span>
+                        <span>{isKo ? '창작/아이디어' : 'Creative'}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/prompt-gallery?cat=research" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                        <span className="ck-nc-icon"><i className="fa-solid fa-flask" /></span>
+                        <span>{isKo ? '연구/분석' : 'Research'}</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/prompt-gallery?cat=productivity" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                        <span className="ck-nc-icon"><i className="fa-solid fa-rocket" /></span>
+                        <span>{isKo ? '업무 생산성' : 'Productivity'}</span>
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+              </div>
+
+              {/* 실습 & 퀴즈 (마지막 메뉴) */}
+              <div className="ck-nav-group" style={{ borderTop: '1px solid var(--border-light)', marginTop: 4, paddingTop: 4 }}>
+                <Link to="/prompt-practice" className="ck-nav-parent ck-np--orange" style={{ textDecoration: 'none' }}>
+                  <span className="ck-np-icon"><i className="fa-solid fa-laptop-code" /></span>
+                  <span>{isKo ? '실습 & 퀴즈' : 'Practice & Quiz'}</span>
+                </Link>
               </div>
             </div>
           </nav>

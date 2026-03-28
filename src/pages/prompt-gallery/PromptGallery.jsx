@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 
@@ -3338,7 +3339,11 @@ export function GalleryContent({ initialCategory = 'all' }) {
 
 export default function PromptGallery() {
   const { language } = useLanguage();
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [searchParams] = useSearchParams();
+  const catParam = searchParams.get('cat') || 'all';
+  const [activeCategory, setActiveCategory] = useState(catParam);
+
+  useEffect(() => { setActiveCategory(catParam); }, [catParam]);
   const [expandedId, setExpandedId] = useState(null);
   const [copiedId, setCopiedId] = useState(null);
   const isKo = language === 'ko';
