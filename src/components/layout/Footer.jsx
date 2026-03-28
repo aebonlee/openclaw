@@ -14,6 +14,7 @@ export default function Footer() {
               <span className="brand-ai">Claw</span>
             </div>
             <p className="footer-description">{t('footer.description')}</p>
+            <p className="footer-description" style={{ marginTop: 8, fontSize: 13 }}>{t('footer.descriptionDetail')}</p>
           </div>
 
           <div className="footer-links">
