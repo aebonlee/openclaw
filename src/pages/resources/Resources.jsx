@@ -821,21 +821,38 @@ export default function Resources() {
     setActiveCategory(catId);
     setActiveTopic(topicId);
     setViewMode('resource');
+    setPromptOpen(false);
+    setGalleryOpen(false);
+  };
+
+  const handleCategoryClick = (catId) => {
+    setActiveCategory(catId);
+    setActiveTopic(CATEGORIES.find(c => c.id === catId)?.topics[0]?.id || 'ml');
+    setViewMode('resource');
+    setPromptOpen(false);
+    setGalleryOpen(false);
   };
 
   const handlePromptClick = (section) => {
     setViewMode('prompt');
     setPromptSection(section);
+    setActiveCategory(null);
+    setGalleryOpen(false);
   };
 
   const handleGalleryClick = (cat) => {
     setViewMode('gallery');
     setGalleryCategory(cat);
+    setActiveCategory(null);
+    setPromptOpen(false);
   };
 
   const handlePracticeClick = () => {
     setViewMode('prompt');
     setPromptSection('practice');
+    setActiveCategory(null);
+    setPromptOpen(false);
+    setGalleryOpen(false);
   };
 
   return (
@@ -866,10 +883,7 @@ export default function Resources() {
               <div key={cat.id} className={`ck-nav-group ${activeCategory === cat.id ? 'active' : ''}`}>
                 <button
                   className={`ck-nav-parent ck-np--${cat.id === 'ai-theory' ? 'blue' : cat.id === 'programming' ? 'green' : cat.id === 'data-analysis' ? 'orange' : 'purple'}`}
-                  onClick={() => {
-                    setActiveCategory(cat.id);
-                    setActiveTopic(cat.topics[0].id);
-                  }}
+                  onClick={() => handleCategoryClick(cat.id)}
                 >
                   <span className="ck-np-icon"><i className={`fa-solid ${cat.icon}`} /></span>
                   <span>{isKo ? cat.ko : cat.en}</span>
@@ -898,7 +912,7 @@ export default function Resources() {
               <div className={`ck-nav-group ${promptOpen ? 'active' : ''}`}>
                 <button
                   className="ck-nav-parent ck-np--purple"
-                  onClick={() => setPromptOpen(!promptOpen)}
+                  onClick={() => { setPromptOpen(!promptOpen); if (!promptOpen) { setGalleryOpen(false); setActiveCategory(null); } }}
                 >
                   <span className="ck-np-icon"><i className="fa-solid fa-wand-magic-sparkles" /></span>
                   <span>{isKo ? '프롬프트' : 'Prompts'}</span>
@@ -926,7 +940,7 @@ export default function Resources() {
               <div className={`ck-nav-group ${galleryOpen ? 'active' : ''}`}>
                 <button
                   className="ck-nav-parent ck-np--blue"
-                  onClick={() => setGalleryOpen(!galleryOpen)}
+                  onClick={() => { setGalleryOpen(!galleryOpen); if (!galleryOpen) { setPromptOpen(false); setActiveCategory(null); } }}
                 >
                   <span className="ck-np-icon"><i className="fa-solid fa-gem" /></span>
                   <span>{isKo ? '프롬프트 갤러리' : 'Prompt Gallery'}</span>
