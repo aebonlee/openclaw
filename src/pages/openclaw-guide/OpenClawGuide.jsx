@@ -154,19 +154,19 @@ export default function OpenClawGuide() {
                     padding: '10px 14px',
                     borderRadius: 10,
                     background: activeSection === sec.id
-                      ? 'linear-gradient(135deg, #1B3A6B, #2d5aa0)'
-                      : 'linear-gradient(135deg, rgba(27,58,107,0.08), rgba(45,90,160,0.05))',
-                    color: activeSection === sec.id ? '#fff' : 'var(--primary-blue)',
+                      ? 'linear-gradient(135deg, #0284C7, #38BDF8)'
+                      : 'linear-gradient(135deg, rgba(2,132,199,0.08), rgba(56,189,248,0.05))',
+                    color: activeSection === sec.id ? '#fff' : '#0284C7',
                     fontWeight: 700,
-                    border: activeSection === sec.id ? 'none' : '1px solid rgba(27,58,107,0.15)',
-                    borderRight: activeSection === sec.id ? 'none' : '1px solid rgba(27,58,107,0.15)',
+                    border: activeSection === sec.id ? 'none' : '1px solid rgba(2,132,199,0.15)',
+                    borderRight: activeSection === sec.id ? 'none' : '1px solid rgba(2,132,199,0.15)',
                   }}
                 >
                   <i className="fa-solid fa-file-pdf" style={{ marginRight: 6, fontSize: 12 }} />
                   <span>{isKo ? sec.ko : sec.en}</span>
                   <span style={{
                     marginLeft: 'auto', fontSize: 10, fontWeight: 600,
-                    background: activeSection === sec.id ? 'rgba(255,255,255,0.2)' : 'rgba(27,58,107,0.1)',
+                    background: activeSection === sec.id ? 'rgba(255,255,255,0.25)' : 'rgba(2,132,199,0.1)',
                     padding: '2px 6px', borderRadius: 4,
                   }}>
                     PDF
