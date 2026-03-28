@@ -17,12 +17,15 @@ export default function Footer() {
           </div>
 
           <div className="footer-links">
-            <h4>{language === 'ko' ? '학습' : 'Learn'}</h4>
+            <h4>{t('footer.quickLinks')}</h4>
             <ul className="footer-link-list">
-              <li><Link to="/resources"><i className="fa-solid fa-book-open" /> {t('nav.resources')}</Link></li>
-              <li><Link to="/prompt-practice"><i className="fa-solid fa-terminal" /> {t('nav.promptPractice')}</Link></li>
-              <li><Link to="/community/board"><i className="fa-solid fa-comments" /> {t('nav.community')}</Link></li>
-              <li><Link to="/intro"><i className="fa-solid fa-circle-info" /> {language === 'ko' ? '플랫폼 소개' : 'About'}</Link></li>
+              <li><Link to="/intro">{language === 'ko' ? '소개' : 'About'}</Link></li>
+              <li><Link to="/resources">{t('nav.resources')}</Link></li>
+              <li><Link to="/prompt-practice">{t('nav.promptPractice')}</Link></li>
+              <li><Link to="/glossary">{language === 'ko' ? 'AI 용어사전' : 'AI Glossary'}</Link></li>
+              <li><Link to="/roadmap">{language === 'ko' ? '학습 로드맵' : 'Roadmap'}</Link></li>
+              <li><Link to="/ai-news">{language === 'ko' ? 'AI 트렌드' : 'AI Trends'}</Link></li>
+              <li><Link to="/community/board">{t('nav.community')}</Link></li>
             </ul>
           </div>
 

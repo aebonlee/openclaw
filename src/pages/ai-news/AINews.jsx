@@ -1,0 +1,371 @@
+import { useState } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
+import SEOHead from '../../components/SEOHead';
+
+const CATEGORIES = [
+  { id: 'all', ko: '전체', en: 'All', icon: 'fa-border-all' },
+  { id: 'model', ko: 'AI 모델', en: 'AI Models', icon: 'fa-brain' },
+  { id: 'prompt', ko: '프롬프트', en: 'Prompt', icon: 'fa-wand-magic-sparkles' },
+  { id: 'tools', ko: '개발도구', en: 'Dev Tools', icon: 'fa-toolbox' },
+  { id: 'industry', ko: '산업동향', en: 'Industry', icon: 'fa-building' },
+];
+
+const NEWS_ITEMS = [
+  {
+    id: 1, cat: 'model', featured: true, date: '2026-03-15',
+    tags: ['Claude', 'Anthropic', 'AI'],
+    ko: {
+      title: 'Claude 4 출시 - 추론 능력과 코딩 성능 대폭 향상',
+      summary: 'Anthropic이 Claude 4를 공식 출시했습니다. 이전 모델 대비 복잡한 추론 작업에서 40% 향상된 성능을 보이며, 코딩, 수학, 과학 분야에서 새로운 벤치마크를 세웠습니다. 200K 토큰의 확장된 컨텍스트 윈도우와 향상된 도구 사용 능력이 특징입니다.',
+    },
+    en: {
+      title: 'Claude 4 Released - Major Improvements in Reasoning and Coding',
+      summary: 'Anthropic officially released Claude 4. Showing 40% improvement in complex reasoning tasks over previous models, it sets new benchmarks in coding, math, and science. Features include an extended 200K token context window and enhanced tool use capabilities.',
+    },
+    source: 'anthropic.com',
+  },
+  {
+    id: 2, cat: 'model', date: '2026-03-10',
+    tags: ['GPT-4o', 'OpenAI', 'Multimodal'],
+    ko: {
+      title: 'GPT-4o 업데이트 - 실시간 멀티모달 처리 강화',
+      summary: 'OpenAI가 GPT-4o의 대규모 업데이트를 발표했습니다. 실시간 영상 분석, 개선된 음성 대화, 더 자연스러운 이미지 생성 기능이 추가되었으며, API 비용이 30% 인하되었습니다.',
+    },
+    en: {
+      title: 'GPT-4o Update - Enhanced Real-time Multimodal Processing',
+      summary: 'OpenAI announced a major GPT-4o update. New features include real-time video analysis, improved voice conversation, and more natural image generation, with API costs reduced by 30%.',
+    },
+    source: 'openai.com',
+  },
+  {
+    id: 3, cat: 'model', date: '2026-02-28',
+    tags: ['Gemini', 'Google', 'AI'],
+    ko: {
+      title: 'Google Gemini 2.5 Pro - 100만 토큰 컨텍스트 정식 지원',
+      summary: 'Google이 Gemini 2.5 Pro를 출시하며 100만 토큰 컨텍스트 윈도우를 정식 지원합니다. 긴 문서 분석, 대규모 코드베이스 이해에서 탁월한 성능을 보이며, Google Workspace와의 통합도 강화되었습니다.',
+    },
+    en: {
+      title: 'Google Gemini 2.5 Pro - Official 1M Token Context Support',
+      summary: 'Google launched Gemini 2.5 Pro with official 1M token context window support. Shows excellent performance in long document analysis and large codebase understanding, with enhanced Google Workspace integration.',
+    },
+    source: 'blog.google',
+  },
+  {
+    id: 4, cat: 'tools', date: '2026-03-12',
+    tags: ['Cursor', 'AI 코딩', 'IDE'],
+    ko: {
+      title: 'AI 코딩 어시스턴트 경쟁 심화 - Cursor vs GitHub Copilot vs Claude Code',
+      summary: 'AI 코딩 도구 시장의 경쟁이 뜨겁습니다. Cursor의 에이전트 모드, GitHub Copilot의 Workspace 기능, Claude Code의 터미널 통합 등 각 도구가 차별화된 기능을 선보이고 있습니다.',
+    },
+    en: {
+      title: 'AI Coding Assistant Competition Heats Up - Cursor vs GitHub Copilot vs Claude Code',
+      summary: 'The AI coding tools market is heating up. Cursor\'s agent mode, GitHub Copilot\'s Workspace feature, and Claude Code\'s terminal integration are showcasing differentiated capabilities.',
+    },
+    source: 'techcrunch.com',
+  },
+  {
+    id: 5, cat: 'prompt', date: '2026-03-08',
+    tags: ['에이전트', 'RAG', '자동화'],
+    ko: {
+      title: 'AI 에이전트 시대 본격 개막 - 자율 작업 수행 수준 도달',
+      summary: 'AI 에이전트가 복잡한 업무를 자율적으로 수행하는 수준에 도달했습니다. 웹 리서치, 코드 작성, 데이터 분석을 연결하는 멀티스텝 에이전트가 기업 현장에서 활발히 도입되고 있습니다.',
+    },
+    en: {
+      title: 'The Era of AI Agents Begins - Autonomous Task Execution Level Reached',
+      summary: 'AI agents have reached the level of autonomously performing complex tasks. Multi-step agents connecting web research, code writing, and data analysis are being actively adopted in enterprise environments.',
+    },
+    source: 'wired.com',
+  },
+  {
+    id: 6, cat: 'industry', date: '2026-03-05',
+    tags: ['규제', 'EU', 'AI법'],
+    ko: {
+      title: 'EU AI Act 본격 시행 - 기업들의 AI 규제 대응 전략',
+      summary: 'EU AI법이 2026년부터 본격 시행됩니다. 고위험 AI 시스템에 대한 투명성 요구, 생성형 AI의 콘텐츠 라벨링 의무화 등 기업들이 준수해야 할 핵심 규제 내용을 정리합니다.',
+    },
+    en: {
+      title: 'EU AI Act Takes Effect - Corporate AI Compliance Strategies',
+      summary: 'The EU AI Act takes full effect in 2026. Key regulations include transparency requirements for high-risk AI systems and mandatory content labeling for generative AI that companies must comply with.',
+    },
+    source: 'reuters.com',
+  },
+  {
+    id: 7, cat: 'model', date: '2026-02-20',
+    tags: ['오픈소스', 'Llama', 'Meta'],
+    ko: {
+      title: '오픈소스 LLM의 약진 - Llama 4, Mistral Large 2 공개',
+      summary: 'Meta의 Llama 4와 Mistral의 Large 2 모델이 공개되면서 오픈소스 LLM이 상용 모델과의 격차를 빠르게 좁히고 있습니다. 특히 파인튜닝과 로컬 배포에서 큰 장점을 보입니다.',
+    },
+    en: {
+      title: 'Open Source LLM Surge - Llama 4 and Mistral Large 2 Released',
+      summary: 'With Meta\'s Llama 4 and Mistral\'s Large 2 releases, open-source LLMs are rapidly closing the gap with commercial models, showing particular advantages in fine-tuning and local deployment.',
+    },
+    source: 'ai.meta.com',
+  },
+  {
+    id: 8, cat: 'tools', date: '2026-02-15',
+    tags: ['RAG', '벡터DB', 'LangChain'],
+    ko: {
+      title: 'RAG 기술 고도화 - 기업용 AI 지식 관리 시스템 진화',
+      summary: 'RAG(검색 증강 생성) 기술이 빠르게 발전하고 있습니다. 하이브리드 검색, 다단계 추론 RAG, 자동 청크 최적화 등 새로운 기법들이 기업용 AI 시스템의 정확도를 크게 향상시키고 있습니다.',
+    },
+    en: {
+      title: 'Advanced RAG Technology - Enterprise AI Knowledge Management Evolution',
+      summary: 'RAG technology is advancing rapidly. New techniques like hybrid search, multi-step reasoning RAG, and auto-chunk optimization are significantly improving enterprise AI system accuracy.',
+    },
+    source: 'langchain.com',
+  },
+  {
+    id: 9, cat: 'prompt', date: '2026-02-10',
+    tags: ['프롬프트', '기법', '최적화'],
+    ko: {
+      title: '2026년 프롬프트 엔지니어링 트렌드 - 구조화된 출력이 핵심',
+      summary: 'JSON 모드, 함수 호출, 구조화된 출력 형식이 프롬프트 엔지니어링의 새로운 표준이 되고 있습니다. 모델별 최적화 전략과 프롬프트 체이닝 기법이 실무에서 필수 역량으로 자리잡았습니다.',
+    },
+    en: {
+      title: '2026 Prompt Engineering Trends - Structured Output is Key',
+      summary: 'JSON mode, function calling, and structured output formats are becoming the new standard in prompt engineering. Model-specific optimization strategies and prompt chaining have become essential skills.',
+    },
+    source: 'promptingguide.ai',
+  },
+  {
+    id: 10, cat: 'industry', date: '2026-02-05',
+    tags: ['교육', 'AI', '학습'],
+    ko: {
+      title: 'AI 교육 혁명 - 개인 맞춤형 AI 튜터 시대',
+      summary: 'AI 기반 개인 맞춤형 교육이 확산되고 있습니다. 학생의 학습 패턴을 분석하여 최적의 학습 경로를 제시하는 AI 튜터가 K-12부터 대학, 직업 교육까지 전 영역으로 확대되고 있습니다.',
+    },
+    en: {
+      title: 'AI Education Revolution - The Age of Personalized AI Tutors',
+      summary: 'AI-powered personalized education is spreading. AI tutors that analyze learning patterns to suggest optimal paths are expanding from K-12 to university and vocational training.',
+    },
+    source: 'edtechmagazine.com',
+  },
+  {
+    id: 11, cat: 'tools', date: '2026-01-28',
+    tags: ['Docker', 'MLOps', '배포'],
+    ko: {
+      title: 'AI 모델 배포 간소화 - 원클릭 MLOps 플랫폼 등장',
+      summary: '복잡했던 AI 모델 배포가 크게 간소화되고 있습니다. Docker 기반 원클릭 배포, 자동 스케일링, 모델 모니터링을 통합 제공하는 MLOps 플랫폼들이 스타트업과 중소기업의 AI 도입 장벽을 낮추고 있습니다.',
+    },
+    en: {
+      title: 'Simplified AI Model Deployment - One-click MLOps Platforms Emerge',
+      summary: 'AI model deployment is being greatly simplified. MLOps platforms offering Docker-based one-click deployment, auto-scaling, and model monitoring are lowering AI adoption barriers for startups and SMEs.',
+    },
+    source: 'mlops.community',
+  },
+  {
+    id: 12, cat: 'industry', date: '2026-01-20',
+    tags: ['멀티모달', 'AI', '비전'],
+    ko: {
+      title: '멀티모달 AI의 산업 적용 확대 - 제조, 의료, 금융 분야 사례',
+      summary: '텍스트, 이미지, 음성을 통합 처리하는 멀티모달 AI가 산업 현장에 빠르게 적용되고 있습니다. 제조업의 품질 검사, 의료 영상 분석, 금융 문서 처리 등에서 혁신적 성과를 보이고 있습니다.',
+    },
+    en: {
+      title: 'Multimodal AI Expands Across Industries - Manufacturing, Healthcare, Finance Cases',
+      summary: 'Multimodal AI integrating text, image, and voice processing is rapidly being applied in industry. Showing innovative results in manufacturing quality inspection, medical imaging, and financial document processing.',
+    },
+    source: 'mckinsey.com',
+  },
+  {
+    id: 13, cat: 'model', date: '2026-01-15',
+    tags: ['소형 모델', 'SLM', '경량화'],
+    ko: {
+      title: '소형 언어 모델(SLM)의 부상 - 효율성과 프라이버시의 균형',
+      summary: '7B~13B 파라미터의 소형 언어 모델이 특정 작업에서 대형 모델에 필적하는 성능을 보이고 있습니다. 로컬 실행이 가능하여 데이터 프라이버시와 비용 효율성 면에서 큰 주목을 받고 있습니다.',
+    },
+    en: {
+      title: 'Rise of Small Language Models (SLM) - Balancing Efficiency and Privacy',
+      summary: 'Small language models with 7B-13B parameters are showing performance comparable to large models in specific tasks. Gaining attention for data privacy and cost efficiency as they can run locally.',
+    },
+    source: 'huggingface.co',
+  },
+  {
+    id: 14, cat: 'prompt', date: '2026-01-10',
+    tags: ['Claude', 'MCP', '도구'],
+    ko: {
+      title: 'Model Context Protocol(MCP) 생태계 확장 - AI 도구 연결의 표준',
+      summary: 'Anthropic이 제안한 MCP(Model Context Protocol)가 AI 모델과 외부 도구를 연결하는 표준으로 자리잡고 있습니다. 다양한 MCP 서버가 등장하며 AI 에이전트의 기능이 크게 확장되고 있습니다.',
+    },
+    en: {
+      title: 'Model Context Protocol (MCP) Ecosystem Expands - Standard for AI Tool Integration',
+      summary: 'MCP proposed by Anthropic is establishing itself as the standard for connecting AI models with external tools. Various MCP servers are emerging, greatly expanding AI agent capabilities.',
+    },
+    source: 'anthropic.com',
+  },
+];
+
+export default function AINews() {
+  const { language } = useLanguage();
+  const [activeCategory, setActiveCategory] = useState('all');
+  const isKo = language === 'ko';
+
+  const filteredNews = activeCategory === 'all'
+    ? NEWS_ITEMS
+    : NEWS_ITEMS.filter(n => n.cat === activeCategory);
+
+  const featuredArticle = NEWS_ITEMS.find(n => n.featured);
+  const regularNews = filteredNews.filter(n => !n.featured || activeCategory !== 'all');
+
+  const getCategoryBadge = (catId) => {
+    const colors = {
+      'model': { bg: '#DBEAFE', color: '#2563EB' },
+      'prompt': { bg: '#FEF3C7', color: '#D97706' },
+      'tools': { bg: '#D1FAE5', color: '#059669' },
+      'industry': { bg: '#E0E7FF', color: '#4F46E5' },
+    };
+    return colors[catId] || { bg: '#F3F4F6', color: '#6B7280' };
+  };
+
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    if (isKo) {
+      return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+    }
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  };
+
+  return (
+    <div className="edu-hub-page">
+      <SEOHead
+        title={isKo ? 'AI 트렌드 & 뉴스' : 'AI Trends & News'}
+        description={isKo ? '최신 AI 트렌드, 모델 업데이트, 개발 도구, 산업 동향을 한눈에 확인하세요.' : 'Stay updated on the latest AI trends, model updates, dev tools, and industry insights.'}
+        path="/ai-news"
+      />
+
+      {/* Hero */}
+      <div className="edu-hub-hero">
+        <div className="container">
+          <h1>
+            <i className="fa-solid fa-newspaper" style={{ marginRight: 12 }} />
+            {isKo ? 'AI 트렌드 & 뉴스' : 'AI Trends & News'}
+          </h1>
+          <p>{isKo
+            ? '최신 AI 동향과 기술 트렌드를 한눈에 확인하세요.'
+            : 'Stay updated with the latest AI developments and tech trends.'}</p>
+        </div>
+      </div>
+
+      <div className="container" style={{ paddingBottom: 60 }}>
+        {/* Featured Article */}
+        {activeCategory === 'all' && featuredArticle && (() => {
+          const badge = getCategoryBadge(featuredArticle.cat);
+          const catLabel = CATEGORIES.find(c => c.id === featuredArticle.cat);
+          return (
+            <section style={{ marginBottom: 40 }}>
+              <h2 className="section-header" style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, color: 'var(--text-primary)' }}>
+                <i className="fa-solid fa-fire" style={{ color: '#EF4444', marginRight: 8 }} />
+                {isKo ? '주요 뉴스' : 'Featured News'}
+              </h2>
+              <div className="edu-course-card edu-course-featured" style={{
+                padding: 28, cursor: 'default',
+              }}>
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  marginBottom: 12, flexWrap: 'wrap',
+                }}>
+                  <span className="edu-course-badge" style={{ background: badge.bg, color: badge.color }}>
+                    {catLabel ? (isKo ? catLabel.ko : catLabel.en) : ''}
+                  </span>
+                  <span style={{ fontSize: 13, color: 'var(--text-light)' }}>
+                    <i className="fa-regular fa-calendar" style={{ marginRight: 4 }} />
+                    {formatDate(featuredArticle.date)}
+                  </span>
+                </div>
+                <h3 style={{
+                  fontSize: 20, fontWeight: 700, color: 'var(--text-primary)',
+                  marginBottom: 12, lineHeight: 1.4,
+                }}>
+                  {isKo ? featuredArticle.ko.title : featuredArticle.en.title}
+                </h3>
+                <p style={{
+                  fontSize: 15, color: 'var(--text-secondary)',
+                  lineHeight: 1.8, marginBottom: 16,
+                }}>
+                  {isKo ? featuredArticle.ko.summary : featuredArticle.en.summary}
+                </p>
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  flexWrap: 'wrap', gap: 10,
+                }}>
+                  <div className="edu-course-tags">
+                    {featuredArticle.tags.map((tag, i) => (
+                      <span key={i} className="resource-tag">{tag}</span>
+                    ))}
+                  </div>
+                  <span style={{ fontSize: 12, color: 'var(--text-light)' }}>
+                    <i className="fa-solid fa-link" style={{ marginRight: 4 }} />
+                    {featuredArticle.source}
+                  </span>
+                </div>
+              </div>
+            </section>
+          );
+        })()}
+
+        {/* Category Tabs */}
+        <div className="edu-category-tabs">
+          {CATEGORIES.map(cat => (
+            <button
+              key={cat.id}
+              className={`board-category-filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat.id)}
+            >
+              <i className={`fa-solid ${cat.icon}`} style={{ marginRight: 6 }} />
+              {isKo ? cat.ko : cat.en}
+              {cat.id !== 'all' && (
+                <span style={{ marginLeft: 4, fontSize: 11, opacity: 0.7 }}>
+                  ({NEWS_ITEMS.filter(n => n.cat === cat.id).length})
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* News Grid */}
+        <div className="edu-course-grid">
+          {regularNews.map(item => {
+            const badge = getCategoryBadge(item.cat);
+            const catLabel = CATEGORIES.find(c => c.id === item.cat);
+            return (
+              <div key={item.id} className="edu-course-card">
+                <div className="edu-course-card-header">
+                  <span className="edu-course-badge" style={{ background: badge.bg, color: badge.color }}>
+                    {catLabel ? (isKo ? catLabel.ko : catLabel.en) : ''}
+                  </span>
+                  <span className="edu-course-cat" style={{ fontSize: 12 }}>
+                    <i className="fa-regular fa-calendar" style={{ marginRight: 3 }} />
+                    {formatDate(item.date)}
+                  </span>
+                </div>
+                <h3>{isKo ? item.ko.title : item.en.title}</h3>
+                <p>{isKo ? item.ko.summary : item.en.summary}</p>
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  marginTop: 'auto', flexWrap: 'wrap', gap: 8,
+                }}>
+                  <div className="edu-course-tags">
+                    {item.tags.map((tag, i) => (
+                      <span key={i} className="resource-tag">{tag}</span>
+                    ))}
+                  </div>
+                  <span style={{ fontSize: 11, color: 'var(--text-light)' }}>
+                    <i className="fa-solid fa-link" style={{ marginRight: 3 }} />
+                    {item.source}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {regularNews.length === 0 && (
+          <div style={{ textAlign: 'center', padding: 60, color: 'var(--text-light)' }}>
+            <i className="fa-solid fa-newspaper" style={{ fontSize: 32, marginBottom: 12, display: 'block' }} />
+            <p>{isKo ? '해당 카테고리에 뉴스가 없습니다.' : 'No news found in this category.'}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

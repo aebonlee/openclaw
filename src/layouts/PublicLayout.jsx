@@ -13,10 +13,11 @@ const Board = lazy(() => import('../pages/community/Board'));
 const BoardDetail = lazy(() => import('../pages/community/BoardDetail'));
 const BoardWrite = lazy(() => import('../pages/community/BoardWrite'));
 const Resources = lazy(() => import('../pages/resources/Resources'));
-const AIChecklist = lazy(() => import('../pages/ai-checklist/AIChecklist'));
 const PromptPractice = lazy(() => import('../pages/prompt-practice/PromptPractice'));
 const IntroPage = lazy(() => import('../pages/intro/IntroPage'));
-const EduHubPage = lazy(() => import('../pages/edu-hub/EduHubPage'));
+const Glossary = lazy(() => import('../pages/glossary/Glossary'));
+const Roadmap = lazy(() => import('../pages/roadmap/Roadmap'));
+const AINews = lazy(() => import('../pages/ai-news/AINews'));
 const AdminDashboard = lazy(() => import('../pages/admin/AdminDashboard'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
@@ -37,17 +38,18 @@ export default function PublicLayout() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/intro" element={<IntroPage />} />
-            <Route path="/edu-hub" element={<EduHubPage />} />
             <Route path="/guide" element={<Navigate to="/intro" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/prompt-practice" element={<PromptPractice />} />
+            <Route path="/glossary" element={<Glossary />} />
+            <Route path="/roadmap" element={<Roadmap />} />
+            <Route path="/ai-news" element={<AINews />} />
             <Route path="/community/board" element={<Board />} />
             <Route path="/community/board/:id" element={<BoardDetail />} />
             <Route path="/community/board/write" element={<AuthGuard><BoardWrite /></AuthGuard>} />
-            <Route path="/resources" element={<Resources />} />
-            <Route path="/ai-checklist" element={<AIChecklist />} />
-            <Route path="/prompt-practice" element={<PromptPractice />} />
             <Route path="/admin/*" element={<AdminGuard><AdminDashboard /></AdminGuard>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
