@@ -113,7 +113,7 @@ const translations = {
       subtitle: 'AI 학습의 새로운 패러다임',
     },
     footer: {
-      description: 'AI와 프로그래밍을 배우는 무료 학습 플랫폼',
+      description: 'AI, 프로그래밍, 데이터 사이언스를 체계적으로 학습할 수 있는 무료 플랫폼입니다. 프롬프트 엔지니어링 실습, 100개 AI 용어사전, 단계별 학습 로드맵, 최신 AI 트렌드까지 한곳에서 제공합니다.',
       quickLinks: '바로가기',
       contact: '연락처',
     },
@@ -243,7 +243,7 @@ const translations = {
       subtitle: 'A New Paradigm for AI Learning',
     },
     footer: {
-      description: 'A free platform for learning AI and programming',
+      description: 'A free platform for systematically learning AI, programming, and data science. Featuring prompt engineering practice, 100+ AI glossary terms, step-by-step learning roadmaps, and the latest AI trends — all in one place.',
       quickLinks: 'Quick Links',
       contact: 'Contact',
     },
