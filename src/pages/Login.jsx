@@ -18,7 +18,7 @@ export default function Login() {
 
   // Redirect if already logged in
   if (isLoggedIn) {
-    navigate('/dashboard', { replace: true });
+    navigate('/', { replace: true });
     return null;
   }
 
@@ -32,7 +32,7 @@ export default function Login() {
         toast.error(error.message);
       } else {
         toast.success(t('auth.loginTitle') + ' OK');
-        navigate('/dashboard');
+        navigate('/');
       }
     } catch (err) {
       toast.error(err.message);
