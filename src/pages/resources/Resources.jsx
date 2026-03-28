@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 
@@ -834,7 +835,7 @@ export default function Resources() {
         <aside className={`ck-sidebar ${sidebarOpen ? '' : 'hidden'}`}>
           <div className="ck-sb-header">
             <i className="fa-solid fa-book-open" />
-            <span>{t('resources.title')}</span>
+            <span>{isKo ? 'AI 학습자료' : 'AI Resources'}</span>
           </div>
           <nav className="ck-sb-nav">
             {CATEGORIES.map(cat => (
@@ -867,6 +868,41 @@ export default function Resources() {
                 )}
               </div>
             ))}
+            {/* Prompt Practice & Gallery Section */}
+            <div style={{ borderTop: '1px solid var(--border-light)', marginTop: 8, paddingTop: 8 }}>
+              <div className="ck-nav-group active">
+                <div className="ck-nav-parent ck-np--purple" style={{ cursor: 'default' }}>
+                  <span className="ck-np-icon"><i className="fa-solid fa-wand-magic-sparkles" /></span>
+                  <span>{isKo ? '프롬프트' : 'Prompts'}</span>
+                </div>
+                <ul className="ck-nav-children">
+                  <li>
+                    <Link to="/prompt-practice" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                      <span className="ck-nc-icon"><i className="fa-solid fa-pen" /></span>
+                      <span>{isKo ? '기본 프롬프트' : 'Basic Prompts'}</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/prompt-practice" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                      <span className="ck-nc-icon"><i className="fa-solid fa-wand-magic-sparkles" /></span>
+                      <span>{isKo ? '고급 기법' : 'Advanced'}</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/prompt-practice" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                      <span className="ck-nc-icon"><i className="fa-solid fa-laptop-code" /></span>
+                      <span>{isKo ? '실습 & 퀴즈' : 'Practice & Quiz'}</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/prompt-gallery" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                      <span className="ck-nc-icon"><i className="fa-solid fa-gem" /></span>
+                      <span>{isKo ? '프롬프트 갤러리' : 'Prompt Gallery'}</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </nav>
         </aside>
 
