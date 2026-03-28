@@ -923,7 +923,7 @@ export default function Resources() {
                   onClick={() => { setPromptOpen(!promptOpen); if (!promptOpen) { setGalleryOpen(false); setActiveCategory(null); } }}
                 >
                   <span className="ck-np-icon"><i className="fa-solid fa-wand-magic-sparkles" /></span>
-                  <span>{isKo ? '프롬프트' : 'Prompts'}</span>
+                  <span>{isKo ? '프롬프트 학습' : 'Prompt Learning'}</span>
                   <i className={`fa-solid fa-chevron-down ck-nav-arrow ${promptOpen ? 'open' : ''}`} />
                 </button>
                 {promptOpen && (
@@ -982,7 +982,7 @@ export default function Resources() {
               <div className={`ck-nav-group ${viewMode === 'prompt' && promptSection === 'practice' ? 'active' : ''}`}>
                 <button className="ck-nav-parent ck-np--orange" onClick={handlePracticeClick}>
                   <span className="ck-np-icon"><i className="fa-solid fa-laptop-code" /></span>
-                  <span>{isKo ? '실습' : 'Practice'}</span>
+                  <span>{isKo ? '프롬프트 실습' : 'Prompt Practice'}</span>
                 </button>
               </div>
 
@@ -990,7 +990,7 @@ export default function Resources() {
               <div className={`ck-nav-group ${viewMode === 'prompt' && promptSection === 'quiz' ? 'active' : ''}`}>
                 <button className="ck-nav-parent ck-np--green" onClick={handleQuizClick}>
                   <span className="ck-np-icon"><i className="fa-solid fa-question-circle" /></span>
-                  <span>{isKo ? '퀴즈' : 'Quiz'}</span>
+                  <span>{isKo ? '프롬프트 학습점검 퀴즈' : 'Prompt Quiz'}</span>
                 </button>
               </div>
             </div>
