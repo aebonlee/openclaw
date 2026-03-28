@@ -403,7 +403,7 @@ export default function Glossary() {
               key={sec.id}
               className={`ck-nav-child ${activeCategory === sec.id ? 'active' : ''}`}
               onClick={() => handleCategoryChange(sec.id)}
-              style={{ marginLeft: 0, paddingLeft: 14px }}
+              style={{ marginLeft: 10, paddingLeft: 10 }}
             >
               <span className="ck-nc-icon">
                 <i className={`fa-solid ${sec.icon || 'fa-border-all'}`} />
