@@ -21,8 +21,6 @@ export default function Footer() {
             <ul className="footer-link-list">
               <li><Link to="/">{t('nav.home')}</Link></li>
               <li><Link to="/intro">{t('nav.intro')}</Link></li>
-              <li><Link to="/edu-hub">{t('nav.eduhub')}</Link></li>
-              <li><Link to="/ai-checklist">{t('nav.aiChecklist')}</Link></li>
               <li><Link to="/prompt-practice">{t('nav.promptPractice')}</Link></li>
               <li><Link to="/resources">{t('nav.resources')}</Link></li>
               <li><Link to="/community/board">{t('nav.community')}</Link></li>

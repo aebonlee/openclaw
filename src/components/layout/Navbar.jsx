@@ -62,16 +62,6 @@ export default function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/edu-hub" className={`nav-link ${location.pathname === '/edu-hub' ? 'active' : ''}`}>
-                {t('nav.eduhub')}
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/ai-checklist" className={`nav-link ${location.pathname === '/ai-checklist' ? 'active' : ''}`}>
-                {t('nav.aiChecklist')}
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link to="/prompt-practice" className={`nav-link ${location.pathname === '/prompt-practice' ? 'active' : ''}`}>
                 {t('nav.promptPractice')}
               </Link>
@@ -153,8 +143,6 @@ export default function Navbar() {
       <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
         <ul className="mobile-nav-links">
           <li><Link to="/intro" className="mobile-nav-link">{t('nav.intro')}</Link></li>
-          <li><Link to="/edu-hub" className="mobile-nav-link">{t('nav.eduhub')}</Link></li>
-          <li><Link to="/ai-checklist" className="mobile-nav-link">{t('nav.aiChecklist')}</Link></li>
           <li><Link to="/prompt-practice" className="mobile-nav-link">{t('nav.promptPractice')}</Link></li>
           <li><Link to="/resources" className="mobile-nav-link">{t('nav.resources')}</Link></li>
           <li><Link to="/community/board" className="mobile-nav-link">{t('nav.community')}</Link></li>
