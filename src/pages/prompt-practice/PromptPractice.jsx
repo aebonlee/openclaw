@@ -679,7 +679,6 @@ export default function PromptPractice({ embeddedSection = null }) {
       <div className="ck-layout">
         <aside className="ck-sidebar">
           <div className="ck-sb-header">
-            <i className="fa-solid fa-wand-magic-sparkles" />
             <span>{isKo ? '프롬프트 실습' : 'Prompt Practice'}</span>
           </div>
           <nav className="ck-sb-nav">
@@ -689,14 +688,12 @@ export default function PromptPractice({ embeddedSection = null }) {
                 className={`ck-nav-child ${activeSection === sec.id ? 'active' : ''}`}
                 onClick={() => setActiveSection(sec.id)}
               >
-                <span className="ck-nc-icon"><i className={`fa-solid ${sec.icon}`} /></span>
                 <span>{isKo ? sec.ko : sec.en}</span>
               </button>
             ))}
             <div style={{ borderTop: '1px solid var(--border-light)', marginTop: 8, paddingTop: 8 }}>
               <div className={`ck-nav-group ${activeSection === 'gallery' ? 'active' : ''}`}>
                 <button className="ck-nav-parent ck-np--blue" onClick={() => { setGalleryOpen(!galleryOpen); setActiveSection('gallery'); }}>
-                  <span className="ck-np-icon"><i className="fa-solid fa-gem" /></span>
                   <span>{isKo ? '프롬프트 갤러리' : 'Prompt Gallery'}</span>
                   <i className={`fa-solid fa-chevron-down ck-nav-arrow ${galleryOpen ? 'open' : ''}`} />
                 </button>
@@ -705,7 +702,6 @@ export default function PromptPractice({ embeddedSection = null }) {
                     {GALLERY_CATEGORIES.map(cat => (
                       <li key={cat.id}>
                         <button className={`ck-nav-child ${activeSection === 'gallery' && galleryCategory === cat.id ? 'active' : ''}`} onClick={() => { setGalleryCategory(cat.id); setActiveSection('gallery'); }}>
-                          <span className="ck-nc-icon"><i className={`fa-solid ${cat.icon}`} /></span>
                           <span>{isKo ? cat.ko : cat.en}</span>
                         </button>
                       </li>

@@ -139,7 +139,6 @@ export default function OpenClawGuide() {
         {/* ───── Sidebar ───── */}
         <aside className="ck-sidebar">
           <div className="ck-sb-header">
-            <i className="fa-solid fa-paw" />
             <span>{isKo ? 'OpenClaw 가이드' : 'OpenClaw Guide'}</span>
           </div>
           <nav className="ck-sb-nav">
@@ -149,7 +148,6 @@ export default function OpenClawGuide() {
                 className={`ck-nav-child ${activeSection === sec.id ? 'active' : ''}`}
                 onClick={() => setActiveSection(sec.id)}
               >
-                <span className="ck-nc-icon"><i className={`fa-solid ${sec.icon}`} /></span>
                 <span>{isKo ? sec.ko : sec.en}</span>
               </button>
             ))}

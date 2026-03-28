@@ -83,7 +83,6 @@ export default function Roadmap() {
         {/* Sidebar */}
         <aside className="ck-sidebar">
           <div className="ck-sb-header">
-            <i className="fa-solid fa-route" />
             <span>{isKo ? '학습 로드맵' : 'Learning Roadmap'}</span>
           </div>
           <nav className="ck-sb-nav">
@@ -93,7 +92,6 @@ export default function Roadmap() {
                 className={`ck-nav-child ${activeTrack === track.id ? 'active' : ''}`}
                 onClick={() => setActiveTrack(track.id)}
               >
-                <span className="ck-nc-icon"><i className={`fa-solid ${track.icon}`} /></span>
                 <span>{isKo ? track.ko.title : track.en.title}</span>
               </button>
             ))}

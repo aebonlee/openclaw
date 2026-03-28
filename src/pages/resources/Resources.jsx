@@ -883,7 +883,6 @@ export default function Resources() {
         {/* Sidebar */}
         <aside className={`ck-sidebar ${sidebarOpen ? '' : 'hidden'}`}>
           <div className="ck-sb-header">
-            <i className="fa-solid fa-book-open" />
             <span>{isKo ? 'AI 학습자료' : 'AI Resources'}</span>
           </div>
           <nav className="ck-sb-nav">
@@ -893,7 +892,6 @@ export default function Resources() {
                   className={`ck-nav-parent ck-np--${cat.id === 'ai-theory' ? 'blue' : cat.id === 'programming' ? 'green' : cat.id === 'data-analysis' ? 'orange' : 'purple'}`}
                   onClick={() => handleCategoryClick(cat.id)}
                 >
-                  <span className="ck-np-icon"><i className={`fa-solid ${cat.icon}`} /></span>
                   <span>{isKo ? cat.ko : cat.en}</span>
                   <i className={`fa-solid fa-chevron-down ck-nav-arrow ${activeCategory === cat.id ? 'open' : ''}`} />
                 </button>
@@ -905,7 +903,6 @@ export default function Resources() {
                           className={`ck-nav-child ${activeTopic === topic.id ? 'active' : ''}`}
                           onClick={() => handleTopicChange(cat.id, topic.id)}
                         >
-                          <span className="ck-nc-icon"><i className={`fa-solid ${topic.icon}`} /></span>
                           <span>{isKo ? topic.ko : topic.en}</span>
                         </button>
                       </li>
@@ -922,7 +919,6 @@ export default function Resources() {
                   className="ck-nav-parent ck-np--purple"
                   onClick={() => { setPromptOpen(!promptOpen); if (!promptOpen) { setGalleryOpen(false); setActiveCategory(null); } }}
                 >
-                  <span className="ck-np-icon"><i className="fa-solid fa-wand-magic-sparkles" /></span>
                   <span>{isKo ? '프롬프트 학습' : 'Prompt Learning'}</span>
                   <i className={`fa-solid fa-chevron-down ck-nav-arrow ${promptOpen ? 'open' : ''}`} />
                 </button>
@@ -930,13 +926,11 @@ export default function Resources() {
                   <ul className="ck-nav-children">
                     <li>
                       <button className={`ck-nav-child ${viewMode === 'prompt' && promptSection === 'basics' ? 'active' : ''}`} onClick={() => handlePromptClick('basics')}>
-                        <span className="ck-nc-icon"><i className="fa-solid fa-pen" /></span>
                         <span>{isKo ? '기본 프롬프트' : 'Basic Prompts'}</span>
                       </button>
                     </li>
                     <li>
                       <button className={`ck-nav-child ${viewMode === 'prompt' && promptSection === 'advanced' ? 'active' : ''}`} onClick={() => handlePromptClick('advanced')}>
-                        <span className="ck-nc-icon"><i className="fa-solid fa-wand-magic-sparkles" /></span>
                         <span>{isKo ? '고급 기법' : 'Advanced'}</span>
                       </button>
                     </li>
@@ -950,7 +944,6 @@ export default function Resources() {
                   className="ck-nav-parent ck-np--blue"
                   onClick={() => { setGalleryOpen(!galleryOpen); if (!galleryOpen) { setPromptOpen(false); setActiveCategory(null); } }}
                 >
-                  <span className="ck-np-icon"><i className="fa-solid fa-gem" /></span>
                   <span>{isKo ? '프롬프트 갤러리' : 'Prompt Gallery'}</span>
                   <i className={`fa-solid fa-chevron-down ck-nav-arrow ${galleryOpen ? 'open' : ''}`} />
                 </button>
@@ -969,7 +962,6 @@ export default function Resources() {
                     ].map(cat => (
                       <li key={cat.id}>
                         <button className={`ck-nav-child ${viewMode === 'gallery' && galleryCategory === cat.id ? 'active' : ''}`} onClick={() => handleGalleryClick(cat.id)}>
-                          <span className="ck-nc-icon"><i className={`fa-solid ${cat.icon}`} /></span>
                           <span>{isKo ? cat.ko : cat.en}</span>
                         </button>
                       </li>
@@ -981,7 +973,6 @@ export default function Resources() {
               {/* 실습 */}
               <div className={`ck-nav-group ${viewMode === 'prompt' && promptSection === 'practice' ? 'active' : ''}`}>
                 <button className="ck-nav-parent ck-np--orange" onClick={handlePracticeClick}>
-                  <span className="ck-np-icon"><i className="fa-solid fa-laptop-code" /></span>
                   <span>{isKo ? '프롬프트 실습' : 'Prompt Practice'}</span>
                 </button>
               </div>
@@ -989,7 +980,6 @@ export default function Resources() {
               {/* 퀴즈 */}
               <div className={`ck-nav-group ${viewMode === 'prompt' && promptSection === 'quiz' ? 'active' : ''}`}>
                 <button className="ck-nav-parent ck-np--green" onClick={handleQuizClick}>
-                  <span className="ck-np-icon"><i className="fa-solid fa-question-circle" /></span>
                   <span>{isKo ? '프롬프트 학습점검 퀴즈' : 'Prompt Quiz'}</span>
                 </button>
               </div>
@@ -1040,9 +1030,6 @@ export default function Resources() {
                         onClick={() => setActiveTopic(topic.id)}
                         style={{ border: activeTopic === topic.id ? '2px solid var(--primary-blue)' : undefined }}
                       >
-                        <span className="ck-nc-icon" style={{ fontSize: 18 }}>
-                          <i className={`fa-solid ${topic.icon}`} />
-                        </span>
                         <span style={{ fontWeight: activeTopic === topic.id ? 700 : 500 }}>
                           {isKo ? topic.ko : topic.en}
                         </span>

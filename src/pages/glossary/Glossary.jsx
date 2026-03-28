@@ -394,7 +394,6 @@ export default function Glossary() {
       {/* Sidebar */}
       <aside className="ck-sidebar">
         <div className="ck-sb-header">
-          <i className="fa-solid fa-book" />
           <span>{isKo ? 'AI 용어사전' : 'AI Glossary'}</span>
         </div>
         <nav className="ck-sb-nav">
@@ -404,9 +403,6 @@ export default function Glossary() {
               className={`ck-nav-child ${activeCategory === sec.id ? 'active' : ''}`}
               onClick={() => handleCategoryChange(sec.id)}
             >
-              <span className="ck-nc-icon">
-                <i className={`fa-solid ${sec.icon || 'fa-border-all'}`} />
-              </span>
               <span>{sec.label}</span>
               <span style={{ marginLeft: 'auto', fontSize: 11, opacity: 0.6 }}>
                 {sec.id === 'all'
