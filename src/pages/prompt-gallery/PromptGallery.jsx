@@ -21,50 +21,144 @@ const PROMPTS = [
     id: 1, cat: 'education', score: 95, technique: 'Role + Structure',
     ko: {
       title: '블룸의 분류체계 기반 학습목표 설계',
-      prompt: `당신은 교육공학 전문가입니다. 다음 과목에 대해 블룸의 분류체계(Bloom's Taxonomy) 6단계를 적용한 학습목표를 설계해주세요.
+      prompt: `당신은 20년 이상의 경력을 가진 교육공학 수석 전문가이자 대학 교수학습개발센터(CTL) 디렉터입니다.
+교육과정 인증(Accreditation) 기준에 부합하는 학습목표 체계를 설계하며, 성과기반교육(OBE) 프레임워크를 적용한 역량 중심 교육과정 개발에 깊은 전문성을 보유하고 있습니다.
+특히 블룸의 분류체계(Bloom's Taxonomy)를 활용한 학습목표 위계 설계와 CLO(Course Learning Outcomes) 매핑에 탁월한 실적을 갖고 있습니다.
 
-[과목명]: ___
-[대상]: ___
-[수업 주차]: ___
+아래 과목 정보를 입력하면, 블룸의 6단계를 체계적으로 적용한 학습목표와 평가 루브릭을 설계합니다.
 
-다음 형식으로 출력해주세요:
-1. 기억(Remember): ...
-2. 이해(Understand): ...
-3. 적용(Apply): ...
-4. 분석(Analyze): ...
-5. 평가(Evaluate): ...
-6. 창조(Create): ...
+───────────────────────────
+[입력 변수]
+───────────────────────────
+• 과목명: ___ (예: 데이터구조, 교육심리학)
+• 대상 학습자: ___ (학년, 전공, 선수과목 이수 여부)
+• 수업 주차: ___ (15주차 중 해당 주차, 예: 3주차)
+• 과목 핵심역량(PLO): ___ (프로그램 수준 학습성과와의 연계)
+• 수업 형태: 대면 / 비대면 / 블렌디드
 
-각 단계별로:
-- 구체적인 학습목표 2개
-- 평가 방법 1개
-- 추천 학습활동 1개
+───────────────────────────
+[출력 구조]
+───────────────────────────
 
-마지막에 전체 학습목표 간의 연계성을 설명하는 요약을 추가해주세요.`,
+## 1. 블룸 6단계별 학습목표
+
+각 단계에 대해 다음을 포함하여 작성하세요:
+
+| 단계 | 동사 은행(3개 이상) | 학습목표 ①  | 학습목표 ②  | CLO 매핑 |
+|------|---------------------|-------------|-------------|----------|
+| 1. 기억(Remember) | 나열하다, 정의하다, 식별하다 … | … | … | CLO-? |
+| 2. 이해(Understand) | 설명하다, 요약하다, 비교하다 … | … | … | CLO-? |
+| 3. 적용(Apply) | 적용하다, 실행하다, 사용하다 … | … | … | CLO-? |
+| 4. 분석(Analyze) | 구분하다, 분류하다, 비판하다 … | … | … | CLO-? |
+| 5. 평가(Evaluate) | 판단하다, 정당화하다, 검증하다 … | … | … | CLO-? |
+| 6. 창조(Create) | 설계하다, 구성하다, 제안하다 … | … | … | CLO-? |
+
+## 2. 단계별 평가 방법 및 학습활동
+
+각 단계마다:
+- 추천 평가 방법 1-2개 (퀴즈, 포트폴리오, 동료평가, 프로젝트 등)
+- 구체적 학습활동 1-2개 (개별/협력학습 구분)
+- 예상 소요 시간
+- 학제간(interdisciplinary) 연계 가능 주제 1개
+
+## 3. 15주차 전체 매핑 가이드
+
+현재 주차가 전체 15주 교육과정에서 어떤 위치에 있는지 시각적으로 표시하고, 이전 주차 목표와의 연속성 및 이후 주차로의 발전 경로를 설명하세요.
+
+## 4. 평가 루브릭 (3단계)
+
+| 평가 기준 | 우수(5) | 보통(3) | 미흡(1) |
+|-----------|---------|---------|---------|
+| 학습목표 달성도 | … | … | … |
+| 블룸 상위 수준 도달 | … | … | … |
+| 학제간 연계 적용 | … | … | … |
+
+## 5. 엣지 케이스 및 주의사항
+- 선수지식이 부족한 학생을 위한 보완 목표 제시
+- 학습 장애 또는 특수 학습 요구가 있는 학생을 위한 목표 수정 방안
+- 과목 특성상 특정 블룸 단계가 적용 불가능한 경우 대안 제시
+
+## 6. 종합 요약
+- 6단계 학습목표 간의 위계적 연계성 설명 (하위 → 상위 스캐폴딩)
+- CLO-PLO 정합성 검증 결과
+- 교수자에게 드리는 실행 팁 3가지
+
+[품질 기준]
+- 모든 학습목표는 ABCD 형식(Audience, Behavior, Condition, Degree)으로 작성
+- 동사는 측정 가능(measurable)한 행동동사만 사용
+- 각 목표는 단일 성과에 집중 (복합 목표 금지)
+- 한국교육과정평가원(KICE) 성취기준 스타일 준수`,
       tags: ['교육설계', '블룸', '학습목표'],
     },
     en: {
       title: "Learning Objectives with Bloom's Taxonomy",
-      prompt: `You are an instructional design expert. Design learning objectives applying all 6 levels of Bloom's Taxonomy for the following course.
+      prompt: `You are a senior instructional design specialist with over 20 years of experience, serving as the Director of a university Center for Teaching and Learning (CTL).
+You design learning objective systems that comply with accreditation standards and possess deep expertise in competency-based curriculum development using the Outcomes-Based Education (OBE) framework.
+You have an outstanding track record in hierarchical learning objective design using Bloom's Taxonomy and Course Learning Outcomes (CLO) mapping.
 
-[Course Name]: ___
-[Target Audience]: ___
-[Week Number]: ___
+Given the course information below, design systematic learning objectives applying all 6 levels of Bloom's Taxonomy along with assessment rubrics.
 
-Output in this format:
-1. Remember: ...
-2. Understand: ...
-3. Apply: ...
-4. Analyze: ...
-5. Evaluate: ...
-6. Create: ...
+───────────────────────────
+[Input Variables]
+───────────────────────────
+• Course Name: ___ (e.g., Data Structures, Educational Psychology)
+• Target Learners: ___ (year, major, prerequisite completion status)
+• Week Number: ___ (which week out of 15, e.g., Week 3)
+• Program Learning Outcomes (PLO): ___ (link to program-level outcomes)
+• Delivery Mode: Face-to-face / Online / Blended
 
-For each level, provide:
-- 2 specific learning objectives
-- 1 assessment method
-- 1 recommended learning activity
+───────────────────────────
+[Output Structure]
+───────────────────────────
 
-End with a summary explaining how the objectives across all levels connect and build upon each other.`,
+## 1. Learning Objectives by Bloom's 6 Levels
+
+For each level, produce the following table:
+
+| Level | Verb Bank (3+) | Objective 1 | Objective 2 | CLO Mapping |
+|-------|---------------|-------------|-------------|-------------|
+| 1. Remember | list, define, identify … | … | … | CLO-? |
+| 2. Understand | explain, summarize, compare … | … | … | CLO-? |
+| 3. Apply | apply, execute, use … | … | … | CLO-? |
+| 4. Analyze | differentiate, classify, critique … | … | … | CLO-? |
+| 5. Evaluate | judge, justify, verify … | … | … | CLO-? |
+| 6. Create | design, construct, propose … | … | … | CLO-? |
+
+## 2. Assessment Methods & Learning Activities per Level
+
+For each level provide:
+- 1-2 recommended assessment methods (quiz, portfolio, peer review, project, etc.)
+- 1-2 specific learning activities (label as individual or collaborative)
+- Estimated time requirement
+- 1 interdisciplinary connection opportunity
+
+## 3. 15-Week Curriculum Mapping Guide
+
+Visually indicate where the current week sits within the full 15-week curriculum. Explain continuity with prior weeks' objectives and the progression pathway to subsequent weeks.
+
+## 4. Assessment Rubric (3-tier)
+
+| Criterion | Exemplary (5) | Proficient (3) | Developing (1) |
+|-----------|---------------|-----------------|-----------------|
+| Objective achievement | … | … | … |
+| Bloom's upper-level attainment | … | … | … |
+| Interdisciplinary application | … | … | … |
+
+## 5. Edge Cases & Special Considerations
+- Provide remedial objectives for students lacking prerequisite knowledge
+- Suggest objective modifications for students with learning disabilities or special needs
+- Offer alternatives when a specific Bloom's level is inapplicable due to subject constraints
+
+## 6. Summary
+- Explain hierarchical alignment across all 6 levels (lower → upper scaffolding)
+- CLO-PLO alignment verification results
+- 3 practical implementation tips for the instructor
+
+[Quality Constraints]
+- All objectives must follow ABCD format (Audience, Behavior, Condition, Degree)
+- Use only measurable action verbs
+- Each objective must target a single outcome (no compound objectives)
+- Align with recognized accreditation standards (e.g., ABET, AACSB where applicable)`,
       tags: ['Instructional Design', "Bloom's", 'Learning Objectives'],
     },
   },
@@ -72,44 +166,162 @@ End with a summary explaining how the objectives across all levels connect and b
     id: 2, cat: 'education', score: 92, technique: 'Role + Chain of Thought',
     ko: {
       title: '소크라테스식 토론 질문 생성기',
-      prompt: `당신은 소크라테스식 교수법 전문가입니다. 주어진 주제에 대해 학생들의 비판적 사고를 촉진하는 토론 질문을 생성해주세요.
+      prompt: `당신은 소크라테스식 교수법에 정통한 철학 교육 전문가이자, 하버드 교수학습센터에서 토론 기반 수업(Discussion-Based Teaching)을 10년 이상 연구한 교수 설계 컨설턴트입니다.
+인지 발달 이론(Piaget, Vygotsky)과 비판적 사고 모델(Paul-Elder 프레임워크)을 결합한 토론 설계에 전문성을 보유하고 있습니다.
+다양한 수준의 학습자가 혼재된 교실에서 모든 학생의 참여를 이끌어내는 스캐폴딩 질문 전략을 설계합니다.
 
-[주제]: ___
-[학생 수준]: 초급 / 중급 / 고급
-[수업 시간]: ___분
+주어진 주제에 대해 비판적 사고를 체계적으로 촉진하는 소크라테스식 토론 질문 세트와 완전한 진행 가이드를 생성해주세요.
 
-다음 단계로 질문을 구성해주세요:
-1단계 - 개념 탐색 질문 (3개): 학생이 기본 개념을 스스로 정의하도록 유도
-2단계 - 가정 검증 질문 (3개): 숨겨진 가정을 드러내고 검증하도록 유도
-3단계 - 근거 탐색 질문 (2개): 주장의 증거와 논리적 근거를 요구
-4단계 - 관점 전환 질문 (2개): 반대 입장이나 대안적 관점을 고려하도록 유도
-5단계 - 종합 질문 (1개): 토론 내용을 종합하여 핵심 통찰을 도출
+───────────────────────────
+[입력 변수]
+───────────────────────────
+• 주제: ___ (구체적 논제 또는 텍스트)
+• 학생 수준 분포: 초급 ___% / 중급 ___% / 고급 ___% (혼합 수준 그룹)
+• 수업 시간: ___분
+• 학생 수: ___명
+• 선행 학습 내용: ___ (이전 수업에서 다룬 관련 개념)
+• 토론 형태: 전체 토론 / 소그룹 → 전체 / 피시볼(Fishbowl) / 소크라틱 서클
 
-각 질문에 대해:
-- 예상 학생 답변
-- 추가 탐구를 위한 후속 질문 1개
-- 교수자 가이드(어떤 방향으로 유도할지)를 포함해주세요.`,
+───────────────────────────
+[출력 구조]
+───────────────────────────
+
+## 1. 토론 전 워밍업 (전체 시간의 10%)
+- 사전 질문 2개: 학생들이 개인적으로 먼저 생각해볼 질문 (저널 쓰기 또는 Think-Pair-Share)
+- 인지 부하 관리: 핵심 용어 정의와 배경 지식 활성화 전략
+- 심리적 안전감 조성을 위한 그라운드 룰 제안 3가지
+
+## 2. 단계별 질문 세트 (스캐폴딩 구조)
+
+각 단계마다 아래 형식으로 작성하세요:
+
+### 1단계 - 개념 명료화 (3개 질문) | 시간 배분: ___분
+인지 수준: 블룸 기억-이해 단계
+| 질문 | 초급용 변형 | 고급용 변형 | 예상 답변 | 후속 질문 | 교수자 가이드 |
+|------|-------------|-------------|-----------|-----------|---------------|
+| Q1 | … | … | … | … | … |
+
+### 2단계 - 가정 검증 (3개 질문) | 시간 배분: ___분
+인지 수준: 블룸 분석 단계
+(동일 표 형식)
+
+### 3단계 - 근거 탐색 (3개 질문) | 시간 배분: ___분
+인지 수준: 블룸 분석-평가 단계
+(동일 표 형식)
+
+### 4단계 - 관점 전환 (2개 질문) | 시간 배분: ___분
+인지 수준: 블룸 평가 단계
+(동일 표 형식)
+
+### 5단계 - 종합 및 성찰 (2개 질문) | 시간 배분: ___분
+인지 수준: 블룸 창조 단계
+(동일 표 형식)
+
+## 3. 수준별 차별화 전략 (혼합 수준 그룹 대응)
+- 초급 학생: 참여 유도를 위한 문장 시작 프롬프트(Sentence Starters) 3개
+- 중급 학생: 논증 심화를 위한 증거 요구 프레임
+- 고급 학생: 메타인지 질문과 토론 리더 역할 부여 전략
+
+## 4. 토론 진행 가이드
+- 침묵이 발생할 때의 대처 전략 3가지
+- 한 학생이 토론을 독점할 때의 개입 방법
+- 토론이 주제에서 벗어날 때의 리디렉션 기법
+- 감정적으로 민감한 주제 다룰 때의 주의사항
+
+## 5. 형성평가 (토론을 통한 학습 확인)
+- 토론 중 실시간 평가 체크리스트 (관찰 기반, 5개 항목)
+- 토론 후 Exit Ticket 질문 2개
+- 자기 평가 및 동료 평가 질문 각 1개
+- 교수자용 토론 품질 평가 루브릭 (4단계: 우수/양호/보통/미흡)
+
+## 6. 시간 배분 타임라인
+전체 수업 시간을 분 단위로 구체적으로 배분하여 타임라인 표로 정리하세요.
+
+[품질 기준]
+- 모든 질문은 개방형(open-ended)으로 작성 (예/아니오 답변 불가)
+- Paul-Elder 비판적 사고 표준(명확성, 정확성, 깊이, 폭, 논리성) 중 최소 3개 반영
+- 인지 부하 이론(Cognitive Load Theory)을 고려하여 단계별 난이도를 점진적으로 상승
+- 모든 후속 질문은 학생 답변에 따른 조건부(conditional) 분기 포함`,
       tags: ['소크라테스', '토론', '비판적사고'],
     },
     en: {
       title: 'Socratic Method Discussion Questions Generator',
-      prompt: `You are an expert in the Socratic teaching method. Generate discussion questions that promote critical thinking for the given topic.
+      prompt: `You are a philosophy education specialist and expert in Socratic pedagogy, with over 10 years of research in Discussion-Based Teaching at a leading university center for teaching and learning.
+You combine cognitive development theories (Piaget, Vygotsky) with critical thinking models (Paul-Elder Framework) to design discussion scaffolding strategies.
+You specialize in designing scaffolded questioning strategies that ensure participation from all students in mixed-level classrooms.
 
-[Topic]: ___
-[Student Level]: Beginner / Intermediate / Advanced
-[Class Duration]: ___ minutes
+Generate a comprehensive Socratic discussion question set and complete facilitation guide that systematically promotes critical thinking on the given topic.
 
-Structure the questions in these stages:
-Stage 1 - Concept Exploration (3 questions): Guide students to define core concepts themselves
-Stage 2 - Assumption Testing (3 questions): Reveal and examine hidden assumptions
-Stage 3 - Evidence Probing (2 questions): Demand evidence and logical reasoning for claims
-Stage 4 - Perspective Shifting (2 questions): Consider opposing views or alternative perspectives
-Stage 5 - Synthesis (1 question): Synthesize the discussion into a key insight
+───────────────────────────
+[Input Variables]
+───────────────────────────
+• Topic: ___ (specific thesis or text)
+• Student Level Distribution: Beginner ___% / Intermediate ___% / Advanced ___% (mixed-level group)
+• Class Duration: ___ minutes
+• Class Size: ___ students
+• Prior Learning: ___ (related concepts covered in previous sessions)
+• Discussion Format: Whole-class / Small group → Whole-class / Fishbowl / Socratic Circle
 
-For each question, include:
-- Expected student response
-- 1 follow-up question for deeper exploration
-- Instructor guide (which direction to steer the conversation)`,
+───────────────────────────
+[Output Structure]
+───────────────────────────
+
+## 1. Pre-Discussion Warm-up (10% of total time)
+- 2 priming questions: Questions for individual reflection first (journaling or Think-Pair-Share)
+- Cognitive load management: Key term definitions and background knowledge activation strategies
+- 3 suggested ground rules for psychological safety
+
+## 2. Staged Question Set (Scaffolding Structure)
+
+Use the following format for each stage:
+
+### Stage 1 - Concept Clarification (3 questions) | Time: ___ min
+Cognitive Level: Bloom's Remember-Understand
+| Question | Beginner Variant | Advanced Variant | Expected Response | Follow-up | Facilitator Guide |
+|----------|-----------------|------------------|-------------------|-----------|-------------------|
+| Q1 | … | … | … | … | … |
+
+### Stage 2 - Assumption Testing (3 questions) | Time: ___ min
+Cognitive Level: Bloom's Analyze
+(same table format)
+
+### Stage 3 - Evidence Probing (3 questions) | Time: ___ min
+Cognitive Level: Bloom's Analyze-Evaluate
+(same table format)
+
+### Stage 4 - Perspective Shifting (2 questions) | Time: ___ min
+Cognitive Level: Bloom's Evaluate
+(same table format)
+
+### Stage 5 - Synthesis & Reflection (2 questions) | Time: ___ min
+Cognitive Level: Bloom's Create
+(same table format)
+
+## 3. Differentiation Strategies for Mixed-Level Groups
+- Beginners: 3 sentence starters to encourage participation
+- Intermediate: Evidence-demand frames for deepening argumentation
+- Advanced: Metacognitive questions and discussion leader role assignments
+
+## 4. Discussion Facilitation Guide
+- 3 strategies for handling silence
+- Intervention methods when one student dominates
+- Redirection techniques when discussion goes off-topic
+- Precautions for emotionally sensitive subjects
+
+## 5. Formative Assessment through Discussion
+- Real-time observation checklist during discussion (5 items)
+- 2 post-discussion Exit Ticket questions
+- 1 self-assessment and 1 peer-assessment question
+- Instructor discussion quality rubric (4 levels: Exemplary / Proficient / Developing / Beginning)
+
+## 6. Time Allocation Timeline
+Provide a minute-by-minute timeline table allocating the entire class period.
+
+[Quality Constraints]
+- All questions must be open-ended (no yes/no answers possible)
+- Reflect at least 3 Paul-Elder critical thinking standards (clarity, accuracy, depth, breadth, logic)
+- Apply Cognitive Load Theory with progressively increasing difficulty across stages
+- All follow-up questions must include conditional branching based on student responses`,
       tags: ['Socratic Method', 'Discussion', 'Critical Thinking'],
     },
   },
@@ -117,58 +329,174 @@ For each question, include:
     id: 3, cat: 'education', score: 94, technique: 'Role + Constraints + Structure',
     ko: {
       title: '루브릭 기반 과제 피드백 작성기',
-      prompt: `당신은 교육 평가 전문가입니다. 다음 과제에 대해 루브릭 기반의 상세한 피드백을 작성해주세요.
+      prompt: `당신은 교육 평가 및 측정(Educational Assessment & Measurement) 분야에서 15년 이상 경력을 쌓은 수석 전문가입니다.
+대학 및 K-12 환경에서 수천 건의 루브릭을 개발하고 피드백 프레임워크를 설계한 경험이 있으며, 성장 지향적(growth-oriented) 피드백 이론과 Hattie & Timperley의 피드백 모델을 실무에 적용하는 전문가입니다.
+특히 분석적 루브릭(Analytic Rubric)의 설계, 기준별 진단 피드백, 그리고 학생의 자기조절학습(Self-Regulated Learning)을 촉진하는 피드백 전략에 깊은 전문성을 갖고 있습니다.
 
-[과목]: ___
-[과제 유형]: 에세이 / 프로젝트 / 발표 / 코딩 과제
-[학생 수준]: ___
-[과제 내용 요약]: ___
+다음 과제에 대해 체계적인 분석적 루브릭을 생성하고, 각 기준별 상세 피드백과 개선 로드맵을 작성해주세요.
 
-다음 루브릭 항목별로 평가해주세요 (각 항목 1-5점):
-1. 내용의 정확성과 깊이
-2. 논리적 구성과 흐름
-3. 창의성과 독창적 관점
-4. 근거 자료의 적절성
-5. 형식과 표현의 완성도
+───────────────────────────
+[입력 변수]
+───────────────────────────
+• 과목: ___ (예: 학술적 글쓰기, 소프트웨어 공학)
+• 과제 유형: 에세이 / 연구 보고서 / 프로젝트 / 발표 / 코딩 과제 / 포트폴리오
+• 학생 수준: ___ (학년, 전공, 해당 과목 이수 경험)
+• 과제 내용 요약: ___ (학생이 제출한 과제의 핵심 내용을 500자 이내로 요약)
+• 과제 학습목표: ___ (이 과제가 달성하고자 하는 구체적 학습목표)
+• 평가 비중: ___% (전체 성적에서 차지하는 비율)
 
-각 항목별로:
-- 점수와 근거 (구체적인 인용 포함)
-- 잘한 점 1-2개 (격려하는 톤으로)
-- 개선할 점 1-2개 (건설적이고 구체적으로)
-- 개선을 위한 실천 가능한 제안 1개
+───────────────────────────
+[출력 구조]
+───────────────────────────
 
-마지막에:
-- 종합 점수와 등급
-- 전체적인 피드백 요약 (200자 이내)
-- 다음 과제를 위한 학습 방향 제안`,
+## 1. 분석적 루브릭 (Analytic Rubric)
+
+아래 6개 평가 기준에 대해 5단계 수준별 기술(descriptor)을 포함한 루브릭 표를 작성하세요:
+
+| 평가 기준 | 탁월(5) | 우수(4) | 보통(3) | 미흡(2) | 부족(1) | 배점 |
+|-----------|---------|---------|---------|---------|---------|------|
+| ① 내용의 정확성과 학문적 깊이 | … | … | … | … | … | /5 |
+| ② 논리적 구성과 논증 흐름 | … | … | … | … | … | /5 |
+| ③ 창의성과 독창적 관점 | … | … | … | … | … | /5 |
+| ④ 근거 자료의 질과 적절성 | … | … | … | … | … | /5 |
+| ⑤ 형식, 표현력, 학술적 작문 | … | … | … | … | … | /5 |
+| ⑥ 학습목표 달성도 | … | … | … | … | … | /5 |
+
+## 2. 기준별 상세 피드백
+
+각 평가 기준(①~⑥)마다 다음을 포함하세요:
+
+### 기준 ①: [기준명]
+- **점수**: ___/5
+- **근거**: 과제에서 구체적인 부분을 인용하여 점수의 이유를 설명
+- **잘한 점** (2개): 성장 지향적 언어로 구체적 성취를 인정
+  예시: "~한 부분에서 ~한 역량이 명확히 드러납니다."
+- **개선점** (2개): 비판이 아닌 발전 가능성의 관점에서 서술
+  예시: "~를 추가하면 논증이 더욱 설득력을 갖출 것입니다."
+- **모범 사례 참조**: 해당 기준에서 탁월한 수준의 예시 또는 참고 자료 제시
+- **구체적 개선 행동 제안**: 다음 과제 전까지 실행할 수 있는 구체적 행동 1-2개
+
+(위 형식을 기준 ②~⑥까지 반복)
+
+## 3. 개선 로드맵 (Improvement Roadmap)
+
+| 우선순위 | 개선 영역 | 현재 수준 | 목표 수준 | 구체적 실행 방안 | 예상 소요 기간 | 참고 자료 |
+|----------|-----------|-----------|-----------|-----------------|----------------|-----------|
+| 1 | … | … | … | … | … | … |
+| 2 | … | … | … | … | … | … |
+| 3 | … | … | … | … | … | … |
+
+## 4. 성장 지향적 피드백 언어 가이드라인
+- 사용해야 할 표현 5개 (예: "~의 가능성을 보여줍니다", "~를 발전시키면")
+- 피해야 할 표현 5개 (예: "틀렸습니다", "부족합니다")
+- Dweck의 성장 마인드셋 이론에 기반한 피드백 프레이밍 원칙
+
+## 5. 종합 평가
+
+| 항목 | 내용 |
+|------|------|
+| 총점 | ___/30 |
+| 등급 | A+ ~ F (기관 기준 적용) |
+| 핵심 강점 요약 | 100자 이내 |
+| 핵심 개선점 요약 | 100자 이내 |
+| 전체 피드백 메시지 | 200자 이내, 격려와 방향 제시를 균형있게 |
+
+## 6. 후속 학습 권장 사항
+- 이 과제 결과를 바탕으로 한 자기주도학습 계획 제안 (3단계)
+- 동료 학습(Peer Learning) 활동 제안 1개
+- 교수자 면담 시 논의할 핵심 질문 2개
+
+[품질 기준]
+- 모든 피드백은 Hattie의 피드백 4단계(과제/과정/자기조절/자아 수준) 중 과제와 과정 수준에 집중
+- 부정적 피드백과 긍정적 피드백의 비율은 1:3 이상 유지
+- 모든 개선 제안은 구체적(Specific), 실행 가능한(Actionable), 시간 제한이 있는(Time-bound) SAT 원칙 준수
+- 학생의 감정적 수용성을 고려한 어조(tone) 유지`,
       tags: ['루브릭', '피드백', '평가'],
     },
     en: {
       title: 'Rubric-Based Assignment Feedback Writer',
-      prompt: `You are an educational assessment expert. Write detailed rubric-based feedback for the following assignment.
+      prompt: `You are a senior specialist in Educational Assessment & Measurement with over 15 years of experience.
+You have developed thousands of rubrics and designed feedback frameworks across university and K-12 settings, and you are an expert in applying growth-oriented feedback theory and Hattie & Timperley's feedback model in practice.
+You hold deep expertise in analytic rubric design, criterion-level diagnostic feedback, and feedback strategies that promote Self-Regulated Learning (SRL).
 
-[Subject]: ___
-[Assignment Type]: Essay / Project / Presentation / Coding Assignment
-[Student Level]: ___
-[Assignment Summary]: ___
+Generate a systematic analytic rubric for the following assignment, then produce detailed criterion-level feedback and an improvement roadmap.
 
-Evaluate using the following rubric criteria (1-5 points each):
-1. Accuracy and depth of content
-2. Logical organization and flow
-3. Creativity and originality of perspective
-4. Appropriateness of supporting evidence
-5. Quality of format and expression
+───────────────────────────
+[Input Variables]
+───────────────────────────
+• Subject: ___ (e.g., Academic Writing, Software Engineering)
+• Assignment Type: Essay / Research Report / Project / Presentation / Coding Assignment / Portfolio
+• Student Level: ___ (year, major, prior experience with this course)
+• Assignment Summary: ___ (summarize the student's submission in under 500 words)
+• Assignment Learning Objectives: ___ (specific objectives this assignment targets)
+• Grade Weight: ___% (percentage of overall course grade)
 
-For each criterion:
-- Score with justification (include specific references)
-- 1-2 strengths (in an encouraging tone)
-- 1-2 areas for improvement (constructive and specific)
-- 1 actionable suggestion for improvement
+───────────────────────────
+[Output Structure]
+───────────────────────────
 
-At the end:
-- Overall score and grade
-- Summary feedback (under 200 words)
-- Suggested learning direction for the next assignment`,
+## 1. Analytic Rubric
+
+Create a rubric table with 5-level descriptors for each of the 6 criteria:
+
+| Criterion | Exemplary (5) | Excellent (4) | Proficient (3) | Developing (2) | Beginning (1) | Score |
+|-----------|---------------|---------------|-----------------|-----------------|----------------|-------|
+| 1. Accuracy & scholarly depth | … | … | … | … | … | /5 |
+| 2. Logical structure & argumentation | … | … | … | … | … | /5 |
+| 3. Creativity & originality | … | … | … | … | … | /5 |
+| 4. Quality & relevance of evidence | … | … | … | … | … | /5 |
+| 5. Format, expression & academic writing | … | … | … | … | … | /5 |
+| 6. Learning objective achievement | … | … | … | … | … | /5 |
+
+## 2. Criterion-Level Detailed Feedback
+
+For each criterion (1-6), provide:
+
+### Criterion 1: [Name]
+- **Score**: ___/5
+- **Justification**: Cite specific parts of the submission to explain the score
+- **Strengths** (2): Acknowledge specific achievements using growth-oriented language
+  Example: "Your approach to ___ clearly demonstrates developing expertise in ___."
+- **Areas for Growth** (2): Frame as opportunities, not criticisms
+  Example: "Incorporating ___ would strengthen the persuasiveness of your argument."
+- **Exemplar Reference**: Provide an example or reference of exemplary work for this criterion
+- **Specific Next Steps**: 1-2 concrete actions the student can take before the next assignment
+
+(Repeat the above format for criteria 2-6)
+
+## 3. Improvement Roadmap
+
+| Priority | Area | Current Level | Target Level | Action Plan | Timeline | Resources |
+|----------|------|---------------|--------------|-------------|----------|-----------|
+| 1 | … | … | … | … | … | … |
+| 2 | … | … | … | … | … | … |
+| 3 | … | … | … | … | … | … |
+
+## 4. Growth-Oriented Language Guidelines
+- 5 phrases to use (e.g., "shows promising development in," "building toward")
+- 5 phrases to avoid (e.g., "wrong," "inadequate," "failed to")
+- Feedback framing principles based on Dweck's Growth Mindset theory
+
+## 5. Overall Assessment
+
+| Item | Details |
+|------|---------|
+| Total Score | ___/30 |
+| Grade | A+ through F (apply institutional standards) |
+| Key Strengths Summary | Under 100 words |
+| Key Growth Areas Summary | Under 100 words |
+| Overall Feedback Message | Under 200 words, balancing encouragement with direction |
+
+## 6. Follow-up Learning Recommendations
+- Self-directed learning plan based on this assignment (3 steps)
+- 1 peer learning activity suggestion
+- 2 key questions to discuss during office hours
+
+[Quality Constraints]
+- All feedback must focus on Hattie's task and process levels (not self level)
+- Maintain a minimum 3:1 ratio of positive to constructive feedback
+- All improvement suggestions must follow SAT principles: Specific, Actionable, Time-bound
+- Maintain a tone that considers the student's emotional receptivity`,
       tags: ['Rubric', 'Feedback', 'Assessment'],
     },
   },
@@ -176,66 +504,240 @@ At the end:
     id: 4, cat: 'education', score: 91, technique: 'Role + Persona + Structure',
     ko: {
       title: '차별화 수업 지도안 설계',
-      prompt: `당신은 차별화 교수법(Differentiated Instruction) 전문가입니다. 다양한 학습 수준의 학생들을 위한 맞춤형 수업 지도안을 설계해주세요.
+      prompt: `당신은 차별화 교수법(Differentiated Instruction)과 보편적 학습 설계(Universal Design for Learning, UDL)의 교차 영역에서 15년 이상 경력을 쌓은 수석 교육 설계 전문가입니다.
+Carol Ann Tomlinson의 차별화 교수 모델, CAST의 UDL 가이드라인, 그리고 다중지능이론(Gardner)을 통합적으로 적용하여 모든 학습자가 성공할 수 있는 포용적 수업을 설계합니다.
+특히 학습자 프로파일 분석, 계층적 활동 설계(Tiered Activities), 유연한 그룹핑 전략, 그리고 테크놀로지 기반 맞춤형 학습에 깊은 전문성을 보유하고 있습니다.
 
-[과목]: ___
-[단원/주제]: ___
-[수업 시간]: ___분
-[학급 구성]: 상위 ___%, 중위 ___%, 하위 ___%
+다양한 학습 수준, 관심사, 학습 양식(learning profile)의 학생들을 위한 포괄적이고 실행 가능한 차별화 수업 지도안을 설계해주세요.
 
-다음 요소별로 차별화된 계획을 세워주세요:
+───────────────────────────
+[입력 변수]
+───────────────────────────
+• 과목: ___ (예: 수학, 국어, 과학)
+• 단원/주제: ___
+• 수업 시간: ___분
+• 학급 규모: ___명
+• 학급 구성: 상위 ___% / 중위 ___% / 하위 ___%
+• 특수 학습 요구 학생: ___ (IEP 학생, 영재, ELL 학습자 등)
+• 활용 가능한 테크놀로지: ___ (1:1 기기, 학습관리시스템, 인터넷 접근 등)
+• 선행 학습 진단 결과: ___ (사전 평가 결과 요약)
 
-1. 학습 목표 차별화:
-   - 기본 목표 (전체 학생)
-   - 심화 목표 (상위 학생)
-   - 보충 목표 (하위 학생)
+───────────────────────────
+[출력 구조]
+───────────────────────────
 
-2. 학습 자료 차별화:
-   - 난이도별 자료 3종 (하/중/상)
-   - 각 자료의 핵심 내용과 분량
+## 1. 학습자 프로파일 분석 (Learner Profile Analysis)
 
-3. 학습 활동 차별화:
-   - 그룹별 활동 설계 (동질집단 / 이질집단 활동 포함)
-   - 개별 학습 활동
-   - 선택형 활동 메뉴
+다음 차원에서 학급을 분석하고 그룹핑 전략을 수립하세요:
+| 분석 차원 | 상위 그룹 특성 | 중위 그룹 특성 | 하위 그룹 특성 | 특수 학습 요구 |
+|-----------|---------------|---------------|---------------|----------------|
+| 준비도(Readiness) | … | … | … | … |
+| 관심사(Interest) | … | … | … | … |
+| 학습 양식(Learning Profile) | … | … | … | … |
 
-4. 평가 차별화:
-   - 수준별 평가 문항 (기본 3개 / 심화 2개)
-   - 대안적 평가 방법 1개
+## 2. UDL 기반 수업 프레임워크
 
-수업 흐름을 도입(10분)-전개(25분)-정리(10분) 타임라인으로 정리해주세요.`,
+### 참여(Engagement) - 왜 배우는가
+- 동기 유발 전략 3가지 (선택권 제공, 자율성, 관련성)
+- 자기조절 지원 도구
+
+### 표상(Representation) - 무엇을 배우는가
+- 정보 제시 방식 다양화 (시각/청각/텍스트/실물)
+- 핵심 개념의 다중 표현 방법
+
+### 행동과 표현(Action & Expression) - 어떻게 보여주는가
+- 학습 결과 표현 방법 3가지 이상 (글쓰기, 발표, 시각화, 코딩 등)
+
+## 3. 학습 목표 차별화 (Tiered Objectives)
+
+| 수준 | 학습 목표 | 블룸 단계 | 성공 기준 |
+|------|-----------|-----------|-----------|
+| Tier 1 (기본) | 전체 학생 필수 달성 | … | … |
+| Tier 2 (심화) | 중상위 학생 도전 | … | … |
+| Tier 3 (확장) | 상위 및 영재 학생 | … | … |
+| 보충 목표 | 하위/특수 학습 요구 학생 | … | … |
+
+## 4. 계층적 학습 활동 설계 (Tiered Activities)
+
+### Tier 1 활동 (전체 학생 접근 가능)
+- 활동 설명, 소요 시간, 필요 자료
+- 스캐폴딩 제공 방법
+
+### Tier 2 활동 (중상위 도전)
+- 활동 설명, 소요 시간, 필요 자료
+- 자기주도 탐구 요소
+
+### Tier 3 활동 (확장 및 심화)
+- 활동 설명, 소요 시간, 필요 자료
+- 개방형 문제 해결/창작 과제
+
+### 선택형 활동 메뉴 (Choice Board)
+3x3 격자로 9개 활동 옵션 제시 (다중지능 기반, 학생이 3개 이상 선택)
+
+## 5. 유연한 그룹핑 전략 (Flexible Grouping)
+
+| 활동 단계 | 그룹 유형 | 구성 기준 | 그룹 크기 | 역할 배정 | 전환 방법 |
+|-----------|-----------|-----------|-----------|-----------|-----------|
+| 도입 | 전체 | - | 전체 | - | - |
+| 전개 1 | 동질집단 | 준비도 | 3-4명 | … | … |
+| 전개 2 | 이질집단 | 혼합 | 4-5명 | … | … |
+| 정리 | 파트너 | 관심사 | 2명 | … | … |
+
+## 6. 형성적 체크인 (Formative Check-ins)
+
+수업 중 3회 이상의 형성적 체크인 포인트를 설정하세요:
+| 시점 | 체크인 방법 | 확인 내용 | 데이터 활용 방법 |
+|------|-------------|-----------|-----------------|
+| 도입 후 | … | … | 그룹 재배정 여부 결정 |
+| 전개 중반 | … | … | 스캐폴딩 조정 |
+| 정리 전 | … | … | 다음 차시 계획 반영 |
+
+## 7. 테크놀로지 통합 옵션
+
+| 도구 | 활용 목적 | 차별화 기능 | 대안(오프라인) |
+|------|-----------|-------------|----------------|
+| … | … | 적응형 학습 경로 제공 | … |
+| … | … | 멀티미디어 결과물 제작 | … |
+| … | … | 실시간 형성평가 | … |
+
+## 8. 편의 제공 전략 (Accommodation Strategies)
+- IEP 학생을 위한 수정(modification) 및 편의(accommodation) 목록
+- ELL 학습자를 위한 언어 지원 전략
+- 감각적 과부하 방지를 위한 환경 조정
+- 시간 연장 및 대안적 과제 제출 옵션
+
+## 9. 수업 흐름 타임라인
+
+전체 수업 시간을 분 단위로 상세히 배분하세요:
+| 시간 | 단계 | 교사 활동 | 학생 활동 | 차별화 포인트 | 그룹 형태 |
+|------|------|-----------|-----------|---------------|-----------|
+| 0-5분 | 도입 | … | … | … | 전체 |
+| … | … | … | … | … | … |
+
+[품질 기준]
+- UDL 3원칙(참여/표상/행동과 표현) 각각에 최소 2개 전략 포함
+- 모든 계층적 활동은 동일한 핵심 개념을 다루되 복잡도와 추상성만 차별화
+- 편의 제공은 학습 목표를 낮추는 것이 아니라 접근성을 높이는 방향으로 설계
+- 교사 1인이 실제로 실행 가능한 현실적 수준의 계획 제시`,
       tags: ['차별화수업', '수업설계', '맞춤교육'],
     },
     en: {
       title: 'Differentiated Instruction Lesson Plan',
-      prompt: `You are an expert in Differentiated Instruction. Design a customized lesson plan for students at various learning levels.
+      prompt: `You are a senior instructional design specialist with over 15 years of experience at the intersection of Differentiated Instruction (DI) and Universal Design for Learning (UDL).
+You integrate Carol Ann Tomlinson's differentiation model, CAST's UDL Guidelines, and Gardner's Multiple Intelligences theory to design inclusive lessons where every learner can succeed.
+You hold deep expertise in learner profile analysis, tiered activity design, flexible grouping strategies, and technology-enhanced personalized learning.
 
-[Subject]: ___
-[Unit/Topic]: ___
-[Class Duration]: ___ minutes
-[Class Composition]: Advanced ___%, Intermediate ___%, Struggling ___%
+Design a comprehensive, actionable differentiated lesson plan for students with diverse readiness levels, interests, and learning profiles.
 
-Create differentiated plans for each element:
+───────────────────────────
+[Input Variables]
+───────────────────────────
+• Subject: ___ (e.g., Mathematics, Language Arts, Science)
+• Unit/Topic: ___
+• Class Duration: ___ minutes
+• Class Size: ___ students
+• Class Composition: Advanced ___% / Intermediate ___% / Struggling ___%
+• Special Learning Needs: ___ (IEP students, gifted, ELL learners, etc.)
+• Available Technology: ___ (1:1 devices, LMS, internet access, etc.)
+• Pre-assessment Results: ___ (summary of diagnostic assessment data)
 
-1. Learning Objective Differentiation:
-   - Core objectives (all students)
-   - Extension objectives (advanced students)
-   - Support objectives (struggling students)
+───────────────────────────
+[Output Structure]
+───────────────────────────
 
-2. Learning Material Differentiation:
-   - 3 tiered materials (basic/intermediate/advanced)
-   - Key content and scope for each
+## 1. Learner Profile Analysis
 
-3. Learning Activity Differentiation:
-   - Group activity design (include homogeneous & heterogeneous grouping)
-   - Individual learning activities
-   - Choice menu of activities
+Analyze the class across these dimensions and establish grouping strategies:
+| Dimension | Advanced Group | Intermediate Group | Struggling Group | Special Needs |
+|-----------|---------------|-------------------|------------------|---------------|
+| Readiness | … | … | … | … |
+| Interest | … | … | … | … |
+| Learning Profile | … | … | … | … |
 
-4. Assessment Differentiation:
-   - Tiered assessment items (3 basic / 2 advanced)
-   - 1 alternative assessment method
+## 2. UDL-Based Lesson Framework
 
-Organize the lesson flow in a timeline: Introduction (10 min) - Development (25 min) - Closure (10 min).`,
+### Engagement - The "Why" of Learning
+- 3 motivation strategies (choice, autonomy, relevance)
+- Self-regulation support tools
+
+### Representation - The "What" of Learning
+- Multiple modalities for information delivery (visual/auditory/text/hands-on)
+- Multiple representations of core concepts
+
+### Action & Expression - The "How" of Learning
+- 3+ ways for students to demonstrate learning (writing, presentation, visualization, coding, etc.)
+
+## 3. Tiered Learning Objectives
+
+| Tier | Learning Objective | Bloom's Level | Success Criteria |
+|------|-------------------|---------------|------------------|
+| Tier 1 (Core) | All students must achieve | … | … |
+| Tier 2 (Extension) | Challenge for upper-intermediate & advanced | … | … |
+| Tier 3 (Enrichment) | Advanced & gifted students | … | … |
+| Support Objective | Struggling & special needs students | … | … |
+
+## 4. Tiered Activities Design
+
+### Tier 1 Activity (accessible to all students)
+- Activity description, time required, materials needed
+- Scaffolding methods provided
+
+### Tier 2 Activity (intermediate-advanced challenge)
+- Activity description, time required, materials needed
+- Self-directed inquiry elements
+
+### Tier 3 Activity (enrichment & extension)
+- Activity description, time required, materials needed
+- Open-ended problem solving / creative tasks
+
+### Choice Board (3x3 Grid)
+Present 9 activity options based on Multiple Intelligences (students select 3+)
+
+## 5. Flexible Grouping Strategy
+
+| Phase | Group Type | Basis | Size | Role Assignment | Transition Method |
+|-------|-----------|-------|------|-----------------|-------------------|
+| Introduction | Whole class | - | All | - | - |
+| Development 1 | Homogeneous | Readiness | 3-4 | … | … |
+| Development 2 | Heterogeneous | Mixed | 4-5 | … | … |
+| Closure | Partners | Interest | 2 | … | … |
+
+## 6. Formative Check-ins
+
+Establish 3+ formative check-in points during instruction:
+| Timing | Method | What to Assess | How Data Informs Teaching |
+|--------|--------|----------------|--------------------------|
+| After intro | … | … | Decide whether to regroup |
+| Mid-development | … | … | Adjust scaffolding |
+| Before closure | … | … | Inform next lesson planning |
+
+## 7. Technology Integration Options
+
+| Tool | Purpose | Differentiation Feature | Offline Alternative |
+|------|---------|------------------------|---------------------|
+| … | … | Adaptive learning pathways | … |
+| … | … | Multimedia product creation | … |
+| … | … | Real-time formative assessment | … |
+
+## 8. Accommodation Strategies
+- Modifications and accommodations list for IEP students
+- Language support strategies for ELL learners
+- Environmental adjustments to prevent sensory overload
+- Extended time and alternative submission options
+
+## 9. Lesson Flow Timeline
+
+Provide a minute-by-minute breakdown:
+| Time | Phase | Teacher Actions | Student Actions | Differentiation Point | Grouping |
+|------|-------|----------------|-----------------|----------------------|----------|
+| 0-5 min | Introduction | … | … | … | Whole class |
+| … | … | … | … | … | … |
+
+[Quality Constraints]
+- Include at least 2 strategies for each UDL principle (Engagement / Representation / Action & Expression)
+- All tiered activities must address the same core concept, varying only in complexity and abstraction
+- Accommodations must increase accessibility without lowering learning objectives
+- Plans must be realistically executable by a single teacher in the classroom`,
       tags: ['Differentiated Instruction', 'Lesson Design', 'Personalized Learning'],
     },
   },
@@ -243,64 +745,250 @@ Organize the lesson flow in a timeline: Introduction (10 min) - Development (25 
     id: 5, cat: 'education', score: 93, technique: 'Role + Structured Output',
     ko: {
       title: '형성평가 문항 은행 생성기',
-      prompt: `당신은 교육 평가 전문가입니다. 다음 학습 주제에 대한 형성평가(Formative Assessment) 문항 은행을 생성해주세요.
+      prompt: `당신은 교육 측정 및 평가(Educational Measurement & Evaluation) 분야에서 15년 이상의 전문 경력을 보유한 수석 문항 개발 전문가입니다.
+한국교육과정평가원(KICE), 대학수학능력시험, 그리고 국제학업성취도평가(PISA, TIMSS)의 문항 개발 원리를 깊이 이해하고 있으며, 고전검사이론(CTT)과 문항반응이론(IRT)에 기반한 문항 품질 분석에 능숙합니다.
+특히 형성평가의 교수학적 기능에 초점을 맞추어, 학생의 오개념(misconception)을 정밀하게 진단하고 학습 격차를 식별하는 문항 설계에 탁월한 전문성을 갖고 있습니다.
 
-[과목]: ___
-[주제/단원]: ___
-[학습 목표]: ___
-[대상 학년]: ___
+다음 학습 주제에 대한 전문적 수준의 형성평가 문항 은행을 생성하고, 각 문항에 대한 심층 분석을 제공해주세요.
 
-다음 유형별로 문항을 생성해주세요:
+───────────────────────────
+[입력 변수]
+───────────────────────────
+• 과목: ___ (예: 수학, 과학, 사회)
+• 주제/단원: ___
+• 학습 목표: ___ (이 형성평가가 측정하고자 하는 구체적 목표, 복수 가능)
+• 대상 학년: ___
+• 선수학습 내용: ___ (학생이 이미 학습한 관련 개념)
+• 일반적 오개념: ___ (해당 주제에서 학생들이 흔히 보이는 오개념 또는 오류 패턴)
+• 평가 시점: 수업 중 / 수업 후 / 단원 중간 점검
 
-A. 선다형 (5문항)
-- 각 문항에 4개 선택지
-- 정답과 오답별 해설
-- 해당 문항이 측정하는 인지 수준 (블룸 분류 기준)
+───────────────────────────
+[출력 구조]
+───────────────────────────
 
-B. 단답형 (3문항)
-- 예상 정답과 채점 기준
-- 부분 점수 기준
+## A. 선다형 문항 (Multiple Choice) - 6문항
 
-C. 서술형 (2문항)
-- 모범 답안
-- 채점 루브릭 (3단계)
+각 문항에 대해 다음을 포함하세요:
 
-D. 실생활 적용 문항 (2문항)
-- 실제 상황을 제시하고 개념 적용을 요구
-- 예시 답안과 평가 포인트
+### 문항 A-1
+- **문항**: (명확하고 간결한 질문)
+- **선택지**: ① ② ③ ④ (4지선다)
+- **정답**: ___
+- **인지 수준**: 블룸 분류 해당 단계 (기억/이해/적용/분석/평가/창조)
+- **난이도 추정**: 상/중/하 (예상 정답률: __%)
+- **오답 매력도 분석 (Distractor Analysis)**:
+  | 선택지 | 설계 의도 | 선택 시 시사하는 오개념 |
+  |--------|-----------|------------------------|
+  | ① | … | … |
+  | ② | … | … |
+  | ③(정답) | … | - |
+  | ④ | … | … |
+- **채점 및 해설**: 정답 근거와 각 오답이 왜 틀린지 교수학적 설명
+- **교수적 활용**: 이 문항 결과로 파악할 수 있는 학습 상태와 후속 지도 방향
 
-각 문항의 난이도를 상/중/하로 표시하고, 전체 문항의 난이도 분포가 하(30%)-중(50%)-상(20%)이 되도록 구성해주세요.`,
+(위 형식으로 A-2 ~ A-6까지 반복)
+
+## B. 단답형 문항 (Short Answer) - 4문항
+
+각 문항에 대해:
+- **문항**: (개방형 또는 제한적 응답 요구)
+- **인지 수준**: 블룸 분류 단계
+- **난이도 추정**: 상/중/하 (예상 정답률: __%)
+- **예상 정답**: (완전 정답 및 허용 가능한 변형 답안 목록)
+- **채점 가이드**:
+  | 점수 | 기준 | 예시 답안 |
+  |------|------|-----------|
+  | 만점(3) | … | … |
+  | 부분 점수(2) | … | … |
+  | 부분 점수(1) | … | … |
+  | 0점 | … | … |
+- **흔한 오답 패턴**: 학생들이 자주 보이는 오류 2-3개와 각각의 원인 분석
+
+## C. 서술형/논술형 문항 (Extended Response) - 2문항
+
+각 문항에 대해:
+- **문항**: (복합적 사고를 요구하는 개방형 질문)
+- **인지 수준**: 블룸 분류 상위 단계 (분석/평가/창조)
+- **난이도 추정**: 상/중/하
+- **모범 답안**: 상세하고 구조화된 답안
+- **채점 루브릭 (4단계)**:
+  | 평가 요소 | 우수(4) | 양호(3) | 보통(2) | 미흡(1) |
+  |-----------|---------|---------|---------|---------|
+  | 개념 이해 | … | … | … | … |
+  | 논리적 설명 | … | … | … | … |
+  | 적용/확장 | … | … | … | … |
+
+## D. 수행평가 과제 (Performance Task) - 2문항
+
+각 과제에 대해:
+- **과제 상황**: 실생활 맥락의 시나리오 (authentic context)
+- **과제 요구사항**: 학생이 수행해야 할 구체적 활동
+- **인지 수준**: 블룸 분류 상위 단계
+- **난이도 추정**: 상/중/하
+- **수행 기준**: 과제 완수의 구체적 기준
+- **채점 루브릭 (4단계)**: 과정과 결과를 모두 평가하는 루브릭
+- **예시 산출물**: 우수 수준의 예시 결과물 설명
+- **교수적 활용**: 이 과제를 통해 확인할 수 있는 역량과 후속 지도 전략
+
+## E. 문항 은행 종합 분석
+
+### 난이도 분포표
+| 난이도 | 문항 번호 | 비율 | 목표 비율 |
+|--------|-----------|------|-----------|
+| 하(쉬움) | … | ___% | 30% |
+| 중(보통) | … | ___% | 50% |
+| 상(어려움) | … | ___% | 20% |
+
+### 인지 수준 분포표
+| 블룸 단계 | 문항 번호 | 비율 |
+|-----------|-----------|------|
+| 기억 | … | ___% |
+| 이해 | … | ___% |
+| 적용 | … | ___% |
+| 분석 | … | ___% |
+| 평가 | … | ___% |
+| 창조 | … | ___% |
+
+### 학습목표-문항 매핑표 (Blueprint)
+| 학습 목표 | 관련 문항 | 문항 유형 | 인지 수준 |
+|-----------|-----------|-----------|-----------|
+| 목표 1 | … | … | … |
+| 목표 2 | … | … | … |
+
+## F. 오개념 진단 가이드
+- 각 오개념별로 해당 오개념을 포착할 수 있는 문항 목록
+- 오개념 확인 후 권장되는 교정 활동(remediation) 제안
+
+[품질 기준]
+- 모든 선다형 문항은 1정답 원칙 엄수 (논란의 여지 없는 명확한 정답)
+- 오답 매력도가 균형 잡히도록 설계 (하나의 오답에 응답이 쏠리지 않도록)
+- 문항 간 독립성 유지 (한 문항의 정답이 다른 문항의 힌트가 되지 않도록)
+- 성별, 문화, 사회경제적 편향이 없는 문항 작성 (DIF 고려)
+- 모든 문항은 교육과정 성취기준에 직접적으로 연계`,
       tags: ['형성평가', '문항개발', '평가'],
     },
     en: {
       title: 'Formative Assessment Question Bank Creator',
-      prompt: `You are an educational assessment expert. Generate a formative assessment question bank for the following topic.
+      prompt: `You are a senior item development specialist with over 15 years of professional experience in Educational Measurement & Evaluation.
+You possess deep understanding of item development principles from major assessment programs (e.g., PISA, TIMSS, AP, SAT) and are proficient in item quality analysis based on Classical Test Theory (CTT) and Item Response Theory (IRT).
+You specialize in designing formative assessment items that precisely diagnose student misconceptions and identify learning gaps, with a focus on the pedagogical function of formative assessment.
 
-[Subject]: ___
-[Topic/Unit]: ___
-[Learning Objective]: ___
-[Grade Level]: ___
+Generate a professional-grade formative assessment item bank for the following topic, with in-depth analysis for each item.
 
-Generate questions by type:
+───────────────────────────
+[Input Variables]
+───────────────────────────
+• Subject: ___ (e.g., Mathematics, Science, Social Studies)
+• Topic/Unit: ___
+• Learning Objectives: ___ (specific objectives this assessment measures; multiple allowed)
+• Grade Level: ___
+• Prerequisite Knowledge: ___ (related concepts students have already learned)
+• Common Misconceptions: ___ (frequent misconceptions or error patterns for this topic)
+• Assessment Timing: During lesson / After lesson / Mid-unit check
 
-A. Multiple Choice (5 questions)
-- 4 options per question
-- Explanation for correct answer and each distractor
-- Cognitive level measured (per Bloom's Taxonomy)
+───────────────────────────
+[Output Structure]
+───────────────────────────
 
-B. Short Answer (3 questions)
-- Expected answers and scoring criteria
-- Partial credit guidelines
+## A. Multiple Choice Items - 6 Items
 
-C. Extended Response (2 questions)
-- Model answer
-- Scoring rubric (3 levels)
+For each item, include:
 
-D. Real-world Application (2 questions)
-- Present authentic scenarios requiring concept application
-- Sample answers and evaluation points
+### Item A-1
+- **Stem**: (clear and concise question)
+- **Options**: (A) (B) (C) (D)
+- **Key**: ___
+- **Cognitive Level**: Bloom's level (Remember/Understand/Apply/Analyze/Evaluate/Create)
+- **Estimated Difficulty**: Easy/Medium/Hard (estimated correct response rate: __%)
+- **Distractor Analysis**:
+  | Option | Design Intent | Misconception Indicated if Selected |
+  |--------|--------------|-------------------------------------|
+  | (A) | … | … |
+  | (B) | … | … |
+  | (C) key | … | - |
+  | (D) | … | … |
+- **Scoring & Rationale**: Evidence for correct answer and pedagogical explanation for why each distractor is incorrect
+- **Instructional Use**: What this item reveals about student understanding and recommended follow-up instruction
 
-Mark difficulty level (Easy/Medium/Hard) for each item and ensure overall distribution is Easy (30%) - Medium (50%) - Hard (20%).`,
+(Repeat format for Items A-2 through A-6)
+
+## B. Short Answer Items - 4 Items
+
+For each item:
+- **Stem**: (open-ended or constrained response)
+- **Cognitive Level**: Bloom's level
+- **Estimated Difficulty**: Easy/Medium/Hard (estimated correct response rate: __%)
+- **Expected Answers**: (full-credit answer and acceptable variations)
+- **Scoring Guide**:
+  | Score | Criteria | Example Response |
+  |-------|----------|-----------------|
+  | Full (3) | … | … |
+  | Partial (2) | … | … |
+  | Partial (1) | … | … |
+  | Zero (0) | … | … |
+- **Common Error Patterns**: 2-3 frequent student errors with causal analysis for each
+
+## C. Extended Response Items - 2 Items
+
+For each item:
+- **Stem**: (open-ended question requiring complex thinking)
+- **Cognitive Level**: Bloom's upper levels (Analyze/Evaluate/Create)
+- **Estimated Difficulty**: Easy/Medium/Hard
+- **Model Answer**: Detailed, structured response
+- **Scoring Rubric (4-level)**:
+  | Dimension | Exemplary (4) | Proficient (3) | Developing (2) | Beginning (1) |
+  |-----------|---------------|-----------------|-----------------|----------------|
+  | Conceptual understanding | … | … | … | … |
+  | Logical explanation | … | … | … | … |
+  | Application/extension | … | … | … | … |
+
+## D. Performance Tasks - 2 Items
+
+For each task:
+- **Scenario**: Real-world, authentic context
+- **Task Requirements**: Specific activities students must perform
+- **Cognitive Level**: Bloom's upper levels
+- **Estimated Difficulty**: Easy/Medium/Hard
+- **Performance Criteria**: Specific standards for task completion
+- **Scoring Rubric (4-level)**: Evaluating both process and product
+- **Exemplar**: Description of an exemplary student product
+- **Instructional Use**: Competencies assessed and follow-up instructional strategies
+
+## E. Item Bank Summary Analysis
+
+### Difficulty Distribution
+| Difficulty | Item Numbers | Percentage | Target |
+|------------|-------------|------------|--------|
+| Easy | … | ___% | 30% |
+| Medium | … | ___% | 50% |
+| Hard | … | ___% | 20% |
+
+### Cognitive Level Distribution
+| Bloom's Level | Item Numbers | Percentage |
+|---------------|-------------|------------|
+| Remember | … | ___% |
+| Understand | … | ___% |
+| Apply | … | ___% |
+| Analyze | … | ___% |
+| Evaluate | … | ___% |
+| Create | … | ___% |
+
+### Assessment Blueprint (Objective-Item Mapping)
+| Learning Objective | Related Items | Item Type | Cognitive Level |
+|-------------------|---------------|-----------|-----------------|
+| Objective 1 | … | … | … |
+| Objective 2 | … | … | … |
+
+## F. Misconception Diagnostic Guide
+- For each misconception, list the items designed to detect it
+- Recommended remediation activities after misconception identification
+
+[Quality Constraints]
+- All MC items must have one unambiguous correct answer
+- Distractors must be balanced in attractiveness (no single distractor should dominate)
+- Items must be independent (answering one must not provide clues for another)
+- Items must be free from gender, cultural, and socioeconomic bias (DIF consideration)
+- All items must directly align with curriculum standards`,
       tags: ['Formative Assessment', 'Item Development', 'Evaluation'],
     },
   },

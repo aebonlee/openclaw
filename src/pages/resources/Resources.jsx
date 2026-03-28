@@ -855,6 +855,14 @@ export default function Resources() {
     setGalleryOpen(false);
   };
 
+  const handleQuizClick = () => {
+    setViewMode('prompt');
+    setPromptSection('quiz');
+    setActiveCategory(null);
+    setPromptOpen(false);
+    setGalleryOpen(false);
+  };
+
   return (
     <div className="ck-page">
       <SEOHead
@@ -970,11 +978,19 @@ export default function Resources() {
                 )}
               </div>
 
-              {/* 실습 & 퀴즈 (마지막 메뉴) */}
+              {/* 실습 */}
               <div className={`ck-nav-group ${viewMode === 'prompt' && promptSection === 'practice' ? 'active' : ''}`}>
                 <button className="ck-nav-parent ck-np--orange" onClick={handlePracticeClick}>
                   <span className="ck-np-icon"><i className="fa-solid fa-laptop-code" /></span>
-                  <span>{isKo ? '실습 & 퀴즈' : 'Practice & Quiz'}</span>
+                  <span>{isKo ? '실습' : 'Practice'}</span>
+                </button>
+              </div>
+
+              {/* 퀴즈 */}
+              <div className={`ck-nav-group ${viewMode === 'prompt' && promptSection === 'quiz' ? 'active' : ''}`}>
+                <button className="ck-nav-parent ck-np--green" onClick={handleQuizClick}>
+                  <span className="ck-np-icon"><i className="fa-solid fa-question-circle" /></span>
+                  <span>{isKo ? '퀴즈' : 'Quiz'}</span>
                 </button>
               </div>
             </div>
