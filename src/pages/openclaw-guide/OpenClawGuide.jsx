@@ -291,7 +291,7 @@ export default function OpenClawGuide() {
              ════════════════════════════════════════════════════════════════ */}
           {activeSection === 'slides' && (
             <div className="ck-content-box">
-              <div className="ck-content-header ck-ch--purple">
+              <div className="ck-content-header ck-ch--blue">
                 <i className="fa-solid fa-file-pdf" />
                 <div className="ck-ch-text" style={{ flex: 1 }}>
                   <h2>{isKo ? '학습 자료 : PT' : 'Slides : PT'}</h2>
