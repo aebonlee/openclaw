@@ -136,7 +136,7 @@ export default function Board() {
       <div className="container" style={{ paddingBottom: 60 }}>
 
         {/* Category Filters */}
-        <div className="board-category-filters">
+        <div className="board-category-filters" style={{ marginTop: 20 }}>
           {CATEGORIES.map(cat => (
             <button
               key={cat.id}
