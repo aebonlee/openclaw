@@ -1,0 +1,214 @@
+/* ============================================
+   OpenClaw - Intro Page
+   ============================================ */
+
+.intro-page {
+    display: flex;
+    min-height: 100vh;
+    padding-top: var(--nav-height);
+    background: var(--bg-light-gray);
+}
+
+.intro-sidebar {
+    width: 272px;
+    flex-shrink: 0;
+    background: var(--bg-white);
+    border-right: 1px solid var(--border-light);
+    position: sticky;
+    top: var(--nav-height);
+    height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
+}
+
+.intro-content {
+    flex: 1;
+    padding: 24px 32px 40px;
+    min-width: 0;
+    max-width: 900px;
+}
+
+/* ============================================
+   OpenClaw - EduHub Page
+   ============================================ */
+
+.edu-hub-page {
+    padding-top: var(--nav-height);
+    min-height: 100vh;
+    background: var(--bg-light-gray);
+}
+
+.edu-hub-hero {
+    padding: 48px 0 40px;
+    background: linear-gradient(135deg, rgba(27, 58, 107, 0.06), rgba(59, 130, 246, 0.04));
+    border-bottom: 1px solid var(--border-light);
+    text-align: center;
+}
+
+.edu-hub-hero h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+}
+
+.edu-hub-hero p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+}
+
+.edu-hub-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.edu-hub-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.edu-hub-stat i {
+    font-size: 20px;
+    color: var(--primary-blue);
+    margin-bottom: 4px;
+}
+
+.edu-hub-stat-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.edu-hub-stat-label {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+.edu-category-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    margin-top: 32px;
+}
+
+.edu-course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.edu-course-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    transition: var(--transition-base);
+}
+
+.edu-course-card:hover {
+    border-color: var(--primary-blue);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+}
+
+.edu-course-featured {
+    border-left: 3px solid var(--primary-blue);
+}
+
+.edu-course-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.edu-course-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+}
+
+.edu-course-cat {
+    font-size: 11px;
+    color: var(--text-light);
+}
+
+.edu-course-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.edu-course-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.edu-course-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   Section Header (shared)
+   ============================================ */
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ============================================
+   Responsive - Content Pages
+   ============================================ */
+
+@media (max-width: 768px) {
+    .intro-page {
+        flex-direction: column;
+    }
+    .intro-sidebar {
+        width: 100%;
+        position: relative;
+        top: auto;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+    }
+    .intro-content {
+        padding: 16px;
+    }
+
+    .edu-hub-hero {
+        padding: 32px 16px;
+    }
+    .edu-hub-hero h1 {
+        font-size: 22px;
+    }
+    .edu-hub-stats {
+        gap: 20px;
+    }
+    .edu-course-grid {
+        grid-template-columns: 1fr;
+    }
+    .edu-category-tabs {
+        gap: 6px;
+    }
+}
