@@ -3,7 +3,8 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 
 const SECTIONS = [
-  { id: 'overview', icon: 'fa-clipboard-list', ko: '강의 개요', en: 'Course Overview' },
+  { id: 'overview', icon: 'fa-clipboard-list', ko: 'OpenClaw 학습 개요', en: 'OpenClaw Learning Overview' },
+  { id: 'slides', icon: 'fa-file-pdf', ko: '학습 자료 : PT', en: 'Slides : PT' },
   { id: 'architecture', icon: 'fa-sitemap', ko: '시스템 구조', en: 'Architecture' },
   { id: 'install', icon: 'fa-download', ko: '설치와 실행', en: 'Installation' },
   { id: 'onboarding', icon: 'fa-play-circle', ko: '온보딩', en: 'Onboarding' },
@@ -281,6 +282,34 @@ export default function OpenClawGuide() {
                     </a>
                   </div>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* ════════════════════════════════════════════════════════════════
+              Section: Slides (PDF Viewer)
+             ════════════════════════════════════════════════════════════════ */}
+          {activeSection === 'slides' && (
+            <div className="ck-content-box">
+              <div className="ck-content-header ck-ch--purple">
+                <i className="fa-solid fa-file-pdf" />
+                <div className="ck-ch-text">
+                  <h2>{isKo ? '학습 자료 : PT' : 'Slides : PT'}</h2>
+                  <p>{isKo ? 'OpenClaw 강의 프레젠테이션 자료' : 'OpenClaw lecture presentation material'}</p>
+                </div>
+              </div>
+              <div className="ck-content-body" style={{ padding: 0 }}>
+                <iframe
+                  src="/files/openclaw_2603.pdf#toolbar=1&navpanes=0&scrollbar=1"
+                  style={{
+                    width: '100%',
+                    height: 'calc(100vh - 200px)',
+                    minHeight: 600,
+                    border: 'none',
+                    borderRadius: '0 0 12px 12px',
+                  }}
+                  title="OpenClaw PT"
+                />
               </div>
             </div>
           )}
