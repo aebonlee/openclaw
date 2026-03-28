@@ -43,7 +43,7 @@ export default function BoardWrite() {
       if (error) throw error;
 
       // Only allow editing own posts
-      if (data.author_id !== user?.id) {
+      if (data.user_id !== user?.id) {
         navigate('/community/board');
         return;
       }
@@ -88,9 +88,9 @@ export default function BoardWrite() {
             category,
             title: title.trim(),
             content: content.trim(),
-            author_id: user.id,
+            user_id: user.id,
             author_name: authorName,
-            view_count: 0,
+            views: 0,
             comment_count: 0,
           })
           .select('id')

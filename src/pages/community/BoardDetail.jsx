@@ -76,7 +76,7 @@ export default function BoardDetail() {
   }
 
   async function incrementViews() {
-    await supabase.rpc('increment_view_count', { post_id: id }).catch(() => {});
+    await supabase.from('teaching_board_posts').update({ views: (post?.views || 0) + 1 }).eq('id', id).catch(() => {});
   }
 
   async function handleAddComment(e) {
@@ -166,7 +166,7 @@ export default function BoardDetail() {
               <span>{new Date(post.created_at).toLocaleDateString(isKo ? 'ko-KR' : 'en-US', {
                 year: 'numeric', month: 'long', day: 'numeric'
               })}</span>
-              <span><i className="fa-regular fa-eye" style={{ marginRight: 4 }} />{post.view_count || 0}</span>
+              <span><i className="fa-regular fa-eye" style={{ marginRight: 4 }} />{post.views || 0}</span>
             </div>
           </div>
 

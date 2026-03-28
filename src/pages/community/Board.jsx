@@ -39,7 +39,7 @@ export default function Board() {
     try {
       let query = supabase
         .from('teaching_board_posts')
-        .select('id, title, category, author_name, created_at, view_count, comment_count', { count: 'exact' })
+        .select('id, title, category, author_name, created_at, views, comment_count', { count: 'exact' })
         .order('created_at', { ascending: false });
 
       if (category !== 'all') {
@@ -198,7 +198,7 @@ export default function Board() {
                 <div className="board-card-stats">
                   <span>
                     <i className="fa-regular fa-eye" style={{ marginRight: 4 }} />
-                    {post.view_count || 0}
+                    {post.views || 0}
                   </span>
                   <span>
                     <i className="fa-regular fa-comment" style={{ marginRight: 4 }} />
