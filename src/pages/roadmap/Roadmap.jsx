@@ -11,7 +11,7 @@ const DIFFICULTY_BADGE = {
 
 const TRACKS = [
   {
-    id: 'ai-ml', icon: 'fa-brain', color: '#8B5CF6',
+    id: 'ai-ml', icon: 'fa-brain', color: '#5B21B6',
     ko: { title: 'AI/ML 엔지니어', desc: '인공지능과 머신러닝 모델을 설계, 개발, 배포하는 엔지니어가 되기 위한 학습 경로' },
     en: { title: 'AI/ML Engineer', desc: 'Learning path to become an engineer who designs, develops, and deploys AI and ML models' },
     steps: [
@@ -24,7 +24,7 @@ const TRACKS = [
     ],
   },
   {
-    id: 'data-science', icon: 'fa-chart-line', color: '#10B981',
+    id: 'data-science', icon: 'fa-chart-line', color: '#065F46',
     ko: { title: '데이터 사이언스', desc: '데이터에서 인사이트를 도출하고 비즈니스 문제를 해결하는 학습 경로' },
     en: { title: 'Data Science', desc: 'Learning path for deriving insights from data and solving business problems' },
     steps: [
@@ -37,7 +37,7 @@ const TRACKS = [
     ],
   },
   {
-    id: 'web-dev', icon: 'fa-code', color: '#3B82F6',
+    id: 'web-dev', icon: 'fa-code', color: '#1E3A5F',
     ko: { title: '웹 개발', desc: '프론트엔드부터 백엔드까지 풀스택 웹 개발자가 되기 위한 학습 경로' },
     en: { title: 'Web Development', desc: 'Learning path to become a full-stack web developer from frontend to backend' },
     steps: [
@@ -50,7 +50,7 @@ const TRACKS = [
     ],
   },
   {
-    id: 'prompt-eng', icon: 'fa-wand-magic-sparkles', color: '#F59E0B',
+    id: 'prompt-eng', icon: 'fa-wand-magic-sparkles', color: '#92400E',
     ko: { title: '프롬프트 엔지니어링', desc: 'AI와 효과적으로 소통하고 원하는 결과를 얻는 프롬프트 엔지니어 학습 경로' },
     en: { title: 'Prompt Engineering', desc: 'Learning path to effectively communicate with AI and get desired results' },
     steps: [
