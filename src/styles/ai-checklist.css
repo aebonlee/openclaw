@@ -21,7 +21,7 @@
    Sidebar
    ============================================ */
 .ck-sidebar {
-  width: 272px; flex-shrink: 0;
+  width: 232px; flex-shrink: 0;
   background: var(--bg-white); border-right: 1px solid var(--border-light);
   position: sticky; top: var(--nav-height); height: calc(100vh - var(--nav-height));
   overflow-y: auto; overflow-x: hidden;
