@@ -77,10 +77,10 @@ export default function Home() {
       {/* Quick Navigation Cards */}
       <section style={{ padding: '64px 0', background: 'var(--bg-white)' }}>
         <div className="container">
-          <h2 className="section-title" style={{ marginBottom: 8 }}>
+          <h2 className="section-title" style={{ marginBottom: 6, textAlign: 'left' }}>
             {isKo ? '무엇을 학습하시겠습니까?' : 'What would you like to learn?'}
           </h2>
-          <p className="section-subtitle" style={{ marginBottom: 40 }}>
+          <p className="section-subtitle" style={{ marginBottom: 36, textAlign: 'left', margin: '0 0 36px 0' }}>
             {isKo ? 'OpenClaw의 모든 학습 콘텐츠를 탐색하세요' : 'Explore all learning content on OpenClaw'}
           </p>
           <div style={{
@@ -161,10 +161,10 @@ export default function Home() {
       {/* Workflow Section */}
       <section style={{ padding: '64px 0', background: 'var(--bg-white)' }}>
         <div className="container">
-          <h2 className="section-title" style={{ marginBottom: 8 }}>
+          <h2 className="section-title" style={{ marginBottom: 6, textAlign: 'left' }}>
             {isKo ? '학습 프로세스' : 'Learning Process'}
           </h2>
-          <p className="section-subtitle" style={{ marginBottom: 40 }}>
+          <p className="section-subtitle" style={{ marginBottom: 36, textAlign: 'left', margin: '0 0 36px 0' }}>
             {isKo ? '4단계로 완성하는 체계적 학습' : 'Systematic learning in 4 steps'}
           </p>
           <div style={{
@@ -209,10 +209,10 @@ export default function Home() {
       {/* Features Section */}
       <section style={{ padding: '64px 0', background: 'var(--bg-light-gray)' }}>
         <div className="container">
-          <h2 className="section-title" style={{ marginBottom: 8 }}>
+          <h2 className="section-title" style={{ marginBottom: 6, textAlign: 'left' }}>
             {t('features.title')}
           </h2>
-          <p className="section-subtitle" style={{ marginBottom: 40 }}>
+          <p className="section-subtitle" style={{ marginBottom: 36, textAlign: 'left', margin: '0 0 36px 0' }}>
             {t('features.subtitle')}
           </p>
           <div style={{
