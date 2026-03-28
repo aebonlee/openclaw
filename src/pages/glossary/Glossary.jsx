@@ -338,6 +338,7 @@ export default function Glossary() {
   const [quizAnswers, setQuizAnswers] = useState({});
   const [showQuizResults, setShowQuizResults] = useState(false);
   const [quizSeed, setQuizSeed] = useState(0);
+  const [quizRound, setQuizRound] = useState(1); // 1, 2, 3
   const PAGE_SIZE = 5;
   const isKo = language === 'ko';
 
@@ -358,19 +359,26 @@ export default function Glossary() {
   const totalPages = Math.ceil(sortedTerms.length / PAGE_SIZE);
   const pagedTerms = sortedTerms.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
+  const ROUND_CONFIG = {
+    1: { ko: '기초', en: 'Basic', cats: ['ai-basic'], color: '#3B82F6', count: 10 },
+    2: { ko: '중급', en: 'Intermediate', cats: ['ai-basic', 'ml', 'dl'], color: '#F59E0B', count: 10 },
+    3: { ko: '고급', en: 'Advanced', cats: ['ml', 'dl', 'programming', 'data'], color: '#EF4444', count: 10 },
+  };
+
   const quizData = useMemo(() => {
-    const shuffled = [...GLOSSARY_TERMS].sort(() => 0.5 - Math.random()).slice(0, 10);
-    return shuffled.map((term, idx) => {
-      const wrongDefs = GLOSSARY_TERMS
-        .filter(t => t.term !== term.term)
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 3)
-        .map(t => isKo ? t.ko.def.slice(0, 80) : t.en.def.slice(0, 80));
-      const correctDef = isKo ? term.ko.def.slice(0, 80) : term.en.def.slice(0, 80);
+    const cfg = ROUND_CONFIG[quizRound];
+    const pool = GLOSSARY_TERMS.filter(t => cfg.cats.includes(t.cat));
+    const selected = [...pool].sort(() => 0.5 - Math.random()).slice(0, cfg.count);
+    return selected.map((term, idx) => {
+      const sameCatTerms = GLOSSARY_TERMS.filter(t => t.term !== term.term && t.cat === term.cat);
+      const otherTerms = GLOSSARY_TERMS.filter(t => t.term !== term.term && t.cat !== term.cat);
+      const wrongPool = [...sameCatTerms, ...otherTerms].sort(() => 0.5 - Math.random()).slice(0, 3);
+      const wrongDefs = wrongPool.map(t => isKo ? t.ko.def : t.en.def);
+      const correctDef = isKo ? term.ko.def : term.en.def;
       const options = [...wrongDefs, correctDef].sort(() => 0.5 - Math.random());
-      return { id: idx, term: term.term, enTerm: term.enTerm, correct: correctDef, options };
+      return { id: idx, term: term.term, enTerm: term.enTerm, correct: correctDef, options, cat: term.cat };
     });
-  }, [quizSeed, isKo]);
+  }, [quizSeed, quizRound, isKo]);
 
   const handleCategoryChange = (catId) => {
     setActiveCategory(catId);
@@ -458,91 +466,175 @@ export default function Glossary() {
       {/* Main Content */}
       <div className="ck-main">
         {viewMode === 'quiz' && (() => {
+          const cfg = ROUND_CONFIG[quizRound];
           const score = quizData.filter((q, i) => quizAnswers[i] === q.correct).length;
+          const answered = Object.keys(quizAnswers).length;
           return (
             <section className="ck-content-box">
-              <div className="ck-content-header" style={{ background: 'linear-gradient(135deg, #065F46, #059669)', color: '#fff' }}>
+              <div className="ck-content-header" style={{ background: `linear-gradient(135deg, #065F46, #059669)`, color: '#fff' }}>
                 <i className="fa-solid fa-brain" style={{ color: '#fff' }} />
                 <div className="ck-ch-text">
                   <h2 style={{ color: '#fff' }}>{isKo ? 'AI 용어 퀴즈' : 'AI Term Quiz'}</h2>
-                  <p style={{ color: 'rgba(255,255,255,0.8)' }}>{isKo ? '용어의 정의를 맞춰보세요! 10문제' : 'Match the definitions! 10 questions'}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.8)' }}>{isKo ? '용어의 정의를 맞춰보세요!' : 'Match the definitions!'}</p>
                 </div>
               </div>
               <div className="ck-content-body">
+                {/* Round Selector */}
+                <div style={{ display: 'flex', gap: 10, marginBottom: 24, flexWrap: 'wrap' }}>
+                  {[1, 2, 3].map(r => {
+                    const rc = ROUND_CONFIG[r];
+                    const isActive = quizRound === r;
+                    return (
+                      <button
+                        key={r}
+                        onClick={() => { setQuizRound(r); setQuizAnswers({}); setShowQuizResults(false); setQuizSeed(s => s + 1); }}
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: 8,
+                          padding: '10px 20px', borderRadius: 10, fontSize: 14, fontWeight: 700,
+                          background: isActive ? rc.color : 'var(--bg-light-gray)',
+                          color: isActive ? '#fff' : 'var(--text-secondary)',
+                          border: isActive ? 'none' : '1px solid var(--border-light)',
+                          cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s ease',
+                        }}
+                      >
+                        <span style={{
+                          width: 24, height: 24, borderRadius: '50%', display: 'flex',
+                          alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800,
+                          background: isActive ? 'rgba(255,255,255,0.25)' : 'var(--border-light)',
+                          color: isActive ? '#fff' : 'var(--text-light)',
+                        }}>{r}</span>
+                        {isKo ? rc.ko : rc.en}
+                        <span style={{ fontSize: 11, opacity: 0.7 }}>
+                          ({r === 1 ? (isKo ? 'AI기초' : 'AI Basics') : r === 2 ? (isKo ? 'AI+ML+DL' : 'AI+ML+DL') : (isKo ? '전 분야' : 'All Fields')})
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
                 {showQuizResults ? (
-                  <div style={{ textAlign: 'center', padding: '32px 0' }}>
+                  <div style={{ textAlign: 'center', padding: '24px 0' }}>
                     <div style={{ fontSize: 56, fontWeight: 800, color: score >= 8 ? '#059669' : score >= 5 ? '#3B82F6' : '#EF4444' }}>
-                      {score}/10
+                      {score}/{cfg.count}
                     </div>
-                    <p style={{ fontSize: 16, color: 'var(--text-secondary)', margin: '12px 0 24px' }}>
+                    <p style={{ fontSize: 16, color: 'var(--text-secondary)', margin: '12px 0 8px' }}>
                       {score >= 8
                         ? (isKo ? 'AI 용어 마스터! 훌륭합니다!' : 'AI Term Master! Excellent!')
                         : score >= 5
-                        ? (isKo ? '좋습니다! 용어사전을 더 학습해보세요.' : 'Good! Study the glossary more.')
+                        ? (isKo ? '좋습니다! 조금 더 학습하면 완벽해질 거예요.' : 'Good! A bit more study and you\'ll be perfect.')
                         : (isKo ? '용어사전을 복습해보세요.' : 'Review the glossary.')}
                     </p>
-                    <button
-                      onClick={() => { setShowQuizResults(false); setQuizAnswers({}); setQuizSeed(s => s + 1); }}
-                      style={{
-                        padding: '10px 28px', borderRadius: 8, fontSize: 14, fontWeight: 600,
-                        background: '#065F46', color: '#fff', border: 'none', cursor: 'pointer',
-                      }}
-                    >
-                      {isKo ? '다시 도전' : 'Try Again'}
-                    </button>
+                    <p style={{ fontSize: 13, color: 'var(--text-light)', marginBottom: 24 }}>
+                      {isKo ? `${isKo ? cfg.ko : cfg.en} 라운드` : `${cfg.en} Round`}
+                    </p>
+
+                    {/* Answer Review */}
+                    <div style={{ textAlign: 'left', marginBottom: 24 }}>
+                      {quizData.map((q, idx) => {
+                        const isCorrect = quizAnswers[idx] === q.correct;
+                        return (
+                          <div key={idx} style={{
+                            padding: 16, marginBottom: 10, borderRadius: 10,
+                            border: `1px solid ${isCorrect ? '#D1FAE5' : '#FEE2E2'}`,
+                            background: isCorrect ? '#F0FDF4' : '#FEF2F2',
+                          }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                              <i className={`fa-solid ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}`}
+                                style={{ color: isCorrect ? '#059669' : '#EF4444', fontSize: 16 }} />
+                              <strong style={{ fontSize: 14 }}>{q.term}</strong>
+                              <span style={{ fontSize: 12, color: 'var(--text-light)', fontStyle: 'italic' }}>{q.enTerm}</span>
+                            </div>
+                            <p style={{ fontSize: 13, color: 'var(--text-primary)', lineHeight: 1.6, margin: 0 }}>
+                              {q.correct}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+                      <button
+                        onClick={() => { setShowQuizResults(false); setQuizAnswers({}); setQuizSeed(s => s + 1); }}
+                        style={{
+                          padding: '10px 28px', borderRadius: 8, fontSize: 14, fontWeight: 600,
+                          background: '#065F46', color: '#fff', border: 'none', cursor: 'pointer',
+                        }}
+                      >
+                        {isKo ? '같은 난이도 다시 도전' : 'Retry Same Level'}
+                      </button>
+                      {quizRound < 3 && (
+                        <button
+                          onClick={() => { setQuizRound(r => r + 1); setQuizAnswers({}); setShowQuizResults(false); setQuizSeed(s => s + 1); }}
+                          style={{
+                            padding: '10px 28px', borderRadius: 8, fontSize: 14, fontWeight: 600,
+                            background: ROUND_CONFIG[quizRound + 1].color, color: '#fff', border: 'none', cursor: 'pointer',
+                          }}
+                        >
+                          {isKo ? `다음 난이도 (${ROUND_CONFIG[quizRound + 1].ko})` : `Next Level (${ROUND_CONFIG[quizRound + 1].en})`}
+                        </button>
+                      )}
+                    </div>
                   </div>
                 ) : (
                   <>
-                    {quizData.map((q, idx) => (
-                      <div key={idx} style={{
-                        padding: 20, marginBottom: 16, borderRadius: 12,
-                        border: '1px solid var(--border-light)', background: 'var(--bg-white)',
-                      }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-                          <span style={{
-                            width: 28, height: 28, borderRadius: '50%', background: '#065F46', color: '#fff',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: 13, fontWeight: 700, flexShrink: 0,
-                          }}>{idx + 1}</span>
-                          <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
-                            {q.term}
-                          </h3>
-                          <span style={{ fontSize: 12, color: 'var(--text-light)', fontStyle: 'italic' }}>{q.enTerm}</span>
+                    {quizData.map((q, idx) => {
+                      const catBadge = getCategoryBadge(q.cat);
+                      const catLabel = CATEGORIES.find(c => c.id === q.cat);
+                      return (
+                        <div key={idx} style={{
+                          padding: 20, marginBottom: 16, borderRadius: 12,
+                          border: '1px solid var(--border-light)', background: 'var(--bg-white)',
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+                            <span style={{
+                              width: 28, height: 28, borderRadius: '50%', background: cfg.color, color: '#fff',
+                              display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              fontSize: 13, fontWeight: 700, flexShrink: 0,
+                            }}>{idx + 1}</span>
+                            <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
+                              {q.term}
+                            </h3>
+                            <span style={{ fontSize: 12, color: 'var(--text-light)', fontStyle: 'italic' }}>{q.enTerm}</span>
+                            <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: catBadge.bg, color: catBadge.color, fontWeight: 600, marginLeft: 'auto' }}>
+                              {catLabel ? (isKo ? catLabel.ko : catLabel.en) : ''}
+                            </span>
+                          </div>
+                          <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 12 }}>
+                            {isKo ? '이 용어의 올바른 설명을 선택하세요.' : 'Select the correct definition.'}
+                          </p>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                            {q.options.map((opt, oi) => (
+                              <button
+                                key={oi}
+                                onClick={() => setQuizAnswers(prev => ({ ...prev, [idx]: opt }))}
+                                style={{
+                                  padding: '12px 16px', borderRadius: 10, fontSize: 13, textAlign: 'left',
+                                  lineHeight: 1.6,
+                                  border: quizAnswers[idx] === opt ? `2px solid ${cfg.color}` : '1px solid var(--border-light)',
+                                  background: quizAnswers[idx] === opt ? `${cfg.color}08` : 'var(--bg-white)',
+                                  color: 'var(--text-primary)', cursor: 'pointer', fontFamily: 'inherit',
+                                  fontWeight: quizAnswers[idx] === opt ? 600 : 400,
+                                }}
+                              >
+                                {opt}
+                              </button>
+                            ))}
+                          </div>
                         </div>
-                        <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 12 }}>
-                          {isKo ? '이 용어의 올바른 설명은?' : 'What is the correct definition?'}
-                        </p>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                          {q.options.map((opt, oi) => (
-                            <button
-                              key={oi}
-                              onClick={() => setQuizAnswers(prev => ({ ...prev, [idx]: opt }))}
-                              style={{
-                                padding: '10px 14px', borderRadius: 8, fontSize: 13, textAlign: 'left',
-                                border: quizAnswers[idx] === opt ? '2px solid #065F46' : '1px solid var(--border-light)',
-                                background: quizAnswers[idx] === opt ? 'rgba(6,95,70,0.06)' : 'var(--bg-white)',
-                                color: 'var(--text-primary)', cursor: 'pointer', fontFamily: 'inherit',
-                                fontWeight: quizAnswers[idx] === opt ? 600 : 400,
-                              }}
-                            >
-                              {opt}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                     <div style={{ textAlign: 'center', marginTop: 8 }}>
                       <button
                         onClick={() => setShowQuizResults(true)}
-                        disabled={Object.keys(quizAnswers).length < 10}
+                        disabled={answered < cfg.count}
                         style={{
                           padding: '12px 36px', borderRadius: 10, fontSize: 15, fontWeight: 700,
-                          background: Object.keys(quizAnswers).length < 10 ? 'var(--border-light)' : '#065F46',
-                          color: Object.keys(quizAnswers).length < 10 ? 'var(--text-light)' : '#fff',
-                          border: 'none', cursor: Object.keys(quizAnswers).length < 10 ? 'not-allowed' : 'pointer',
+                          background: answered < cfg.count ? 'var(--border-light)' : cfg.color,
+                          color: answered < cfg.count ? 'var(--text-light)' : '#fff',
+                          border: 'none', cursor: answered < cfg.count ? 'not-allowed' : 'pointer',
                         }}
                       >
-                        {isKo ? `결과 확인 (${Object.keys(quizAnswers).length}/10)` : `Check Results (${Object.keys(quizAnswers).length}/10)`}
+                        {isKo ? `결과 확인 (${answered}/${cfg.count})` : `Check Results (${answered}/${cfg.count})`}
                       </button>
                     </div>
                   </>
