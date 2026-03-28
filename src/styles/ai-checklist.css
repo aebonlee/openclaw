@@ -15,7 +15,7 @@
 .ck-mobile-toggle span { margin-left: 6px; }
 
 /* Layout */
-.ck-layout { display: flex; min-height: calc(100vh - var(--nav-height)); max-width: var(--container-max); margin: 0 auto; }
+.ck-layout { display: flex; min-height: calc(100vh - var(--nav-height)); max-width: var(--container-max); margin: 0 auto; padding: 0 40px; }
 
 /* ============================================
    Sidebar
