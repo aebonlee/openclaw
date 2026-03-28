@@ -279,7 +279,7 @@ export default function PromptPractice() {
   const [quizAnswers, setQuizAnswers] = useState(Array(5).fill(-1));
   const [showQuizResults, setShowQuizResults] = useState(false);
   const [promptInput, setPromptInput] = useState('');
-  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(true);
   const [galleryCategory, setGalleryCategory] = useState('all');
 
   const quizQuestions = isKo ? QUIZ_QUESTIONS.ko : QUIZ_QUESTIONS.en;
