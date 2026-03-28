@@ -116,16 +116,24 @@ export default function Board() {
   };
 
   return (
-    <div className="community-page">
+    <div className="edu-hub-page">
       <SEOHead
         title={t('community.title')}
         description={isKo ? 'OpenClaw 커뮤니티 게시판' : 'OpenClaw Community Board'}
         path="/community/board"
       />
 
-      <div className="container">
-        <h1>{t('community.title')}</h1>
-        <p className="page-desc">{isKo ? '함께 배우고 성장하는 OpenClaw 학습 커뮤니티' : 'OpenClaw learning community - learn and grow together'}</p>
+      <div className="edu-hub-hero">
+        <div className="container">
+          <h1>
+            <i className="fa-solid fa-users" style={{ marginRight: 12 }} />
+            {t('community.title')}
+          </h1>
+          <p>{isKo ? '함께 배우고 성장하는 OpenClaw 학습 커뮤니티' : 'OpenClaw learning community - learn and grow together'}</p>
+        </div>
+      </div>
+
+      <div className="container" style={{ paddingBottom: 60 }}>
 
         {/* Category Filters */}
         <div className="board-category-filters">
