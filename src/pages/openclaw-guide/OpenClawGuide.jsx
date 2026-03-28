@@ -144,13 +144,43 @@ export default function OpenClawGuide() {
           </div>
           <nav className="ck-sb-nav">
             {SECTIONS.map(sec => (
-              <button
-                key={sec.id}
-                className={`ck-nav-child ${activeSection === sec.id ? 'active' : ''}`}
-                onClick={() => setActiveSection(sec.id)}
-              >
-                <span>{isKo ? sec.ko : sec.en}</span>
-              </button>
+              sec.id === 'slides' ? (
+                <button
+                  key={sec.id}
+                  className={`ck-nav-child ${activeSection === sec.id ? 'active' : ''}`}
+                  onClick={() => setActiveSection(sec.id)}
+                  style={{
+                    margin: '8px 8px',
+                    padding: '10px 14px',
+                    borderRadius: 10,
+                    background: activeSection === sec.id
+                      ? 'linear-gradient(135deg, #1B3A6B, #2d5aa0)'
+                      : 'linear-gradient(135deg, rgba(27,58,107,0.08), rgba(45,90,160,0.05))',
+                    color: activeSection === sec.id ? '#fff' : 'var(--primary-blue)',
+                    fontWeight: 700,
+                    border: activeSection === sec.id ? 'none' : '1px solid rgba(27,58,107,0.15)',
+                    borderRight: activeSection === sec.id ? 'none' : '1px solid rgba(27,58,107,0.15)',
+                  }}
+                >
+                  <i className="fa-solid fa-file-pdf" style={{ marginRight: 6, fontSize: 12 }} />
+                  <span>{isKo ? sec.ko : sec.en}</span>
+                  <span style={{
+                    marginLeft: 'auto', fontSize: 10, fontWeight: 600,
+                    background: activeSection === sec.id ? 'rgba(255,255,255,0.2)' : 'rgba(27,58,107,0.1)',
+                    padding: '2px 6px', borderRadius: 4,
+                  }}>
+                    PDF
+                  </span>
+                </button>
+              ) : (
+                <button
+                  key={sec.id}
+                  className={`ck-nav-child ${activeSection === sec.id ? 'active' : ''}`}
+                  onClick={() => setActiveSection(sec.id)}
+                >
+                  <span>{isKo ? sec.ko : sec.en}</span>
+                </button>
+              )
             ))}
           </nav>
         </aside>
