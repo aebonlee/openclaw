@@ -37,7 +37,7 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const themeIcon = mode === 'auto' ? '◑' : mode === 'light' ? '☀️' : '🌙';
+  const themeIconClass = mode === 'auto' ? 'fa-circle-half-stroke' : mode === 'light' ? 'fa-sun' : 'fa-moon';
   const displayName = profile?.display_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || '';
   const avatarLetter = displayName.charAt(0).toUpperCase();
 
@@ -97,7 +97,7 @@ export default function Navbar() {
             </div>
 
             <button className="theme-toggle" onClick={toggleTheme} title={mode}>
-              {themeIcon}
+              <i className={`fa-solid ${themeIconClass}`} />
             </button>
 
             <button className="lang-toggle" onClick={toggleLanguage}>
@@ -116,11 +116,11 @@ export default function Navbar() {
                   </div>
                   {isAdmin && (
                     <Link to="/admin" className="user-menu-item" onClick={() => setShowUserMenu(false)}>
-                      🛡️ {t('nav.admin')}
+                      <i className="fa-solid fa-shield-halved" /> {t('nav.admin')}
                     </Link>
                   )}
                   <button className="user-menu-item danger" onClick={handleSignOut}>
-                    🚪 {t('nav.logout')}
+                    <i className="fa-solid fa-right-from-bracket" /> {t('nav.logout')}
                   </button>
                 </div>
               </div>

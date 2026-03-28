@@ -31,7 +31,7 @@ export function ToastProvider({ children }) {
         {toasts.map(toast => (
           <div key={toast.id} className={`toast ${toast.type}`}>
             <span className="toast-icon">
-              {toast.type === 'success' ? '✓' : toast.type === 'error' ? '✕' : toast.type === 'warning' ? '⚠' : 'ℹ'}
+              <i className={`fa-solid ${toast.type === 'success' ? 'fa-check' : toast.type === 'error' ? 'fa-xmark' : toast.type === 'warning' ? 'fa-triangle-exclamation' : 'fa-circle-info'}`} />
             </span>
             <div className="toast-content">
               <span className="toast-message">{toast.message}</span>

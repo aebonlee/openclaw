@@ -30,7 +30,7 @@ export default function Footer() {
           <div className="footer-contact">
             <h4>{language === 'ko' ? '연락처' : 'Contact'}</h4>
             <p className="footer-email">
-              <span className="footer-email-icon">✉️</span>
+              <span className="footer-email-icon"><i className="fa-solid fa-envelope" /></span>
               <a href="mailto:aebon@dreamitbiz.com">aebon@dreamitbiz.com</a>
             </p>
             <p>010-3700-0629</p>
