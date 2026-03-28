@@ -193,6 +193,7 @@ FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 -- 10. check_user_status RPC (계정 상태 확인)
 -- ============================================
 
+DROP FUNCTION IF EXISTS check_user_status(UUID, TEXT);
 CREATE OR REPLACE FUNCTION check_user_status(target_user_id UUID, current_domain TEXT)
 RETURNS JSON AS $$
 DECLARE
