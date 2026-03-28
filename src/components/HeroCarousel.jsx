@@ -46,9 +46,8 @@ export default function HeroCarousel() {
             <i className="fa-solid fa-wand-magic-sparkles" /> {t('hero.badge')}
           </div>
           <h1 className="hero-title">
-            {t('hero.title')}{' '}
+            {t('hero.title')}
             <span className="highlight">{t('hero.titleHighlight')}</span>
-            {t('hero.titleSuffix')}
           </h1>
           <p className="hero-description">
             {t('hero.description')}
