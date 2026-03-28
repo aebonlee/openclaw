@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, lazy, Suspense } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
+
+const PromptPracticeEmbed = lazy(() => import('../prompt-practice/PromptPractice'));
+const GalleryContent = lazy(() => import('../prompt-gallery/PromptGallery').then(m => ({ default: m.GalleryContent })));
 
 const CATEGORIES = [
   {
@@ -807,6 +809,10 @@ export default function Resources() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [promptOpen, setPromptOpen] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
+  // viewMode: 'resource' | 'prompt-basics' | 'prompt-advanced' | 'prompt-practice' | 'gallery'
+  const [viewMode, setViewMode] = useState('resource');
+  const [galleryCategory, setGalleryCategory] = useState('all');
+  const [promptSection, setPromptSection] = useState('basics');
 
   const currentCategory = CATEGORIES.find(c => c.id === activeCategory);
   const topicContent = TOPIC_CONTENT[activeTopic];
@@ -814,6 +820,22 @@ export default function Resources() {
   const handleTopicChange = (catId, topicId) => {
     setActiveCategory(catId);
     setActiveTopic(topicId);
+    setViewMode('resource');
+  };
+
+  const handlePromptClick = (section) => {
+    setViewMode('prompt');
+    setPromptSection(section);
+  };
+
+  const handleGalleryClick = (cat) => {
+    setViewMode('gallery');
+    setGalleryCategory(cat);
+  };
+
+  const handlePracticeClick = () => {
+    setViewMode('prompt');
+    setPromptSection('practice');
   };
 
   return (
@@ -885,16 +907,16 @@ export default function Resources() {
                 {promptOpen && (
                   <ul className="ck-nav-children">
                     <li>
-                      <Link to="/prompt-practice" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                      <button className={`ck-nav-child ${viewMode === 'prompt' && promptSection === 'basics' ? 'active' : ''}`} onClick={() => handlePromptClick('basics')}>
                         <span className="ck-nc-icon"><i className="fa-solid fa-pen" /></span>
                         <span>{isKo ? '기본 프롬프트' : 'Basic Prompts'}</span>
-                      </Link>
+                      </button>
                     </li>
                     <li>
-                      <Link to="/prompt-practice" className="ck-nav-child" style={{ textDecoration: 'none' }}>
+                      <button className={`ck-nav-child ${viewMode === 'prompt' && promptSection === 'advanced' ? 'active' : ''}`} onClick={() => handlePromptClick('advanced')}>
                         <span className="ck-nc-icon"><i className="fa-solid fa-wand-magic-sparkles" /></span>
                         <span>{isKo ? '고급 기법' : 'Advanced'}</span>
-                      </Link>
+                      </button>
                     </li>
                   </ul>
                 )}
@@ -912,70 +934,34 @@ export default function Resources() {
                 </button>
                 {galleryOpen && (
                   <ul className="ck-nav-children">
-                    <li>
-                      <Link to="/prompt-gallery" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                        <span className="ck-nc-icon"><i className="fa-solid fa-border-all" /></span>
-                        <span>{isKo ? '전체' : 'All'}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/prompt-gallery?cat=education" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                        <span className="ck-nc-icon"><i className="fa-solid fa-graduation-cap" /></span>
-                        <span>{isKo ? '교육/학습' : 'Education'}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/prompt-gallery?cat=coding" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                        <span className="ck-nc-icon"><i className="fa-solid fa-code" /></span>
-                        <span>{isKo ? '코딩/개발' : 'Coding'}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/prompt-gallery?cat=writing" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                        <span className="ck-nc-icon"><i className="fa-solid fa-pen-fancy" /></span>
-                        <span>{isKo ? '글쓰기/콘텐츠' : 'Writing'}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/prompt-gallery?cat=business" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                        <span className="ck-nc-icon"><i className="fa-solid fa-briefcase" /></span>
-                        <span>{isKo ? '비즈니스' : 'Business'}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/prompt-gallery?cat=data" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                        <span className="ck-nc-icon"><i className="fa-solid fa-chart-bar" /></span>
-                        <span>{isKo ? '데이터 분석' : 'Data'}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/prompt-gallery?cat=creative" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                        <span className="ck-nc-icon"><i className="fa-solid fa-lightbulb" /></span>
-                        <span>{isKo ? '창작/아이디어' : 'Creative'}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/prompt-gallery?cat=research" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                        <span className="ck-nc-icon"><i className="fa-solid fa-flask" /></span>
-                        <span>{isKo ? '연구/분석' : 'Research'}</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/prompt-gallery?cat=productivity" className="ck-nav-child" style={{ textDecoration: 'none' }}>
-                        <span className="ck-nc-icon"><i className="fa-solid fa-rocket" /></span>
-                        <span>{isKo ? '업무 생산성' : 'Productivity'}</span>
-                      </Link>
-                    </li>
+                    {[
+                      { id: 'all', icon: 'fa-border-all', ko: '전체', en: 'All' },
+                      { id: 'education', icon: 'fa-graduation-cap', ko: '교육/학습', en: 'Education' },
+                      { id: 'coding', icon: 'fa-code', ko: '코딩/개발', en: 'Coding' },
+                      { id: 'writing', icon: 'fa-pen-fancy', ko: '글쓰기/콘텐츠', en: 'Writing' },
+                      { id: 'business', icon: 'fa-briefcase', ko: '비즈니스', en: 'Business' },
+                      { id: 'data', icon: 'fa-chart-bar', ko: '데이터 분석', en: 'Data' },
+                      { id: 'creative', icon: 'fa-lightbulb', ko: '창작/아이디어', en: 'Creative' },
+                      { id: 'research', icon: 'fa-flask', ko: '연구/분석', en: 'Research' },
+                      { id: 'productivity', icon: 'fa-rocket', ko: '업무 생산성', en: 'Productivity' },
+                    ].map(cat => (
+                      <li key={cat.id}>
+                        <button className={`ck-nav-child ${viewMode === 'gallery' && galleryCategory === cat.id ? 'active' : ''}`} onClick={() => handleGalleryClick(cat.id)}>
+                          <span className="ck-nc-icon"><i className={`fa-solid ${cat.icon}`} /></span>
+                          <span>{isKo ? cat.ko : cat.en}</span>
+                        </button>
+                      </li>
+                    ))}
                   </ul>
                 )}
               </div>
 
               {/* 실습 & 퀴즈 (마지막 메뉴) */}
-              <div className="ck-nav-group">
-                <Link to="/prompt-practice" className="ck-nav-parent ck-np--orange" style={{ textDecoration: 'none' }}>
+              <div className={`ck-nav-group ${viewMode === 'prompt' && promptSection === 'practice' ? 'active' : ''}`}>
+                <button className="ck-nav-parent ck-np--orange" onClick={handlePracticeClick}>
                   <span className="ck-np-icon"><i className="fa-solid fa-laptop-code" /></span>
                   <span>{isKo ? '실습 & 퀴즈' : 'Practice & Quiz'}</span>
-                </Link>
+                </button>
               </div>
             </div>
           </nav>
@@ -983,57 +969,72 @@ export default function Resources() {
 
         {/* Main Content */}
         <div className="ck-main">
-          <div className="ck-breadcrumb">
-            <button onClick={() => {}}>{t('resources.title')}</button>
-            <span className="ck-bc-sep"><i className="fa-solid fa-chevron-right" /></span>
-            <button>{isKo ? currentCategory?.ko : currentCategory?.en}</button>
-            <span className="ck-bc-sep"><i className="fa-solid fa-chevron-right" /></span>
-            <span className="current">
-              {isKo
-                ? currentCategory?.topics.find(t => t.id === activeTopic)?.ko
-                : currentCategory?.topics.find(t => t.id === activeTopic)?.en}
-            </span>
-          </div>
-
-          <div className="ck-content-box">
-            <div className={`ck-content-header ck-ch--${activeCategory === 'ai-theory' ? 'blue' : activeCategory === 'programming' ? 'green' : activeCategory === 'data-analysis' ? 'orange' : 'purple'}`}>
-              <i className={`fa-solid ${currentCategory?.topics.find(t => t.id === activeTopic)?.icon || 'fa-book'}`} />
-              <div className="ck-ch-text">
-                <h2>{topicContent ? (isKo ? topicContent.ko.title : topicContent.en.title) : ''}</h2>
-                <p>{isKo ? currentCategory?.ko : currentCategory?.en}</p>
+          {viewMode === 'resource' && (
+            <>
+              <div className="ck-breadcrumb">
+                <button onClick={() => {}}>{isKo ? 'AI 학습자료' : 'AI Resources'}</button>
+                <span className="ck-bc-sep"><i className="fa-solid fa-chevron-right" /></span>
+                <button>{isKo ? currentCategory?.ko : currentCategory?.en}</button>
+                <span className="ck-bc-sep"><i className="fa-solid fa-chevron-right" /></span>
+                <span className="current">
+                  {isKo
+                    ? currentCategory?.topics.find(t => t.id === activeTopic)?.ko
+                    : currentCategory?.topics.find(t => t.id === activeTopic)?.en}
+                </span>
               </div>
-            </div>
-            <div className="ck-content-body">
-              {topicContent && renderContent(isKo ? topicContent.ko.sections : topicContent.en.sections)}
-            </div>
-          </div>
 
-          {/* Quick Reference */}
-          <div className="ck-content-box" style={{ marginTop: 20 }}>
-            <div className="ck-content-header">
-              <i className="fa-solid fa-bookmark" />
-              <h2>{isKo ? '빠른 참조' : 'Quick Reference'}</h2>
-            </div>
-            <div className="ck-content-body">
-              <div className="ck-og-2col">
-                {currentCategory?.topics.map(topic => (
-                  <button
-                    key={topic.id}
-                    className="ck-ov-card"
-                    onClick={() => setActiveTopic(topic.id)}
-                    style={{ border: activeTopic === topic.id ? '2px solid var(--primary-blue)' : undefined }}
-                  >
-                    <span className="ck-nc-icon" style={{ fontSize: 18 }}>
-                      <i className={`fa-solid ${topic.icon}`} />
-                    </span>
-                    <span style={{ fontWeight: activeTopic === topic.id ? 700 : 500 }}>
-                      {isKo ? topic.ko : topic.en}
-                    </span>
-                  </button>
-                ))}
+              <div className="ck-content-box">
+                <div className={`ck-content-header ck-ch--${activeCategory === 'ai-theory' ? 'blue' : activeCategory === 'programming' ? 'green' : activeCategory === 'data-analysis' ? 'orange' : 'purple'}`}>
+                  <i className={`fa-solid ${currentCategory?.topics.find(t => t.id === activeTopic)?.icon || 'fa-book'}`} />
+                  <div className="ck-ch-text">
+                    <h2>{topicContent ? (isKo ? topicContent.ko.title : topicContent.en.title) : ''}</h2>
+                    <p>{isKo ? currentCategory?.ko : currentCategory?.en}</p>
+                  </div>
+                </div>
+                <div className="ck-content-body">
+                  {topicContent && renderContent(isKo ? topicContent.ko.sections : topicContent.en.sections)}
+                </div>
               </div>
-            </div>
-          </div>
+
+              <div className="ck-content-box" style={{ marginTop: 20 }}>
+                <div className="ck-content-header">
+                  <i className="fa-solid fa-bookmark" />
+                  <h2>{isKo ? '빠른 참조' : 'Quick Reference'}</h2>
+                </div>
+                <div className="ck-content-body">
+                  <div className="ck-og-2col">
+                    {currentCategory?.topics.map(topic => (
+                      <button
+                        key={topic.id}
+                        className="ck-ov-card"
+                        onClick={() => setActiveTopic(topic.id)}
+                        style={{ border: activeTopic === topic.id ? '2px solid var(--primary-blue)' : undefined }}
+                      >
+                        <span className="ck-nc-icon" style={{ fontSize: 18 }}>
+                          <i className={`fa-solid ${topic.icon}`} />
+                        </span>
+                        <span style={{ fontWeight: activeTopic === topic.id ? 700 : 500 }}>
+                          {isKo ? topic.ko : topic.en}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {viewMode === 'prompt' && (
+            <Suspense fallback={<div style={{ textAlign: 'center', padding: 60 }}><div className="loading-spinner" /></div>}>
+              <PromptPracticeEmbed embeddedSection={promptSection} />
+            </Suspense>
+          )}
+
+          {viewMode === 'gallery' && (
+            <Suspense fallback={<div style={{ textAlign: 'center', padding: 60 }}><div className="loading-spinner" /></div>}>
+              <GalleryContent initialCategory={galleryCategory} />
+            </Suspense>
+          )}
         </div>
       </div>
     </div>

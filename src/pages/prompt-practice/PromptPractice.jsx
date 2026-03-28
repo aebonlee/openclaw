@@ -269,11 +269,11 @@ const QUIZ_QUESTIONS = {
   ],
 };
 
-export default function PromptPractice() {
+export default function PromptPractice({ embeddedSection = null }) {
   const { language } = useLanguage();
   const isKo = language === 'ko';
 
-  const [activeSection, setActiveSection] = useState('basics');
+  const [activeSection, setActiveSection] = useState(embeddedSection || 'basics');
   const [expandedExample, setExpandedExample] = useState(0);
   const [expandedChallenge, setExpandedChallenge] = useState(null);
   const [quizAnswers, setQuizAnswers] = useState(Array(5).fill(-1));
@@ -282,80 +282,17 @@ export default function PromptPractice() {
   const [galleryOpen, setGalleryOpen] = useState(true);
   const [galleryCategory, setGalleryCategory] = useState('all');
 
+  useEffect(() => {
+    if (embeddedSection) setActiveSection(embeddedSection);
+  }, [embeddedSection]);
+
   const quizQuestions = isKo ? QUIZ_QUESTIONS.ko : QUIZ_QUESTIONS.en;
   const quizScore = quizAnswers.reduce((sum, ans, idx) => sum + (ans === quizQuestions[idx].answer ? 1 : 0), 0);
 
-  return (
-    <div className="ck-page">
-      <SEOHead
-        title={isKo ? '프롬프트 실습' : 'Prompt Practice'}
-        description={isKo ? 'AI 프롬프트 엔지니어링을 배우고 실습하세요' : 'Learn and practice AI prompt engineering'}
-        path="/prompt-practice"
-      />
-
-      <button className="ck-mobile-toggle" onClick={() => {}}>
-        <i className="fa-solid fa-bars" />
-        <span>{isKo ? '메뉴' : 'Menu'}</span>
-      </button>
-
-      <div className="ck-layout">
-        {/* Sidebar */}
-        <aside className="ck-sidebar">
-          <div className="ck-sb-header">
-            <i className="fa-solid fa-wand-magic-sparkles" />
-            <span>{isKo ? '프롬프트 실습' : 'Prompt Practice'}</span>
-          </div>
-          <nav className="ck-sb-nav">
-            {SIDEBAR_SECTIONS.map(sec => (
-              <button
-                key={sec.id}
-                className={`ck-nav-child ${activeSection === sec.id ? 'active' : ''}`}
-                onClick={() => setActiveSection(sec.id)}
-              >
-                <span className="ck-nc-icon"><i className={`fa-solid ${sec.icon}`} /></span>
-                <span>{isKo ? sec.ko : sec.en}</span>
-              </button>
-            ))}
-
-            {/* Gallery section with sub-categories */}
-            <div style={{ borderTop: '1px solid var(--border-light)', marginTop: 8, paddingTop: 8 }}>
-              <div className={`ck-nav-group ${activeSection === 'gallery' ? 'active' : ''}`}>
-                <button
-                  className="ck-nav-parent ck-np--blue"
-                  onClick={() => {
-                    setGalleryOpen(!galleryOpen);
-                    setActiveSection('gallery');
-                  }}
-                >
-                  <span className="ck-np-icon"><i className="fa-solid fa-gem" /></span>
-                  <span>{isKo ? '프롬프트 갤러리' : 'Prompt Gallery'}</span>
-                  <i className={`fa-solid fa-chevron-down ck-nav-arrow ${galleryOpen ? 'open' : ''}`} />
-                </button>
-                {galleryOpen && (
-                  <ul className="ck-nav-children">
-                    {GALLERY_CATEGORIES.map(cat => (
-                      <li key={cat.id}>
-                        <button
-                          className={`ck-nav-child ${activeSection === 'gallery' && galleryCategory === cat.id ? 'active' : ''}`}
-                          onClick={() => {
-                            setGalleryCategory(cat.id);
-                            setActiveSection('gallery');
-                          }}
-                        >
-                          <span className="ck-nc-icon"><i className={`fa-solid ${cat.icon}`} /></span>
-                          <span>{isKo ? cat.ko : cat.en}</span>
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </div>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <div className="ck-main">
+  // Embedded mode: render content sections only, no sidebar/layout
+  if (embeddedSection) {
+    return (
+      <div>
           {/* Basics */}
           {activeSection === 'basics' && (
             <>
@@ -721,6 +658,66 @@ export default function PromptPractice() {
               <PromptGalleryContent initialCategory={galleryCategory} />
             </Suspense>
           )}
+        </div>
+    );
+  }
+
+  // Standalone mode: full page with sidebar
+  return (
+    <div className="ck-page">
+      <SEOHead
+        title={isKo ? '프롬프트 실습' : 'Prompt Practice'}
+        description={isKo ? 'AI 프롬프트 엔지니어링을 배우고 실습하세요' : 'Learn and practice AI prompt engineering'}
+        path="/prompt-practice"
+      />
+
+      <button className="ck-mobile-toggle" onClick={() => {}}>
+        <i className="fa-solid fa-bars" />
+        <span>{isKo ? '메뉴' : 'Menu'}</span>
+      </button>
+
+      <div className="ck-layout">
+        <aside className="ck-sidebar">
+          <div className="ck-sb-header">
+            <i className="fa-solid fa-wand-magic-sparkles" />
+            <span>{isKo ? '프롬프트 실습' : 'Prompt Practice'}</span>
+          </div>
+          <nav className="ck-sb-nav">
+            {SIDEBAR_SECTIONS.map(sec => (
+              <button
+                key={sec.id}
+                className={`ck-nav-child ${activeSection === sec.id ? 'active' : ''}`}
+                onClick={() => setActiveSection(sec.id)}
+              >
+                <span className="ck-nc-icon"><i className={`fa-solid ${sec.icon}`} /></span>
+                <span>{isKo ? sec.ko : sec.en}</span>
+              </button>
+            ))}
+            <div style={{ borderTop: '1px solid var(--border-light)', marginTop: 8, paddingTop: 8 }}>
+              <div className={`ck-nav-group ${activeSection === 'gallery' ? 'active' : ''}`}>
+                <button className="ck-nav-parent ck-np--blue" onClick={() => { setGalleryOpen(!galleryOpen); setActiveSection('gallery'); }}>
+                  <span className="ck-np-icon"><i className="fa-solid fa-gem" /></span>
+                  <span>{isKo ? '프롬프트 갤러리' : 'Prompt Gallery'}</span>
+                  <i className={`fa-solid fa-chevron-down ck-nav-arrow ${galleryOpen ? 'open' : ''}`} />
+                </button>
+                {galleryOpen && (
+                  <ul className="ck-nav-children">
+                    {GALLERY_CATEGORIES.map(cat => (
+                      <li key={cat.id}>
+                        <button className={`ck-nav-child ${activeSection === 'gallery' && galleryCategory === cat.id ? 'active' : ''}`} onClick={() => { setGalleryCategory(cat.id); setActiveSection('gallery'); }}>
+                          <span className="ck-nc-icon"><i className={`fa-solid ${cat.icon}`} /></span>
+                          <span>{isKo ? cat.ko : cat.en}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </nav>
+        </aside>
+        <div className="ck-main">
+          <PromptPractice embeddedSection={activeSection} />
         </div>
       </div>
     </div>
