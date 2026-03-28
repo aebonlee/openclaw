@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
+
+const PromptGalleryContent = lazy(() => import('../prompt-gallery/PromptGallery').then(m => ({ default: m.GalleryContent })));
 
 const SIDEBAR_SECTIONS = [
   { id: 'basics', icon: 'fa-pen', color: 'green', ko: '기본 프롬프트', en: 'Basic Prompts' },
   { id: 'advanced', icon: 'fa-wand-magic-sparkles', color: 'blue', ko: '고급 기법', en: 'Advanced Techniques' },
   { id: 'practice', icon: 'fa-laptop-code', color: 'purple', ko: '실습', en: 'Practice' },
   { id: 'quiz', icon: 'fa-question-circle', color: 'orange', ko: '퀴즈', en: 'Quiz' },
+  { id: 'gallery', icon: 'fa-gem', color: 'blue', ko: '프롬프트 갤러리', en: 'Prompt Gallery' },
 ];
 
 const BASIC_EXAMPLES = [
@@ -662,6 +665,13 @@ export default function PromptPractice() {
                 )}
               </div>
             </div>
+          )}
+
+          {/* Gallery Section */}
+          {activeSection === 'gallery' && (
+            <Suspense fallback={<div style={{ textAlign: 'center', padding: 60 }}><div className="loading-spinner" /></div>}>
+              <PromptGalleryContent />
+            </Suspense>
           )}
         </div>
       </div>

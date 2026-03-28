@@ -22,7 +22,6 @@ export default function Footer() {
               <li><Link to="/intro">{language === 'ko' ? '소개' : 'About'}</Link></li>
               <li><Link to="/resources">{t('nav.resources')}</Link></li>
               <li><Link to="/prompt-practice">{t('nav.promptPractice')}</Link></li>
-              <li><Link to="/prompt-gallery">{language === 'ko' ? '프롬프트 갤러리' : 'Prompt Gallery'}</Link></li>
               <li><Link to="/glossary">{language === 'ko' ? 'AI 용어사전' : 'AI Glossary'}</Link></li>
               <li><Link to="/roadmap">{language === 'ko' ? '학습 로드맵' : 'Roadmap'}</Link></li>
               <li><Link to="/ai-news">{language === 'ko' ? 'AI 트렌드' : 'AI Trends'}</Link></li>

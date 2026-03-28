@@ -3210,6 +3210,131 @@ Include final recommendation with rationale and adoption roadmap (PoC → Pilot 
   },
 ];
 
+export function GalleryContent() {
+  const { language } = useLanguage();
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [expandedId, setExpandedId] = useState(null);
+  const [copiedId, setCopiedId] = useState(null);
+  const isKo = language === 'ko';
+
+  const filtered = activeCategory === 'all'
+    ? PROMPTS
+    : PROMPTS.filter(p => p.cat === activeCategory);
+
+  const handleCopy = async (e, prompt, id) => {
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(prompt);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = prompt;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+    }
+  };
+
+  const getScoreBadgeStyle = (score) => {
+    if (score >= 95) return { background: '#FEF3C7', color: '#B45309', border: '1px solid #F59E0B' };
+    return { background: '#DBEAFE', color: '#1D4ED8', border: '1px solid #3B82F6' };
+  };
+
+  const getCategoryLabel = (catId) => {
+    const cat = CATEGORIES.find(c => c.id === catId);
+    return cat ? (isKo ? cat.ko : cat.en) : '';
+  };
+
+  const getCategoryBadge = (catId) => {
+    const colors = {
+      education: { bg: '#DBEAFE', color: '#2563EB' },
+      coding: { bg: '#D1FAE5', color: '#059669' },
+      writing: { bg: '#FEF3C7', color: '#D97706' },
+      business: { bg: '#E0E7FF', color: '#4F46E5' },
+      data: { bg: '#FCE7F3', color: '#DB2777' },
+      creative: { bg: '#FDE68A', color: '#92400E' },
+      research: { bg: '#E0F2FE', color: '#0369A1' },
+      productivity: { bg: '#F3E8FF', color: '#7C3AED' },
+    };
+    return colors[catId] || { bg: '#F3F4F6', color: '#6B7280' };
+  };
+
+  return (
+    <>
+      <section className="ck-content-box">
+        <div className="ck-content-header ck-ch--blue">
+          <i className="fa-solid fa-gem" />
+          <div className="ck-ch-text">
+            <h2>{isKo ? '프롬프트 갤러리' : 'Prompt Gallery'}</h2>
+            <p>{isKo ? '90점 이상의 검증된 프롬프트를 복사하여 바로 사용하세요' : 'Copy and use verified prompts rated 90+ points'}</p>
+          </div>
+        </div>
+        <div className="ck-content-body">
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
+            {CATEGORIES.map(cat => (
+              <button
+                key={cat.id}
+                className={`board-category-filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
+                onClick={() => { setActiveCategory(cat.id); setExpandedId(null); }}
+                style={{ fontSize: 12 }}
+              >
+                <i className={`fa-solid ${cat.icon}`} style={{ marginRight: 4 }} />
+                {isKo ? cat.ko : cat.en}
+              </button>
+            ))}
+          </div>
+          <p style={{ fontSize: 13, color: 'var(--text-light)', marginBottom: 16 }}>
+            {isKo ? `${filtered.length}개의 프롬프트` : `${filtered.length} prompts`}
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {filtered.map(item => {
+              const isExpanded = expandedId === item.id;
+              const data = isKo ? item.ko : item.en;
+              const badge = getCategoryBadge(item.cat);
+              const scoreBadge = getScoreBadgeStyle(item.score);
+              return (
+                <div key={item.id} onClick={() => setExpandedId(isExpanded ? null : item.id)}
+                  style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border-light)', background: 'var(--bg-white)', cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10, flexWrap: 'wrap' }}>
+                    <span style={{ ...scoreBadge, fontSize: 12, fontWeight: 700, padding: '2px 8px', borderRadius: 6, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                      <i className="fa-solid fa-star" style={{ fontSize: 10 }} /> {item.score}
+                    </span>
+                    <span className="edu-course-badge" style={{ background: badge.bg, color: badge.color }}>{getCategoryLabel(item.cat)}</span>
+                    <span style={{ fontSize: 11, color: 'var(--text-light)', background: 'var(--bg-light-gray)', padding: '2px 6px', borderRadius: 4 }}>{item.technique}</span>
+                  </div>
+                  <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8, lineHeight: 1.5 }}>{data.title}</h3>
+                  {!isExpanded ? (
+                    <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 12, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', whiteSpace: 'pre-wrap' }}>{data.prompt}</p>
+                  ) : (
+                    <div style={{ marginBottom: 12 }}>
+                      <pre style={{ fontSize: 13, lineHeight: 1.7, background: 'var(--bg-light-gray)', border: '1px solid var(--border-light)', borderRadius: 8, padding: 16, whiteSpace: 'pre-wrap', wordBreak: 'break-word', fontFamily: "'Noto Sans KR', sans-serif", color: 'var(--text-primary)', maxHeight: 400, overflowY: 'auto' }}>{data.prompt}</pre>
+                      <button onClick={(e) => handleCopy(e, data.prompt, item.id)} style={{ marginTop: 10, display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 16px', fontSize: 13, fontWeight: 600, color: copiedId === item.id ? '#059669' : 'var(--primary-blue)', background: copiedId === item.id ? '#D1FAE5' : 'var(--bg-light-gray)', border: `1px solid ${copiedId === item.id ? '#10B981' : 'var(--border-light)'}`, borderRadius: 8, cursor: 'pointer' }}>
+                        <i className={`fa-solid ${copiedId === item.id ? 'fa-check' : 'fa-copy'}`} />
+                        {copiedId === item.id ? (isKo ? '복사됨!' : 'Copied!') : (isKo ? '프롬프트 복사' : 'Copy Prompt')}
+                      </button>
+                    </div>
+                  )}
+                  <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                    {data.tags.map((tag, i) => (<span key={i} className="resource-tag">{tag}</span>))}
+                    <span style={{ marginLeft: 'auto', fontSize: 11, color: isExpanded ? 'var(--text-light)' : 'var(--primary-blue)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                      {isExpanded ? (isKo ? '접기' : 'Collapse') : (isKo ? '펼치기' : 'Expand')}
+                      <i className={`fa-solid fa-chevron-${isExpanded ? 'up' : 'down'}`} style={{ fontSize: 10 }} />
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
 export default function PromptGallery() {
   const { language } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');

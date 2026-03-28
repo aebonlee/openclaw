@@ -51,8 +51,7 @@ export default function Navbar() {
   const NAV_ITEMS = [
     { path: '/intro', ko: '소개', en: 'About' },
     { path: '/resources', ko: '학습자료', en: 'Resources' },
-    { path: '/prompt-practice', ko: '프롬프트 실습', en: 'Prompt Practice' },
-    { path: '/prompt-gallery', ko: '프롬프트 갤러리', en: 'Prompt Gallery' },
+    { path: '/prompt-practice', ko: '프롬프트', en: 'Prompts' },
     { path: '/glossary', ko: 'AI 용어사전', en: 'AI Glossary' },
     { path: '/roadmap', ko: '학습 로드맵', en: 'Roadmap' },
     { path: '/ai-news', ko: 'AI 트렌드', en: 'AI Trends' },
