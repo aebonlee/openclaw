@@ -35,6 +35,7 @@ export default function HeroCarousel() {
   const { language } = useLanguage();
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
+  const [direction, setDirection] = useState(1); // 1=forward, -1=backward
 
   const goTo = useCallback((idx) => {
     if (animating) return;
@@ -43,18 +44,31 @@ export default function HeroCarousel() {
     setTimeout(() => setAnimating(false), 700);
   }, [animating]);
 
-  const next = useCallback(() => {
-    goTo((current + 1) % SLIDES.length);
-  }, [current, goTo]);
+  const advance = useCallback(() => {
+    const nextIdx = current + direction;
+    if (nextIdx >= SLIDES.length) {
+      setDirection(-1);
+      goTo(current - 1);
+    } else if (nextIdx < 0) {
+      setDirection(1);
+      goTo(current + 1);
+    } else {
+      goTo(nextIdx);
+    }
+  }, [current, direction, goTo]);
 
   const prev = useCallback(() => {
-    goTo((current - 1 + SLIDES.length) % SLIDES.length);
+    if (current > 0) goTo(current - 1);
+  }, [current, goTo]);
+
+  const next = useCallback(() => {
+    if (current < SLIDES.length - 1) goTo(current + 1);
   }, [current, goTo]);
 
   useEffect(() => {
-    const timer = setInterval(next, 6000);
+    const timer = setInterval(advance, 6000);
     return () => clearInterval(timer);
-  }, [next]);
+  }, [advance]);
 
   const slide = SLIDES[current];
   const content = language === 'ko' ? slide.ko : slide.en;
