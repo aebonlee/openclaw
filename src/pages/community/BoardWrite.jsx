@@ -35,7 +35,7 @@ export default function BoardWrite() {
   async function fetchPost() {
     try {
       const { data, error } = await supabase
-        .from('teaching_board_posts')
+        .from('openclaw_board_posts')
         .select('*')
         .eq('id', editId)
         .single();
@@ -67,7 +67,7 @@ export default function BoardWrite() {
       if (editId) {
         // Update existing post
         const { error } = await supabase
-          .from('teaching_board_posts')
+          .from('openclaw_board_posts')
           .update({
             category,
             title: title.trim(),
@@ -83,7 +83,7 @@ export default function BoardWrite() {
         const authorName = user?.user_metadata?.display_name || user?.email?.split('@')[0] || 'User';
 
         const { data, error } = await supabase
-          .from('teaching_board_posts')
+          .from('openclaw_board_posts')
           .insert({
             category,
             title: title.trim(),

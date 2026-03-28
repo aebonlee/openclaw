@@ -38,9 +38,9 @@ export default function AdminDashboard() {
         supabase.from('user_profiles').select('id', { count: 'exact', head: true }),
         supabase.from('generated_syllabi').select('id', { count: 'exact', head: true }),
         supabase.from('generated_rubrics').select('id', { count: 'exact', head: true }),
-        supabase.from('teaching_board_posts').select('id', { count: 'exact', head: true }),
+        supabase.from('openclaw_board_posts').select('id', { count: 'exact', head: true }),
         supabase.from('user_profiles').select('id, display_name, email, created_at, last_sign_in_at').order('created_at', { ascending: false }).limit(10),
-        supabase.from('teaching_board_posts').select('id, title, category, author_name, created_at, view_count').order('created_at', { ascending: false }).limit(10),
+        supabase.from('openclaw_board_posts').select('id, title, category, author_name, created_at, views').order('created_at', { ascending: false }).limit(10),
       ]);
 
       setStats({

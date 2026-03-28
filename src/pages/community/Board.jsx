@@ -38,7 +38,7 @@ export default function Board() {
     setLoading(true);
     try {
       let query = supabase
-        .from('teaching_board_posts')
+        .from('openclaw_board_posts')
         .select('id, title, category, author_name, created_at, views, comment_count', { count: 'exact' })
         .order('created_at', { ascending: false });
 

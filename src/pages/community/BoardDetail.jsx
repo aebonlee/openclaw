@@ -39,7 +39,7 @@ export default function BoardDetail() {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('teaching_board_posts')
+        .from('openclaw_board_posts')
         .select('*')
         .eq('id', id)
         .single();
@@ -49,8 +49,8 @@ export default function BoardDetail() {
 
       // Fetch prev/next posts
       const [prevRes, nextRes] = await Promise.all([
-        supabase.from('teaching_board_posts').select('id, title').lt('created_at', data.created_at).order('created_at', { ascending: false }).limit(1),
-        supabase.from('teaching_board_posts').select('id, title').gt('created_at', data.created_at).order('created_at', { ascending: true }).limit(1),
+        supabase.from('openclaw_board_posts').select('id, title').lt('created_at', data.created_at).order('created_at', { ascending: false }).limit(1),
+        supabase.from('openclaw_board_posts').select('id, title').gt('created_at', data.created_at).order('created_at', { ascending: true }).limit(1),
       ]);
       setPrevPost(prevRes.data?.[0] || null);
       setNextPost(nextRes.data?.[0] || null);
@@ -65,7 +65,7 @@ export default function BoardDetail() {
   async function fetchComments() {
     try {
       const { data } = await supabase
-        .from('teaching_board_comments')
+        .from('openclaw_board_comments')
         .select('*')
         .eq('post_id', id)
         .order('created_at', { ascending: true });
@@ -76,7 +76,7 @@ export default function BoardDetail() {
   }
 
   async function incrementViews() {
-    await supabase.from('teaching_board_posts').update({ views: (post?.views || 0) + 1 }).eq('id', id).catch(() => {});
+    await supabase.from('openclaw_board_posts').update({ views: (post?.views || 0) + 1 }).eq('id', id).catch(() => {});
   }
 
   async function handleAddComment(e) {
@@ -84,7 +84,7 @@ export default function BoardDetail() {
     if (!commentText.trim() || !user) return;
 
     try {
-      const { error } = await supabase.from('teaching_board_comments').insert({
+      const { error } = await supabase.from('openclaw_board_comments').insert({
         post_id: id,
         author_id: user.id,
         author_name: user.user_metadata?.display_name || user.email?.split('@')[0] || 'User',
@@ -94,7 +94,7 @@ export default function BoardDetail() {
       setCommentText('');
       fetchComments();
       // Increment comment count
-      await supabase.from('teaching_board_posts')
+      await supabase.from('openclaw_board_posts')
         .update({ comment_count: (post?.comment_count || 0) + 1 })
         .eq('id', id);
     } catch (err) {
@@ -104,7 +104,7 @@ export default function BoardDetail() {
 
   async function handleDeleteComment(commentId) {
     try {
-      await supabase.from('teaching_board_comments').delete().eq('id', commentId);
+      await supabase.from('openclaw_board_comments').delete().eq('id', commentId);
       fetchComments();
     } catch (err) {
       console.error('Failed to delete comment:', err);
@@ -113,7 +113,7 @@ export default function BoardDetail() {
 
   async function handleDeletePost() {
     try {
-      await supabase.from('teaching_board_posts').delete().eq('id', id);
+      await supabase.from('openclaw_board_posts').delete().eq('id', id);
       navigate('/community/board');
     } catch (err) {
       console.error('Failed to delete post:', err);
