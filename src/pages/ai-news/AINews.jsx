@@ -209,98 +209,46 @@ const NEWS_ITEMS = [
   },
 ];
 
+const CARD_COUNT = 8;
+const LIST_PAGE_SIZE = 10;
+
 export default function AINews() {
   const { language } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
+  const [listPage, setListPage] = useState(1);
   const isKo = language === 'ko';
 
-  const filteredNews = activeCategory === 'all'
+  const filtered = activeCategory === 'all'
     ? NEWS_ITEMS
     : NEWS_ITEMS.filter(n => n.cat === activeCategory);
 
-  const featuredArticle = NEWS_ITEMS.find(n => n.featured);
-  const regularNews = filteredNews.filter(n => !n.featured || activeCategory !== 'all');
+  const cardItems = filtered.slice(0, CARD_COUNT);
+  const archiveItems = filtered.slice(CARD_COUNT);
+  const totalArchivePages = Math.ceil(archiveItems.length / LIST_PAGE_SIZE);
+  const pagedArchive = archiveItems.slice(
+    (listPage - 1) * LIST_PAGE_SIZE,
+    listPage * LIST_PAGE_SIZE
+  );
+
+  const handleCategoryChange = (catId) => {
+    setActiveCategory(catId);
+    setListPage(1);
+  };
 
   const getCategoryBadge = (catId) => {
     const colors = {
-      'model': { bg: '#DBEAFE', color: '#2563EB' },
-      'prompt': { bg: '#FEF3C7', color: '#D97706' },
-      'tools': { bg: '#D1FAE5', color: '#059669' },
-      'industry': { bg: '#E0E7FF', color: '#4F46E5' },
+      model: { bg: '#DBEAFE', color: '#2563EB' },
+      prompt: { bg: '#FEF3C7', color: '#D97706' },
+      tools: { bg: '#D1FAE5', color: '#059669' },
+      industry: { bg: '#E0E7FF', color: '#4F46E5' },
     };
     return colors[catId] || { bg: '#F3F4F6', color: '#6B7280' };
   };
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
-    if (isKo) {
-      return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-    }
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  };
-
-  const NewsCard = ({ item, large }) => {
-    const badge = getCategoryBadge(item.cat);
-    const catLabel = CATEGORIES.find(c => c.id === item.cat);
-    return (
-      <a
-        href={item.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`edu-course-card ${large ? 'edu-course-featured' : ''}`}
-        style={{
-          padding: large ? 28 : 20,
-          textDecoration: 'none',
-          color: 'inherit',
-          display: 'flex',
-          flexDirection: 'column',
-          cursor: 'pointer',
-        }}
-      >
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 10,
-          marginBottom: 12, flexWrap: 'wrap',
-        }}>
-          <span className="edu-course-badge" style={{ background: badge.bg, color: badge.color }}>
-            {catLabel ? (isKo ? catLabel.ko : catLabel.en) : ''}
-          </span>
-          <span style={{ fontSize: 13, color: 'var(--text-light)' }}>
-            <i className="fa-regular fa-calendar" style={{ marginRight: 4 }} />
-            {formatDate(item.date)}
-          </span>
-        </div>
-        <h3 style={{
-          fontSize: large ? 20 : 15, fontWeight: 700, color: 'var(--text-primary)',
-          marginBottom: large ? 12 : 8, lineHeight: 1.4,
-        }}>
-          {isKo ? item.ko.title : item.en.title}
-        </h3>
-        <p style={{
-          fontSize: large ? 15 : 13, color: 'var(--text-secondary)',
-          lineHeight: 1.8, marginBottom: 16,
-          display: large ? 'block' : '-webkit-box',
-          WebkitLineClamp: large ? undefined : 3,
-          WebkitBoxOrient: 'vertical',
-          overflow: large ? undefined : 'hidden',
-        }}>
-          {isKo ? item.ko.summary : item.en.summary}
-        </p>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          marginTop: 'auto', flexWrap: 'wrap', gap: 8,
-        }}>
-          <div className="edu-course-tags">
-            {item.tags.map((tag, i) => (
-              <span key={i} className="resource-tag">{tag}</span>
-            ))}
-          </div>
-          <span style={{ fontSize: 12, color: 'var(--primary-blue)', fontWeight: 500 }}>
-            <i className="fa-solid fa-arrow-up-right-from-square" style={{ marginRight: 4 }} />
-            {item.source}
-          </span>
-        </div>
-      </a>
-    );
+    if (isKo) return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   };
 
   return (
@@ -318,28 +266,19 @@ export default function AINews() {
             {isKo ? 'AI 트렌드 & 뉴스' : 'AI Trends & News'}
           </h1>
           <p>{isKo
-            ? '최신 AI 동향과 기술 트렌드를 한눈에 확인하세요. 카드를 클릭하면 원문을 볼 수 있습니다.'
-            : 'Stay updated with the latest AI developments. Click a card to read the original article.'}</p>
+            ? '최신 AI 동향과 기술 트렌드를 한눈에 확인하세요. 카드를 클릭하면 원문으로 이동합니다.'
+            : 'Stay updated with the latest AI developments. Click to read the original article.'}</p>
         </div>
       </div>
 
       <div className="container" style={{ paddingBottom: 60 }}>
-        {activeCategory === 'all' && featuredArticle && (
-          <section style={{ marginBottom: 40 }}>
-            <h2 className="section-header" style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, color: 'var(--text-primary)' }}>
-              <i className="fa-solid fa-fire" style={{ color: '#EF4444', marginRight: 8 }} />
-              {isKo ? '주요 뉴스' : 'Featured News'}
-            </h2>
-            <NewsCard item={featuredArticle} large />
-          </section>
-        )}
-
+        {/* Category Tabs */}
         <div className="edu-category-tabs">
           {CATEGORIES.map(cat => (
             <button
               key={cat.id}
               className={`board-category-filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => handleCategoryChange(cat.id)}
             >
               <i className={`fa-solid ${cat.icon}`} style={{ marginRight: 6 }} />
               {isKo ? cat.ko : cat.en}
@@ -352,13 +291,155 @@ export default function AINews() {
           ))}
         </div>
 
-        <div className="edu-course-grid">
-          {regularNews.map(item => (
-            <NewsCard key={item.id} item={item} />
-          ))}
-        </div>
+        {/* Latest News Cards - 4 columns x 2 rows */}
+        {cardItems.length > 0 && (
+          <section>
+            <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <i className="fa-solid fa-fire" style={{ color: '#EF4444' }} />
+              {isKo ? '최신 뉴스' : 'Latest News'}
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: 16,
+            }}>
+              {cardItems.map(item => {
+                const badge = getCategoryBadge(item.cat);
+                const catLabel = CATEGORIES.find(c => c.id === item.cat);
+                return (
+                  <a
+                    key={item.id}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="edu-course-card"
+                    style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column' }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10, flexWrap: 'wrap' }}>
+                      <span className="edu-course-badge" style={{ background: badge.bg, color: badge.color }}>
+                        {catLabel ? (isKo ? catLabel.ko : catLabel.en) : ''}
+                      </span>
+                      <span style={{ fontSize: 11, color: 'var(--text-light)' }}>{formatDate(item.date)}</span>
+                    </div>
+                    <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8, lineHeight: 1.5 }}>
+                      {isKo ? item.ko.title : item.en.title}
+                    </h3>
+                    <p style={{
+                      fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 12,
+                      display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden',
+                    }}>
+                      {isKo ? item.ko.summary : item.en.summary}
+                    </p>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
+                      <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                        {item.tags.slice(0, 2).map((tag, i) => (
+                          <span key={i} className="resource-tag">{tag}</span>
+                        ))}
+                      </div>
+                      <span style={{ fontSize: 11, color: 'var(--primary-blue)' }}>
+                        <i className="fa-solid fa-arrow-up-right-from-square" />
+                      </span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        )}
 
-        {regularNews.length === 0 && (
+        {/* Archive List */}
+        {archiveItems.length > 0 && (
+          <section style={{ marginTop: 48 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <i className="fa-solid fa-clock-rotate-left" style={{ color: 'var(--text-light)' }} />
+              {isKo ? '지난 뉴스' : 'Archive'}
+              <span style={{ fontSize: 13, fontWeight: 400, color: 'var(--text-light)', marginLeft: 4 }}>
+                ({archiveItems.length})
+              </span>
+            </h2>
+
+            <div style={{
+              border: '1px solid var(--border-light)', borderRadius: 12,
+              overflow: 'hidden', background: 'var(--bg-white)',
+            }}>
+              {pagedArchive.map((item, idx) => {
+                const badge = getCategoryBadge(item.cat);
+                const catLabel = CATEGORIES.find(c => c.id === item.cat);
+                return (
+                  <a
+                    key={item.id}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 16,
+                      padding: '14px 20px', textDecoration: 'none', color: 'inherit',
+                      borderBottom: idx < pagedArchive.length - 1 ? '1px solid var(--border-light)' : 'none',
+                      transition: 'background 0.15s ease',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-light-gray)'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <span style={{ fontSize: 12, color: 'var(--text-light)', whiteSpace: 'nowrap', minWidth: 80 }}>
+                      {formatDate(item.date)}
+                    </span>
+                    <span className="edu-course-badge" style={{
+                      background: badge.bg, color: badge.color,
+                      fontSize: 11, whiteSpace: 'nowrap', flexShrink: 0,
+                    }}>
+                      {catLabel ? (isKo ? catLabel.ko : catLabel.en) : ''}
+                    </span>
+                    <span style={{
+                      flex: 1, fontSize: 14, fontWeight: 600, color: 'var(--text-primary)',
+                      overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                    }}>
+                      {isKo ? item.ko.title : item.en.title}
+                    </span>
+                    <span style={{ fontSize: 11, color: 'var(--text-light)', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                      {item.source}
+                    </span>
+                    <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: 11, color: 'var(--primary-blue)', flexShrink: 0 }} />
+                  </a>
+                );
+              })}
+            </div>
+
+            {/* Pagination */}
+            {totalArchivePages > 1 && (
+              <div style={{
+                display: 'flex', justifyContent: 'center', gap: 6, marginTop: 20,
+              }}>
+                <button
+                  className="board-category-filter-btn"
+                  disabled={listPage === 1}
+                  onClick={() => setListPage(p => p - 1)}
+                  style={{ opacity: listPage === 1 ? 0.4 : 1 }}
+                >
+                  <i className="fa-solid fa-chevron-left" />
+                </button>
+                {Array.from({ length: totalArchivePages }, (_, i) => i + 1).map(p => (
+                  <button
+                    key={p}
+                    className={`board-category-filter-btn ${listPage === p ? 'active' : ''}`}
+                    onClick={() => setListPage(p)}
+                  >
+                    {p}
+                  </button>
+                ))}
+                <button
+                  className="board-category-filter-btn"
+                  disabled={listPage === totalArchivePages}
+                  onClick={() => setListPage(p => p + 1)}
+                  style={{ opacity: listPage === totalArchivePages ? 0.4 : 1 }}
+                >
+                  <i className="fa-solid fa-chevron-right" />
+                </button>
+              </div>
+            )}
+          </section>
+        )}
+
+        {filtered.length === 0 && (
           <div style={{ textAlign: 'center', padding: 60, color: 'var(--text-light)' }}>
             <i className="fa-solid fa-newspaper" style={{ fontSize: 32, marginBottom: 12, display: 'block' }} />
             <p>{isKo ? '해당 카테고리에 뉴스가 없습니다.' : 'No news found in this category.'}</p>
