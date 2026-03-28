@@ -17,13 +17,12 @@ export default function Footer() {
           </div>
 
           <div className="footer-links">
-            <h4>{t('footer.quickLinks')}</h4>
+            <h4>{language === 'ko' ? '학습' : 'Learn'}</h4>
             <ul className="footer-link-list">
-              <li><Link to="/">{t('nav.home')}</Link></li>
-              <li><Link to="/intro">{t('nav.intro')}</Link></li>
-              <li><Link to="/prompt-practice">{t('nav.promptPractice')}</Link></li>
-              <li><Link to="/resources">{t('nav.resources')}</Link></li>
-              <li><Link to="/community/board">{t('nav.community')}</Link></li>
+              <li><Link to="/resources"><i className="fa-solid fa-book-open" /> {t('nav.resources')}</Link></li>
+              <li><Link to="/prompt-practice"><i className="fa-solid fa-terminal" /> {t('nav.promptPractice')}</Link></li>
+              <li><Link to="/community/board"><i className="fa-solid fa-comments" /> {t('nav.community')}</Link></li>
+              <li><Link to="/intro"><i className="fa-solid fa-circle-info" /> {language === 'ko' ? '플랫폼 소개' : 'About'}</Link></li>
             </ul>
           </div>
 

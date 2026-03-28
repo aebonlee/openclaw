@@ -348,6 +348,40 @@
     background: var(--primary-blue);
     color: var(--text-white);
 }
+.nav-auth-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.nav-register-btn {
+    background: var(--primary-blue);
+    color: var(--text-white);
+    border-color: var(--primary-blue);
+}
+.nav-register-btn:hover {
+    background: var(--primary-blue-dark);
+    border-color: var(--primary-blue-dark);
+}
+
+/* Mobile Dropdown Toggle */
+.mobile-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+.mobile-arrow {
+    font-size: 11px;
+    transition: transform 0.2s ease;
+    color: var(--text-light);
+}
+.mobile-arrow.rotated {
+    transform: rotate(180deg);
+}
 
 /* Mobile Menu Toggle */
 .mobile-menu-toggle {
