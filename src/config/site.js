@@ -52,7 +52,7 @@ export const LEARNING_PATHS = [
   },
   {
     id: 'python-programming',
-    icon: 'fa-python',
+    icon: 'fa-terminal',
     nameKo: 'Python 프로그래밍',
     nameEn: 'Python Programming',
     descKo: 'Python의 기초부터 고급 활용까지 체계적으로 학습합니다.',

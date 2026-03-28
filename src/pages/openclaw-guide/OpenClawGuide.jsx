@@ -3,7 +3,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 
 const SECTIONS = [
-  { id: 'overview', icon: 'fa-eye', ko: '강의 개요', en: 'Course Overview' },
+  { id: 'overview', icon: 'fa-clipboard-list', ko: '강의 개요', en: 'Course Overview' },
   { id: 'architecture', icon: 'fa-sitemap', ko: '시스템 구조', en: 'Architecture' },
   { id: 'install', icon: 'fa-download', ko: '설치와 실행', en: 'Installation' },
   { id: 'onboarding', icon: 'fa-play-circle', ko: '온보딩', en: 'Onboarding' },
@@ -172,7 +172,7 @@ export default function OpenClawGuide() {
           {activeSection === 'overview' && (
             <div className="ck-content-box">
               <div className="ck-content-header ck-ch--blue">
-                <i className="fa-solid fa-eye" />
+                <i className="fa-solid fa-clipboard-list" />
                 <div className="ck-ch-text">
                   <h2>{isKo ? 'OpenClaw 설치와 활용 실무' : 'OpenClaw Practical Installation & Usage'}</h2>
                   <p>{isKo

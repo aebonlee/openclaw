@@ -6,7 +6,7 @@ const CATEGORIES = [
   { id: 'all', ko: '전체', en: 'All', icon: 'fa-border-all' },
   { id: 'ai', ko: 'AI/ML', en: 'AI/ML', icon: 'fa-brain' },
   { id: 'web', ko: '웹개발', en: 'Web Dev', icon: 'fa-code' },
-  { id: 'python', ko: 'Python', en: 'Python', icon: 'fa-python' },
+  { id: 'python', ko: 'Python', en: 'Python', icon: 'fa-terminal' },
   { id: 'data', ko: '데이터사이언스', en: 'Data Science', icon: 'fa-chart-line' },
   { id: 'prompt', ko: '프롬프트 엔지니어링', en: 'Prompt Engineering', icon: 'fa-wand-magic-sparkles' },
   { id: 'cert', ko: '자격증', en: 'Certifications', icon: 'fa-certificate' },
