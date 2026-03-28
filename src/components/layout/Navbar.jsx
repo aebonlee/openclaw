@@ -49,7 +49,7 @@ export default function Navbar() {
   }
 
   const NAV_ITEMS = [
-    { path: '/intro', ko: '소개', en: 'About' },
+    { path: '/intro', ko: 'About', en: 'About' },
     { path: '/openclaw-guide', ko: 'OpenClaw 강의', en: 'OpenClaw Guide' },
     { path: '/resources', ko: 'AI 학습자료', en: 'AI Resources' },
     { path: '/glossary', ko: 'AI 용어사전', en: 'AI Glossary' },
