@@ -49,6 +49,8 @@
     align-items: center;
     gap: 4px;
     list-style: none;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 .nav-item {
     position: relative;

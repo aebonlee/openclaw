@@ -1,57 +1,39 @@
 /* ============================================
    OpenClaw - Responsive
-   Desktop(1200+) / Tablet(768-1100) / Mobile(~768) / Small(~480) / Mini(~344)
+   Desktop(1024+) / Tablet(768-1023) / Mobile(~768) / Small(~480) / Mini(~360)
    ============================================ */
 
 /* ============================================
-   Tablet & Small Desktop (max-width: 1100px)
+   Compact Desktop (max-width: 1280px)
+   Nav items get tighter to prevent 2-line wrapping
    ============================================ */
-@media (max-width: 1100px) {
-    /* Navbar: hide links, show mobile toggle */
-    .nav-links { display: none; }
-    .navbar-actions .color-picker-wrapper,
-    .navbar-actions .lang-toggle {
-        display: none;
-    }
-    .nav-auth-group { gap: 4px; }
-    .nav-auth-btn { padding: 6px 14px; font-size: 13px; }
-    .mobile-menu-toggle { display: flex; }
-
-    /* Hero */
-    .hero-title { font-size: 42px; }
-    .hero-description { font-size: 17px; }
-
-    /* AI Tools two-column */
-    .ai-two-column {
-        grid-template-columns: 1fr;
-    }
-    .ai-input-panel {
-        position: static;
-    }
-
-    /* Footer */
-    .footer-content {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    /* Sidebar pages */
-    .ck-sidebar { width: 200px; }
-    .ck-main { padding: 20px 24px 40px; }
-
-    /* Intro grids */
-    .oc-intro-target { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 1280px) {
+    .nav-link { padding: 8px 10px; font-size: 14px; }
+    .navbar-logo { font-size: 20px; gap: 8px; }
+    .navbar-actions { gap: 6px; }
 }
 
 /* ============================================
    Tablet (max-width: 1024px)
+   Nav hidden → hamburger menu
    ============================================ */
 @media (max-width: 1024px) {
+    /* Navbar: hide links, show mobile toggle */
+    .nav-links { display: none; }
+    .navbar-actions .color-picker-wrapper,
+    .navbar-actions .lang-toggle { display: none; }
+    .nav-auth-group { gap: 4px; }
+    .nav-auth-btn { padding: 6px 14px; font-size: 13px; }
+    .mobile-menu-toggle { display: flex; }
+
+    /* Container */
     .container { padding: 0 24px; }
     .navbar-inner { padding: 0 24px; }
 
     /* Hero */
     .hero { padding-bottom: 72px; }
     .hero-title { font-size: 38px; }
+    .hero-description { font-size: 17px; }
     .hero-content { max-width: 100%; }
 
     /* Sections */
@@ -71,6 +53,20 @@
 
     /* AI News 4-col → 2-col */
     .edu-course-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* AI Tools two-column */
+    .ai-two-column { grid-template-columns: 1fr; }
+    .ai-input-panel { position: static; }
+
+    /* Footer */
+    .footer-content { grid-template-columns: 1fr 1fr; }
+
+    /* Sidebar pages */
+    .ck-sidebar { width: 200px; }
+    .ck-main { padding: 20px 24px 40px; }
+
+    /* Intro grids */
+    .oc-intro-target { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ============================================
