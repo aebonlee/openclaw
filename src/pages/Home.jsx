@@ -83,9 +83,7 @@ export default function Home() {
           <p className="section-subtitle" style={{ marginBottom: 36, textAlign: 'left', margin: '0 0 36px 0' }}>
             {isKo ? 'OpenClaw의 모든 학습 콘텐츠를 탐색하세요' : 'Explore all learning content on OpenClaw'}
           </p>
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20,
-          }}>
+          <div className="oc-nav-grid">
             {MENU_CARDS.map(card => (
               <Link
                 key={card.path}
@@ -138,9 +136,7 @@ export default function Home() {
       {/* Stats Section */}
       <section style={{ padding: '48px 0', background: 'var(--bg-light-gray)' }}>
         <div className="container">
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 16,
-          }}>
+          <div className="oc-stats-grid">
             {STATS.map((stat, i) => (
               <div key={i} style={{ textAlign: 'center' }}>
                 <i className={`fa-solid ${stat.icon}`} style={{
@@ -167,10 +163,7 @@ export default function Home() {
           <p className="section-subtitle" style={{ marginBottom: 36, textAlign: 'left', margin: '0 0 36px 0' }}>
             {isKo ? '4단계로 완성하는 체계적 학습' : 'Systematic learning in 4 steps'}
           </p>
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0,
-            position: 'relative',
-          }}>
+          <div className="oc-workflow-grid">
             {WORKFLOW_STEPS.map((step, i) => (
               <div key={i} style={{ textAlign: 'center', position: 'relative', padding: '0 12px' }}>
                 <div style={{
@@ -215,9 +208,7 @@ export default function Home() {
           <p className="section-subtitle" style={{ marginBottom: 36, textAlign: 'left', margin: '0 0 36px 0' }}>
             {t('features.subtitle')}
           </p>
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20,
-          }}>
+          <div className="oc-features-grid">
             {[
               { icon: 'fa-graduation-cap', color: '#1B3A6B', key: 'learning' },
               { icon: 'fa-terminal', color: '#5B21B6', key: 'practice' },

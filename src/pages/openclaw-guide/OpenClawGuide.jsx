@@ -28,80 +28,7 @@ const codeBlockStyle = {
   whiteSpace: 'pre',
 };
 
-const tipBoxStyle = {
-  borderLeft: '4px solid #3B82F6',
-  background: '#EFF6FF',
-  padding: '14px 18px',
-  borderRadius: '0 8px 8px 0',
-  marginTop: 16,
-  marginBottom: 16,
-  fontSize: 14,
-  lineHeight: 1.7,
-  color: '#1E40AF',
-};
-
-const warningBoxStyle = {
-  borderLeft: '4px solid #EF4444',
-  background: '#FEF2F2',
-  padding: '14px 18px',
-  borderRadius: '0 8px 8px 0',
-  marginTop: 16,
-  marginBottom: 16,
-  fontSize: 14,
-  lineHeight: 1.7,
-  color: '#991B1B',
-};
-
-const importantBoxStyle = {
-  borderLeft: '4px solid #F59E0B',
-  background: '#FFFBEB',
-  padding: '14px 18px',
-  borderRadius: '0 8px 8px 0',
-  marginTop: 16,
-  marginBottom: 16,
-  fontSize: 14,
-  lineHeight: 1.7,
-  color: '#92400E',
-};
-
-const cardGridStyle = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-  gap: 16,
-  marginTop: 16,
-  marginBottom: 16,
-};
-
-const cardStyle = {
-  border: '1px solid #E2E8F0',
-  borderRadius: 12,
-  padding: 20,
-  background: '#FFFFFF',
-};
-
-const tableStyle = {
-  width: '100%',
-  borderCollapse: 'collapse',
-  marginTop: 16,
-  marginBottom: 16,
-  fontSize: 14,
-};
-
-const thStyle = {
-  background: '#F1F5F9',
-  padding: '10px 14px',
-  textAlign: 'left',
-  fontWeight: 600,
-  borderBottom: '2px solid #CBD5E1',
-  fontSize: 13,
-};
-
-const tdStyle = {
-  padding: '10px 14px',
-  borderBottom: '1px solid #E2E8F0',
-  fontSize: 13,
-  lineHeight: 1.6,
-};
+/* Style objects moved to CSS classes: oc-tip-box, oc-warning-box, oc-important-box, oc-guide-card-grid, oc-guide-card, oc-guide-table */
 
 const checkItemStyle = {
   display: 'flex',
@@ -222,8 +149,8 @@ export default function OpenClawGuide() {
 
                 {/* Target Audience Cards */}
                 <h3 className="theory-h3">{isKo ? '대상 수강자' : 'Target Audience'}</h3>
-                <div style={cardGridStyle}>
-                  <div style={{ ...cardStyle, borderTop: '3px solid #3B82F6' }}>
+                <div className="oc-guide-card-grid">
+                  <div className="oc-guide-card" style={{ borderTop: '3px solid #3B82F6' }}>
                     <div style={{ fontSize: 24, marginBottom: 8 }}><i className="fa-solid fa-code" style={{ color: '#3B82F6' }} /></div>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700 }}>
                       {isKo ? '개발자 / AI 실무자' : 'Developers / AI Practitioners'}
@@ -234,7 +161,7 @@ export default function OpenClawGuide() {
                         : 'Hands-on developers familiar with CLI and APIs who want to build and operate AI agents'}
                     </p>
                   </div>
-                  <div style={{ ...cardStyle, borderTop: '3px solid #10B981' }}>
+                  <div className="oc-guide-card" style={{ borderTop: '3px solid #10B981' }}>
                     <div style={{ fontSize: 24, marginBottom: 8 }}><i className="fa-solid fa-graduation-cap" style={{ color: '#10B981' }} /></div>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700 }}>
                       {isKo ? '자동화 관심 강사·연구자' : 'Automation-Interested Educators & Researchers'}
@@ -245,7 +172,7 @@ export default function OpenClawGuide() {
                         : 'Those integrating AI into research/education environments and building automation workflows'}
                     </p>
                   </div>
-                  <div style={{ ...cardStyle, borderTop: '3px solid #8B5CF6' }}>
+                  <div className="oc-guide-card" style={{ borderTop: '3px solid #8B5CF6' }}>
                     <div style={{ fontSize: 24, marginBottom: 8 }}><i className="fa-solid fa-lightbulb" style={{ color: '#8B5CF6' }} /></div>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700 }}>
                       {isKo ? 'AI 활용 기획자' : 'AI Strategy Planners'}
@@ -260,7 +187,7 @@ export default function OpenClawGuide() {
 
                 {/* Learning Objectives */}
                 <h3 className="theory-h3">{isKo ? '학습 목표' : 'Learning Objectives'}</h3>
-                <div style={{ background: '#F8FAFC', borderRadius: 12, padding: 20, marginBottom: 16 }}>
+                <div className="oc-guide-box-light">
                   {[
                     { ko: 'OpenClaw의 구조와 작동 원리를 설명할 수 있다', en: 'Explain the architecture and operating principles of OpenClaw' },
                     { ko: '자신의 PC 또는 서버에 설치하고 온보딩할 수 있다', en: 'Install and onboard on your own PC or server' },
@@ -278,7 +205,7 @@ export default function OpenClawGuide() {
 
                 {/* Prerequisites */}
                 <h3 className="theory-h3">{isKo ? '사전 요구사항' : 'Prerequisites'}</h3>
-                <div style={importantBoxStyle}>
+                <div className="oc-important-box">
                   <strong><i className="fa-solid fa-triangle-exclamation" style={{ marginRight: 6 }} />{isKo ? '필수 준비물' : 'Required'}</strong>
                   <ul className="theory-list" style={{ marginTop: 8, marginBottom: 0 }}>
                     <li>Node.js 22.14+ ({isKo ? '권장' : 'recommended'} Node 24)</li>
@@ -374,7 +301,7 @@ export default function OpenClawGuide() {
               <div className="ck-content-body">
                 {/* Key Concept */}
                 <h3 className="theory-h3">{isKo ? '핵심 개념' : 'Key Concept'}</h3>
-                <div style={{ ...tipBoxStyle, borderLeftColor: '#10B981', background: '#ECFDF5', color: '#065F46' }}>
+                <div className="oc-tip-box" style={{ borderLeftColor: '#10B981', background: '#ECFDF5', color: '#065F46' }}>
                   <strong style={{ fontSize: 15 }}>
                     {isKo
                       ? 'OpenClaw = "하나의 Gateway를 중심으로 여러 채널과 에이전트를 연결하는 운영 플랫폼"'
@@ -384,8 +311,8 @@ export default function OpenClawGuide() {
 
                 {/* 3-Layer Architecture */}
                 <h3 className="theory-h3">{isKo ? '3계층 아키텍처' : '3-Layer Architecture'}</h3>
-                <div style={cardGridStyle}>
-                  <div style={{ ...cardStyle, borderLeft: '4px solid #3B82F6' }}>
+                <div className="oc-guide-card-grid">
+                  <div className="oc-guide-card" style={{ borderLeft: '4px solid #3B82F6' }}>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, color: '#3B82F6' }}>
                       <i className="fa-solid fa-gear" style={{ marginRight: 8 }} />
                       Tools ({isKo ? '실행 계층' : 'Execution Layer'})
@@ -396,7 +323,7 @@ export default function OpenClawGuide() {
                         : 'Actual action units such as file read/write, command execution, web browsing, and message sending. The hands and feet through which agents interact with the world.'}
                     </p>
                   </div>
-                  <div style={{ ...cardStyle, borderLeft: '4px solid #10B981' }}>
+                  <div className="oc-guide-card" style={{ borderLeft: '4px solid #10B981' }}>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, color: '#10B981' }}>
                       <i className="fa-solid fa-scroll" style={{ marginRight: 8 }} />
                       Skills ({isKo ? '지침 계층' : 'Instruction Layer'})
@@ -407,7 +334,7 @@ export default function OpenClawGuide() {
                         : 'Instructions in SKILL.md format that define when and how to use tools. The same tools produce different agent behavior with different skills.'}
                     </p>
                   </div>
-                  <div style={{ ...cardStyle, borderLeft: '4px solid #8B5CF6' }}>
+                  <div className="oc-guide-card" style={{ borderLeft: '4px solid #8B5CF6' }}>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, color: '#8B5CF6' }}>
                       <i className="fa-solid fa-puzzle-piece" style={{ marginRight: 8 }} />
                       Plugins ({isKo ? '확장 계층' : 'Extension Layer'})
@@ -436,12 +363,12 @@ export default function OpenClawGuide() {
                 {/* Comparison Table */}
                 <h3 className="theory-h3">{isKo ? '일반 챗봇 vs OpenClaw 비교' : 'Regular Chatbot vs OpenClaw'}</h3>
                 <div style={{ overflowX: 'auto' }}>
-                  <table style={tableStyle}>
+                  <table className="oc-guide-table">
                     <thead>
                       <tr>
-                        <th style={thStyle}>{isKo ? '항목' : 'Category'}</th>
-                        <th style={thStyle}>{isKo ? '일반 챗봇' : 'Regular Chatbot'}</th>
-                        <th style={thStyle}>OpenClaw</th>
+                        <th>{isKo ? '항목' : 'Category'}</th>
+                        <th>{isKo ? '일반 챗봇' : 'Regular Chatbot'}</th>
+                        <th>OpenClaw</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -454,9 +381,9 @@ export default function OpenClawGuide() {
                         { ko: ['확장성', '제공자 API 한계', 'Plugin + Skill 무제한 확장'], en: ['Extensibility', 'Provider API limits', 'Unlimited Plugin + Skill extension'] },
                       ].map((row, idx) => (
                         <tr key={idx}>
-                          <td style={{ ...tdStyle, fontWeight: 600 }}>{isKo ? row.ko[0] : row.en[0]}</td>
-                          <td style={tdStyle}>{isKo ? row.ko[1] : row.en[1]}</td>
-                          <td style={{ ...tdStyle, color: '#059669', fontWeight: 500 }}>{isKo ? row.ko[2] : row.en[2]}</td>
+                          <td style={{ fontWeight: 600 }}>{isKo ? row.ko[0] : row.en[0]}</td>
+                          <td >{isKo ? row.ko[1] : row.en[1]}</td>
+                          <td style={{ color: '#059669', fontWeight: 500 }}>{isKo ? row.ko[2] : row.en[2]}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -507,41 +434,41 @@ export default function OpenClawGuide() {
               <div className="ck-content-body">
                 {/* Requirements Table */}
                 <h3 className="theory-h3">{isKo ? '시스템 요구사항' : 'System Requirements'}</h3>
-                <table style={tableStyle}>
+                <table className="oc-guide-table">
                   <thead>
                     <tr>
-                      <th style={thStyle}>{isKo ? '항목' : 'Item'}</th>
-                      <th style={thStyle}>{isKo ? '요구사항' : 'Requirement'}</th>
-                      <th style={thStyle}>{isKo ? '비고' : 'Notes'}</th>
+                      <th>{isKo ? '항목' : 'Item'}</th>
+                      <th>{isKo ? '요구사항' : 'Requirement'}</th>
+                      <th>{isKo ? '비고' : 'Notes'}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td style={{ ...tdStyle, fontWeight: 600 }}>OS</td>
-                      <td style={tdStyle}>macOS / Linux / Windows WSL2</td>
-                      <td style={tdStyle}>{isKo ? 'Windows 네이티브는 제한적' : 'Native Windows has limitations'}</td>
+                      <td style={{ fontWeight: 600 }}>OS</td>
+                      <td >macOS / Linux / Windows WSL2</td>
+                      <td >{isKo ? 'Windows 네이티브는 제한적' : 'Native Windows has limitations'}</td>
                     </tr>
                     <tr>
-                      <td style={{ ...tdStyle, fontWeight: 600 }}>Node.js</td>
-                      <td style={tdStyle}>22.14+</td>
-                      <td style={tdStyle}>{isKo ? '권장 Node 24' : 'Node 24 recommended'}</td>
+                      <td style={{ fontWeight: 600 }}>Node.js</td>
+                      <td >22.14+</td>
+                      <td >{isKo ? '권장 Node 24' : 'Node 24 recommended'}</td>
                     </tr>
                     <tr>
-                      <td style={{ ...tdStyle, fontWeight: 600 }}>API Key</td>
-                      <td style={tdStyle}>{isKo ? '1개 이상' : '1 or more'}</td>
-                      <td style={tdStyle}>Anthropic, OpenAI, Google {isKo ? '등' : 'etc.'}</td>
+                      <td style={{ fontWeight: 600 }}>API Key</td>
+                      <td >{isKo ? '1개 이상' : '1 or more'}</td>
+                      <td >Anthropic, OpenAI, Google {isKo ? '등' : 'etc.'}</td>
                     </tr>
                   </tbody>
                 </table>
 
                 {/* Installation Methods */}
                 <h3 className="theory-h3">{isKo ? '설치 방법 비교' : 'Installation Methods Comparison'}</h3>
-                <table style={tableStyle}>
+                <table className="oc-guide-table">
                   <thead>
                     <tr>
-                      <th style={thStyle}>{isKo ? '방법' : 'Method'}</th>
-                      <th style={thStyle}>{isKo ? '난이도' : 'Difficulty'}</th>
-                      <th style={thStyle}>{isKo ? '설명' : 'Description'}</th>
+                      <th>{isKo ? '방법' : 'Method'}</th>
+                      <th>{isKo ? '난이도' : 'Difficulty'}</th>
+                      <th>{isKo ? '설명' : 'Description'}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -552,8 +479,8 @@ export default function OpenClawGuide() {
                       { ko: ['Docker / Container', '보통', '컨테이너 기반 격리 실행'], en: ['Docker / Container', 'Medium', 'Container-based isolated execution'] },
                     ].map((row, idx) => (
                       <tr key={idx}>
-                        <td style={{ ...tdStyle, fontWeight: 600 }}>{isKo ? row.ko[0] : row.en[0]}</td>
-                        <td style={tdStyle}>
+                        <td style={{ fontWeight: 600 }}>{isKo ? row.ko[0] : row.en[0]}</td>
+                        <td >
                           <span style={{
                             background: idx === 0 ? '#D1FAE5' : idx === 1 ? '#DBEAFE' : '#FEF3C7',
                             color: idx === 0 ? '#065F46' : idx === 1 ? '#1E40AF' : '#92400E',
@@ -562,7 +489,7 @@ export default function OpenClawGuide() {
                             {isKo ? row.ko[1] : row.en[1]}
                           </span>
                         </td>
-                        <td style={tdStyle}>{isKo ? row.ko[2] : row.en[2]}</td>
+                        <td >{isKo ? row.ko[2] : row.en[2]}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -594,7 +521,7 @@ openclaw gateway status`}</pre>
                   <li><strong>{isKo ? '권한 문제' : 'Permission issues'}:</strong> {isKo ? 'npm 글로벌 설치 시 sudo 필요 여부 확인, 또는 nvm 사용 권장' : 'Check if sudo is needed for npm global install, or use nvm instead'}</li>
                 </ul>
 
-                <div style={tipBoxStyle}>
+                <div className="oc-tip-box">
                   <i className="fa-solid fa-lightbulb" style={{ marginRight: 8 }} />
                   <strong>Tip:</strong> {isKo
                     ? 'Windows는 네이티브보다 WSL2가 더 안정적입니다. WSL2 환경에서 설치를 강력히 권장합니다.'
@@ -627,12 +554,12 @@ openclaw gateway status`}</pre>
 
                 {/* QuickStart vs Advanced */}
                 <h3 className="theory-h3">QuickStart vs Advanced</h3>
-                <table style={tableStyle}>
+                <table className="oc-guide-table">
                   <thead>
                     <tr>
-                      <th style={thStyle}>{isKo ? '항목' : 'Item'}</th>
-                      <th style={thStyle}>QuickStart</th>
-                      <th style={thStyle}>Advanced</th>
+                      <th>{isKo ? '항목' : 'Item'}</th>
+                      <th>QuickStart</th>
+                      <th>Advanced</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -644,9 +571,9 @@ openclaw gateway status`}</pre>
                       { ko: ['초보자 적합성', '매우 높음', '보통'], en: ['Beginner Friendly', 'Very high', 'Moderate'] },
                     ].map((row, idx) => (
                       <tr key={idx}>
-                        <td style={{ ...tdStyle, fontWeight: 600 }}>{isKo ? row.ko[0] : row.en[0]}</td>
-                        <td style={tdStyle}>{isKo ? row.ko[1] : row.en[1]}</td>
-                        <td style={tdStyle}>{isKo ? row.ko[2] : row.en[2]}</td>
+                        <td style={{ fontWeight: 600 }}>{isKo ? row.ko[0] : row.en[0]}</td>
+                        <td >{isKo ? row.ko[1] : row.en[1]}</td>
+                        <td >{isKo ? row.ko[2] : row.en[2]}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -672,7 +599,7 @@ openclaw configure`}</pre>
 
                 {/* First Success Checklist */}
                 <h3 className="theory-h3">{isKo ? '첫 실행 성공 체크리스트' : 'First Run Success Checklist'}</h3>
-                <div style={{ background: '#F0FDF4', borderRadius: 12, padding: 20, marginBottom: 16 }}>
+                <div className="oc-guide-box-light" style={{ background: '#F0FDF4' }}>
                   {[
                     { ko: '설치 성공 (openclaw --version 확인)', en: 'Installation success (verify openclaw --version)' },
                     { ko: 'Dashboard 접속 (openclaw dashboard)', en: 'Dashboard access (openclaw dashboard)' },
@@ -687,7 +614,7 @@ openclaw configure`}</pre>
                   ))}
                 </div>
 
-                <div style={tipBoxStyle}>
+                <div className="oc-tip-box">
                   <i className="fa-solid fa-lightbulb" style={{ marginRight: 8 }} />
                   <strong>Tip:</strong> {isKo
                     ? '가장 빠른 첫 대화는 채널 연결 없이 openclaw dashboard로 Control UI에서 시작하는 것입니다.'
@@ -712,7 +639,7 @@ openclaw configure`}</pre>
               <div className="ck-content-body">
                 {/* Why Channels */}
                 <h3 className="theory-h3">{isKo ? '채널의 핵심 가치' : 'Core Value of Channels'}</h3>
-                <div style={{ ...tipBoxStyle, borderLeftColor: '#3B82F6' }}>
+                <div className="oc-tip-box">
                   <strong>
                     {isKo
                       ? '"어디서든 같은 assistant를 호출"하는 것이 채널 연결의 핵심 가치입니다. 하나의 Gateway에 여러 채널을 연결하면 Telegram, WhatsApp, Slack 등 어디서든 동일한 에이전트와 대화할 수 있습니다.'
@@ -751,7 +678,7 @@ openclaw pairing list whatsapp
 openclaw pairing approve whatsapp <CODE>`}</pre>
 
                 {/* Important Callout */}
-                <div style={importantBoxStyle}>
+                <div className="oc-important-box">
                   <i className="fa-solid fa-triangle-exclamation" style={{ marginRight: 8 }} />
                   <strong>{isKo ? '주의:' : 'Important:'}</strong>{' '}
                   {isKo
@@ -769,7 +696,7 @@ openclaw pairing approve whatsapp <CODE>`}</pre>
 
                 {/* Channel Verification */}
                 <h3 className="theory-h3">{isKo ? '채널 연결 확인 체크리스트' : 'Channel Verification Checklist'}</h3>
-                <div style={{ background: '#EFF6FF', borderRadius: 12, padding: 20 }}>
+                <div className="oc-guide-box-light" style={{ background: '#EFF6FF' }}>
                   {[
                     { ko: '로그인 성공', en: 'Login success' },
                     { ko: 'Pairing 승인 완료', en: 'Pairing approval complete' },
@@ -839,12 +766,12 @@ openclaw models status --probe`}</pre>
 
                 {/* Tool Profiles Table */}
                 <h3 className="theory-h3">{isKo ? '도구 프로필' : 'Tool Profiles'}</h3>
-                <table style={tableStyle}>
+                <table className="oc-guide-table">
                   <thead>
                     <tr>
-                      <th style={thStyle}>{isKo ? '프로필' : 'Profile'}</th>
-                      <th style={thStyle}>{isKo ? '허용 범위' : 'Allowed Scope'}</th>
-                      <th style={thStyle}>{isKo ? '적합한 용도' : 'Best For'}</th>
+                      <th>{isKo ? '프로필' : 'Profile'}</th>
+                      <th>{isKo ? '허용 범위' : 'Allowed Scope'}</th>
+                      <th>{isKo ? '적합한 용도' : 'Best For'}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -855,9 +782,9 @@ openclaw models status --probe`}</pre>
                       { ko: ['minimal', '읽기 전용, 실행 제한', '안전한 조회·질의'], en: ['minimal', 'Read-only, execution restricted', 'Safe queries & inquiries'] },
                     ].map((row, idx) => (
                       <tr key={idx}>
-                        <td style={{ ...tdStyle, fontWeight: 700, fontFamily: 'monospace' }}>{isKo ? row.ko[0] : row.en[0]}</td>
-                        <td style={tdStyle}>{isKo ? row.ko[1] : row.en[1]}</td>
-                        <td style={tdStyle}>{isKo ? row.ko[2] : row.en[2]}</td>
+                        <td style={{ fontWeight: 700, fontFamily: 'monospace' }}>{isKo ? row.ko[0] : row.en[0]}</td>
+                        <td >{isKo ? row.ko[1] : row.en[1]}</td>
+                        <td >{isKo ? row.ko[2] : row.en[2]}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -865,8 +792,8 @@ openclaw models status --probe`}</pre>
 
                 {/* Tools vs Skills vs Plugins */}
                 <h3 className="theory-h3">Tools vs Skills vs Plugins</h3>
-                <div style={cardGridStyle}>
-                  <div style={{ ...cardStyle, borderTop: '3px solid #3B82F6' }}>
+                <div className="oc-guide-card-grid">
+                  <div className="oc-guide-card" style={{ borderTop: '3px solid #3B82F6' }}>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, color: '#3B82F6' }}>
                       <i className="fa-solid fa-wrench" style={{ marginRight: 8 }} />Tools
                     </h4>
@@ -879,7 +806,7 @@ openclaw models status --probe`}</pre>
                       <li>{isKo ? '웹 탐색 (브라우저 자동화)' : 'Web browsing (browser automation)'}</li>
                     </ul>
                   </div>
-                  <div style={{ ...cardStyle, borderTop: '3px solid #10B981' }}>
+                  <div className="oc-guide-card" style={{ borderTop: '3px solid #10B981' }}>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, color: '#10B981' }}>
                       <i className="fa-solid fa-scroll" style={{ marginRight: 8 }} />Skills
                     </h4>
@@ -892,7 +819,7 @@ openclaw models status --probe`}</pre>
                         : 'Same tools produce different behavior with different skills. Separation of "what can be done" (tools) and "how it should be done" (skills).'}
                     </p>
                   </div>
-                  <div style={{ ...cardStyle, borderTop: '3px solid #8B5CF6' }}>
+                  <div className="oc-guide-card" style={{ borderTop: '3px solid #8B5CF6' }}>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, color: '#8B5CF6' }}>
                       <i className="fa-solid fa-puzzle-piece" style={{ marginRight: 8 }} />Plugins
                     </h4>
@@ -955,7 +882,7 @@ openclaw models status --probe`}</pre>
               </div>
               <div className="ck-content-body">
                 {/* WARNING */}
-                <div style={warningBoxStyle}>
+                <div className="oc-warning-box">
                   <strong><i className="fa-solid fa-exclamation-triangle" style={{ marginRight: 8 }} />WARNING</strong>
                   <p style={{ margin: '8px 0 0', lineHeight: 1.8 }}>
                     {isKo
@@ -966,8 +893,8 @@ openclaw models status --probe`}</pre>
 
                 {/* 3 Security Layers */}
                 <h3 className="theory-h3">{isKo ? '3단계 보안 계층' : '3 Security Layers'}</h3>
-                <div style={cardGridStyle}>
-                  <div style={{ ...cardStyle, borderLeft: '4px solid #3B82F6' }}>
+                <div className="oc-guide-card-grid">
+                  <div className="oc-guide-card" style={{ borderLeft: '4px solid #3B82F6' }}>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, color: '#3B82F6' }}>
                       1. Sandbox
                     </h4>
@@ -978,7 +905,7 @@ openclaw models status --probe`}</pre>
                       {isKo ? '어디서 실행할지를 결정합니다. 컨테이너, chroot, 또는 제한된 경로 내에서만 실행하도록 경계를 설정합니다.' : 'Determines where execution happens. Sets boundaries to run only within containers, chroot, or restricted paths.'}
                     </p>
                   </div>
-                  <div style={{ ...cardStyle, borderLeft: '4px solid #F59E0B' }}>
+                  <div className="oc-guide-card" style={{ borderLeft: '4px solid #F59E0B' }}>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, color: '#F59E0B' }}>
                       2. Tool Policy
                     </h4>
@@ -989,7 +916,7 @@ openclaw models status --probe`}</pre>
                       {isKo ? '무엇을 허용할지를 정의합니다. 파일 접근, 명령 실행, 네트워크 요청 등 도구별 세부 정책을 설정합니다.' : 'Defines what to allow. Sets per-tool policies for file access, command execution, network requests, etc.'}
                     </p>
                   </div>
-                  <div style={{ ...cardStyle, borderLeft: '4px solid #EF4444' }}>
+                  <div className="oc-guide-card" style={{ borderLeft: '4px solid #EF4444' }}>
                     <h4 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, color: '#EF4444' }}>
                       3. Elevated Mode
                     </h4>
@@ -1004,11 +931,11 @@ openclaw models status --probe`}</pre>
 
                 {/* Elevated Commands */}
                 <h3 className="theory-h3">{isKo ? 'Elevated 명령어' : 'Elevated Commands'}</h3>
-                <table style={tableStyle}>
+                <table className="oc-guide-table">
                   <thead>
                     <tr>
-                      <th style={thStyle}>{isKo ? '명령' : 'Command'}</th>
-                      <th style={thStyle}>{isKo ? '설명' : 'Description'}</th>
+                      <th>{isKo ? '명령' : 'Command'}</th>
+                      <th>{isKo ? '설명' : 'Description'}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1019,8 +946,8 @@ openclaw models status --probe`}</pre>
                       { cmd: '/elevated off', ko: 'Elevated 모드 비활성화', en: 'Disable elevated mode' },
                     ].map((row, idx) => (
                       <tr key={idx}>
-                        <td style={{ ...tdStyle, fontFamily: 'monospace', fontWeight: 600 }}>{row.cmd}</td>
-                        <td style={tdStyle}>{isKo ? row.ko : row.en}</td>
+                        <td style={{ fontFamily: 'monospace', fontWeight: 600 }}>{row.cmd}</td>
+                        <td >{isKo ? row.ko : row.en}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -1058,7 +985,7 @@ openclaw secrets configure`}</pre>
 
                 {/* Key Security Principles */}
                 <h3 className="theory-h3">{isKo ? '핵심 보안 원칙' : 'Key Security Principles'}</h3>
-                <div style={{ background: '#FEF2F2', borderRadius: 12, padding: 20, marginBottom: 8 }}>
+                <div className="oc-guide-box-light" style={{ background: '#FEF2F2' }}>
                   {[
                     { ko: '"작동보다 권한 통제가 먼저" - 기능이 작동하는지보다 권한이 올바른지를 먼저 확인하세요.', en: '"Access control before functionality" - Verify permissions are correct before checking if features work.' },
                     { ko: '"팀 공용 봇처럼 쓸 때는 세션 분리만 믿으면 안 된다" - multi-user 시 별도 Gateway 운영을 고려하세요.', en: '"Don\'t rely solely on session isolation when using as a team bot" - Consider separate Gateway operation for multi-user scenarios.' },
@@ -1102,12 +1029,12 @@ openclaw doctor --fix        # ${isKo ? '자동 수정 시도' : 'Auto-fix attem
                 {/* Common Failure Patterns */}
                 <h3 className="theory-h3">{isKo ? '자주 발생하는 장애 패턴' : 'Common Failure Patterns'}</h3>
                 <div style={{ overflowX: 'auto' }}>
-                  <table style={tableStyle}>
+                  <table className="oc-guide-table">
                     <thead>
                       <tr>
-                        <th style={thStyle}>{isKo ? '증상' : 'Symptom'}</th>
-                        <th style={thStyle}>{isKo ? '원인' : 'Cause'}</th>
-                        <th style={thStyle}>{isKo ? '해결' : 'Solution'}</th>
+                        <th>{isKo ? '증상' : 'Symptom'}</th>
+                        <th>{isKo ? '원인' : 'Cause'}</th>
+                        <th>{isKo ? '해결' : 'Solution'}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1121,9 +1048,9 @@ openclaw doctor --fix        # ${isKo ? '자동 수정 시도' : 'Auto-fix attem
                         { ko: ['명령 실행 거부', '과도한 권한 제한', 'tool profile 및 elevated 설정 검토'], en: ['Command execution denied', 'Excessive permission restrictions', 'Review tool profile and elevated settings'] },
                       ].map((row, idx) => (
                         <tr key={idx}>
-                          <td style={{ ...tdStyle, fontWeight: 600, color: '#DC2626' }}>{isKo ? row.ko[0] : row.en[0]}</td>
-                          <td style={tdStyle}>{isKo ? row.ko[1] : row.en[1]}</td>
-                          <td style={{ ...tdStyle, fontFamily: row.ko[2].includes('openclaw') || row.en[2].includes('openclaw') ? 'monospace' : 'inherit', fontSize: 12 }}>
+                          <td style={{ fontWeight: 600, color: '#DC2626' }}>{isKo ? row.ko[0] : row.en[0]}</td>
+                          <td >{isKo ? row.ko[1] : row.en[1]}</td>
+                          <td style={{ fontFamily: row.ko[2].includes('openclaw') || row.en[2].includes('openclaw') ? 'monospace' : 'inherit', fontSize: 12 }}>
                             {isKo ? row.ko[2] : row.en[2]}
                           </td>
                         </tr>
@@ -1134,7 +1061,7 @@ openclaw doctor --fix        # ${isKo ? '자동 수정 시도' : 'Auto-fix attem
 
                 {/* Daily/Weekly Checklist */}
                 <h3 className="theory-h3">{isKo ? '일상/주간 운영 체크리스트' : 'Daily/Weekly Operations Checklist'}</h3>
-                <div style={{ background: '#F5F3FF', borderRadius: 12, padding: 20, marginBottom: 16 }}>
+                <div className="oc-guide-box-light" style={{ background: '#F5F3FF' }}>
                   {[
                     { ko: 'openclaw status로 전체 상태 확인 (매일)', en: 'Check overall status with openclaw status (daily)' },
                     { ko: 'openclaw health --json으로 건강 스냅샷 확인 (매일)', en: 'Check health snapshot with openclaw health --json (daily)' },
@@ -1152,7 +1079,7 @@ openclaw doctor --fix        # ${isKo ? '자동 수정 시도' : 'Auto-fix attem
 
                 {/* Mini Project */}
                 <h3 className="theory-h3">{isKo ? '미니 프로젝트' : 'Mini Project'}</h3>
-                <div style={{ ...cardStyle, borderLeft: '4px solid #8B5CF6', marginBottom: 16 }}>
+                <div className="oc-guide-card" style={{ borderLeft: '4px solid #8B5CF6', marginBottom: 16 }}>
                   <h4 style={{ margin: '0 0 12px', fontSize: 16, fontWeight: 700, color: '#5B21B6' }}>
                     <i className="fa-solid fa-rocket" style={{ marginRight: 8 }} />
                     {isKo ? '내 메신저에서 부르는 개인 AI 비서 만들기' : 'Build a Personal AI Assistant Callable from Your Messenger'}
@@ -1172,33 +1099,33 @@ openclaw doctor --fix        # ${isKo ? '자동 수정 시도' : 'Auto-fix attem
 
                 {/* Evaluation Rubric */}
                 <h3 className="theory-h3">{isKo ? '평가 기준' : 'Evaluation Rubric'}</h3>
-                <table style={tableStyle}>
+                <table className="oc-guide-table">
                   <thead>
                     <tr>
-                      <th style={thStyle}>{isKo ? '등급' : 'Grade'}</th>
-                      <th style={thStyle}>{isKo ? '기준' : 'Criteria'}</th>
+                      <th>{isKo ? '등급' : 'Grade'}</th>
+                      <th>{isKo ? '기준' : 'Criteria'}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td style={{ ...tdStyle, fontWeight: 700, color: '#10B981' }}>{isKo ? '상 (A)' : 'High (A)'}</td>
-                      <td style={tdStyle}>
+                      <td style={{ fontWeight: 700, color: '#10B981' }}>{isKo ? '상 (A)' : 'High (A)'}</td>
+                      <td >
                         {isKo
                           ? '모든 산출물 완성, 채널 2개 이상 연결, 보안 감사 수행, 독자적 시나리오 제시'
                           : 'All deliverables complete, 2+ channels connected, security audit performed, original scenarios presented'}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ ...tdStyle, fontWeight: 700, color: '#3B82F6' }}>{isKo ? '중 (B)' : 'Mid (B)'}</td>
-                      <td style={tdStyle}>
+                      <td style={{ fontWeight: 700, color: '#3B82F6' }}>{isKo ? '중 (B)' : 'Mid (B)'}</td>
+                      <td >
                         {isKo
                           ? '기본 산출물 완성, 채널 1개 연결, 기본 보안 설정 확인'
                           : 'Basic deliverables complete, 1 channel connected, basic security settings verified'}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ ...tdStyle, fontWeight: 700, color: '#F59E0B' }}>{isKo ? '하 (C)' : 'Low (C)'}</td>
-                      <td style={tdStyle}>
+                      <td style={{ fontWeight: 700, color: '#F59E0B' }}>{isKo ? '하 (C)' : 'Low (C)'}</td>
+                      <td >
                         {isKo
                           ? '설치 완료, Dashboard 접속 성공, 첫 대화 성공'
                           : 'Installation complete, Dashboard access successful, first conversation successful'}
@@ -1210,11 +1137,11 @@ openclaw doctor --fix        # ${isKo ? '자동 수정 시도' : 'Auto-fix attem
                 {/* Command Cheatsheet */}
                 <h3 className="theory-h3">{isKo ? '명령어 치트시트' : 'Command Cheatsheet'}</h3>
                 <div style={{ overflowX: 'auto' }}>
-                  <table style={tableStyle}>
+                  <table className="oc-guide-table">
                     <thead>
                       <tr>
-                        <th style={thStyle}>{isKo ? '명령' : 'Command'}</th>
-                        <th style={thStyle}>{isKo ? '용도' : 'Purpose'}</th>
+                        <th>{isKo ? '명령' : 'Command'}</th>
+                        <th>{isKo ? '용도' : 'Purpose'}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1244,8 +1171,8 @@ openclaw doctor --fix        # ${isKo ? '자동 수정 시도' : 'Auto-fix attem
                         { cmd: 'openclaw logs --follow', ko: '실시간 로그 확인', en: 'Follow real-time logs' },
                       ].map((row, idx) => (
                         <tr key={idx} style={{ background: idx % 2 === 0 ? '#FAFAFA' : '#FFFFFF' }}>
-                          <td style={{ ...tdStyle, fontFamily: 'monospace', fontWeight: 600, fontSize: 12, whiteSpace: 'nowrap' }}>{row.cmd}</td>
-                          <td style={tdStyle}>{isKo ? row.ko : row.en}</td>
+                          <td style={{ fontFamily: 'monospace', fontWeight: 600, fontSize: 12, whiteSpace: 'nowrap' }}>{row.cmd}</td>
+                          <td >{isKo ? row.ko : row.en}</td>
                         </tr>
                       ))}
                     </tbody>

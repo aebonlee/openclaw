@@ -37,6 +37,9 @@
     /* Sidebar pages */
     .ck-sidebar { width: 200px; }
     .ck-main { padding: 20px 24px 40px; }
+
+    /* Intro grids */
+    .oc-intro-target { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ============================================
@@ -180,6 +183,14 @@
     /* Prompt Gallery: 2-col → 1-col */
     .prompt-gallery-grid { grid-template-columns: 1fr; }
 
+    /* Intro grids */
+    .oc-intro-stats { grid-template-columns: repeat(3, 1fr); }
+    .oc-intro-target { grid-template-columns: 1fr; }
+    .oc-intro-features { grid-template-columns: 1fr; }
+
+    /* Guide grids */
+    .oc-guide-card-grid { grid-template-columns: 1fr; }
+
     /* Buttons */
     .btn { padding: 10px 20px; font-size: 14px; }
     .btn-lg { padding: 12px 28px; font-size: 15px; }
@@ -207,6 +218,9 @@
     /* Section titles */
     .section-title { font-size: 20px; }
     .section-subtitle { font-size: 13px; }
+
+    /* Intro grids */
+    .oc-intro-stats { grid-template-columns: repeat(2, 1fr); }
 
     /* Cards compact */
     .feature-card { padding: 24px 20px; }

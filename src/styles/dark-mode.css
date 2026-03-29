@@ -256,3 +256,24 @@
     border-color: var(--border-light);
     color: var(--text-primary);
 }
+
+/* ── OpenClaw Guide Dark Mode ── */
+[data-theme="dark"] .oc-tip-box {
+    background: rgba(59, 130, 246, 0.1);
+    color: #93C5FD;
+}
+[data-theme="dark"] .oc-warning-box {
+    background: rgba(239, 68, 68, 0.1);
+    color: #FCA5A5;
+}
+[data-theme="dark"] .oc-important-box {
+    background: rgba(245, 158, 11, 0.1);
+    color: #FCD34D;
+}
+[data-theme="dark"] .oc-guide-card {
+    background: var(--bg-white);
+    border-color: var(--border-light);
+}
+[data-theme="dark"] .oc-guide-box-light {
+    background: var(--bg-light-gray);
+}

@@ -185,7 +185,7 @@ export default function IntroPage() {
                 </p>
 
                 {/* Stats */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 12, margin: '28px 0', padding: 20, borderRadius: 12, background: 'var(--bg-light-gray)' }}>
+                <div className="oc-intro-stats">
                   {PLATFORM_STATS.map((stat, i) => (
                     <div key={i} style={{ textAlign: 'center' }}>
                       <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--primary-blue)' }}>{stat.value}</div>
@@ -195,7 +195,7 @@ export default function IntroPage() {
                 </div>
 
                 <h3 className="theory-h3" style={{ marginTop: 28 }}>{isKo ? '대상 사용자' : 'Target Audience'}</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginTop: 12 }}>
+                <div className="oc-intro-target">
                   {TARGET_AUDIENCE.map((item, idx) => (
                     <div key={idx} style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border-light)', background: 'var(--bg-white)' }}>
                       <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(27,58,107,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
@@ -221,7 +221,7 @@ export default function IntroPage() {
                 </div>
               </div>
               <div className="ck-content-body">
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+                <div className="oc-intro-features">
                   {FEATURES.map((feat, idx) => (
                     <div key={idx} style={{ padding: 24, borderRadius: 12, border: '1px solid var(--border-light)', background: 'var(--bg-white)' }}>
                       <div style={{ width: 44, height: 44, borderRadius: 12, background: `${feat.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 14 }}>

@@ -176,4 +176,78 @@
     gap: 8px;
 }
 
+/* ── Intro/Guide Grids (inline → class) ── */
+.oc-intro-stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin: 28px 0; padding: 20px; border-radius: 12px; background: var(--bg-light-gray); }
+.oc-intro-target { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+.oc-intro-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+/* ── OpenClaw Guide dark-aware boxes ── */
+.oc-tip-box {
+    border-left: 4px solid #3B82F6;
+    background: #EFF6FF;
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #1E40AF;
+}
+.oc-warning-box {
+    border-left: 4px solid #EF4444;
+    background: #FEF2F2;
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #991B1B;
+}
+.oc-important-box {
+    border-left: 4px solid #F59E0B;
+    background: #FFFBEB;
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #92400E;
+}
+.oc-guide-card {
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    background: var(--bg-white);
+}
+.oc-guide-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+}
+.oc-guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+}
+.oc-guide-table th {
+    background: var(--bg-light-gray);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-primary);
+    text-align: left;
+    padding: 10px 14px;
+    border: 1px solid var(--border-light);
+    white-space: nowrap;
+}
+.oc-guide-table td {
+    padding: 10px 14px;
+    border: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 13px;
+}
+.oc-guide-text-muted { color: var(--text-secondary); }
+.oc-guide-box-light { background: var(--bg-light-gray); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+
 /* Responsive rules moved to responsive.css */

@@ -369,6 +369,12 @@
     gap: 12px;
 }
 
+/* ── OpenClaw Home Grids (inline → class) ── */
+.oc-nav-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.oc-stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+.oc-workflow-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.oc-features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
 /* ── Responsive ── */
 @media (max-width: 1024px) {
     .home-tools-grid { grid-template-columns: repeat(2, 1fr); }
@@ -377,6 +383,9 @@
     .home-providers-grid { grid-template-columns: repeat(2, 1fr); }
     .home-features-grid { grid-template-columns: repeat(2, 1fr); }
     .home-stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .oc-nav-grid { grid-template-columns: repeat(2, 1fr); }
+    .oc-workflow-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .oc-features-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -390,9 +399,14 @@
     .home-cta-buttons { flex-direction: column; align-items: center; }
     .home-cta-buttons .btn { width: 100%; max-width: 300px; }
     .home-export-bar { flex-direction: column; gap: 10px; }
+    .oc-nav-grid { grid-template-columns: 1fr; }
+    .oc-stats-grid { grid-template-columns: repeat(3, 1fr); }
+    .oc-workflow-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+    .oc-features-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
     .home-providers-grid { grid-template-columns: 1fr; }
     .home-stats-grid { grid-template-columns: 1fr; }
+    .oc-stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
