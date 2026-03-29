@@ -69,14 +69,7 @@ export default function Navbar() {
     { path: '/glossary', ko: 'AI 용어사전', en: 'AI Glossary' },
     { path: '/roadmap', ko: '학습 로드맵', en: 'Roadmap' },
     { path: '/ai-news', ko: 'AI 트렌드', en: 'AI Trends' },
-    {
-      path: '/community/board', ko: '커뮤니티', en: 'Community',
-      children: [
-        { path: '/community/board', ko: '게시판', en: 'Board', icon: 'fa-comments' },
-        { path: '/prompt-practice', ko: '프롬프트 실습', en: 'Prompt Practice', icon: 'fa-terminal' },
-        { path: '/prompt-gallery', ko: '프롬프트 갤러리', en: 'Prompt Gallery', icon: 'fa-images' },
-      ],
-    },
+    { path: '/community/board', ko: '커뮤니티', en: 'Community' },
   ];
 
   return (
