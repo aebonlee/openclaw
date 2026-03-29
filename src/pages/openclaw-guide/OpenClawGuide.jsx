@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 
@@ -48,7 +49,22 @@ const externalLinkStyle = {
 export default function OpenClawGuide() {
   const { language } = useLanguage();
   const isKo = language === 'ko';
+  const location = useLocation();
   const [activeSection, setActiveSection] = useState('overview');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const hash = location.hash.replace('#', '');
+    if (hash && SECTIONS.some(s => s.id === hash)) {
+      setActiveSection(hash);
+      window.scrollTo(0, 0);
+    }
+  }, [location.hash]);
+
+  const handleSectionSelect = (id) => {
+    setActiveSection(id);
+    setIsSidebarOpen(false);
+  };
 
   return (
     <div className="ck-page">
@@ -58,14 +74,18 @@ export default function OpenClawGuide() {
         path="/openclaw-guide"
       />
 
-      <button className="ck-mobile-toggle" onClick={() => {}}>
-        <i className="fa-solid fa-bars" />
+      <button className="ck-mobile-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+        <i className={`fa-solid ${isSidebarOpen ? 'fa-xmark' : 'fa-bars'}`} />
         <span>{isKo ? '메뉴' : 'Menu'}</span>
       </button>
 
+      {isSidebarOpen && (
+        <div className="ck-sidebar-overlay" onClick={() => setIsSidebarOpen(false)} />
+      )}
+
       <div className="ck-layout">
         {/* ───── Sidebar ───── */}
-        <aside className="ck-sidebar">
+        <aside className={`ck-sidebar ${isSidebarOpen ? 'open' : ''}`}>
           <div className="ck-sb-header">
             <span>{isKo ? 'OpenClaw 가이드' : 'OpenClaw Guide'}</span>
           </div>
@@ -75,7 +95,7 @@ export default function OpenClawGuide() {
                 <button
                   key={sec.id}
                   className={`ck-nav-child ${activeSection === sec.id ? 'active' : ''}`}
-                  onClick={() => setActiveSection(sec.id)}
+                  onClick={() => handleSectionSelect(sec.id)}
                   style={{
                     margin: '8px 8px',
                     padding: '10px 14px',
@@ -103,7 +123,7 @@ export default function OpenClawGuide() {
                 <button
                   key={sec.id}
                   className={`ck-nav-child ${activeSection === sec.id ? 'active' : ''}`}
-                  onClick={() => setActiveSection(sec.id)}
+                  onClick={() => handleSectionSelect(sec.id)}
                 >
                   <span>{isKo ? sec.ko : sec.en}</span>
                 </button>

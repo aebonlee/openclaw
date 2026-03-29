@@ -15,6 +15,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
   const colorPickerRef = useRef(null);
   const userMenuRef = useRef(null);
 
@@ -50,12 +51,32 @@ export default function Navbar() {
 
   const NAV_ITEMS = [
     { path: '/intro', ko: 'About', en: 'About' },
-    { path: '/openclaw-guide', ko: 'OpenClaw', en: 'OpenClaw' },
+    {
+      path: '/openclaw-guide', ko: 'OpenClaw', en: 'OpenClaw',
+      children: [
+        { path: '/openclaw-guide#overview', ko: '학습 개요', en: 'Overview', icon: 'fa-clipboard-list' },
+        { path: '/openclaw-guide#slides', ko: '학습 자료 : PT', en: 'Slides : PT', icon: 'fa-file-pdf' },
+        { path: '/openclaw-guide#architecture', ko: '시스템 구조', en: 'Architecture', icon: 'fa-sitemap' },
+        { path: '/openclaw-guide#install', ko: '설치와 실행', en: 'Installation', icon: 'fa-download' },
+        { path: '/openclaw-guide#onboarding', ko: '온보딩', en: 'Onboarding', icon: 'fa-play-circle' },
+        { path: '/openclaw-guide#channels', ko: '채널 연결', en: 'Channels', icon: 'fa-comments' },
+        { path: '/openclaw-guide#models', ko: '모델과 도구', en: 'Models & Tools', icon: 'fa-brain' },
+        { path: '/openclaw-guide#security', ko: '보안과 권한', en: 'Security', icon: 'fa-shield-halved' },
+        { path: '/openclaw-guide#operations', ko: '운영과 점검', en: 'Operations', icon: 'fa-wrench' },
+      ],
+    },
     { path: '/resources', ko: 'AI 학습자료', en: 'AI Resources' },
     { path: '/glossary', ko: 'AI 용어사전', en: 'AI Glossary' },
     { path: '/roadmap', ko: '학습 로드맵', en: 'Roadmap' },
     { path: '/ai-news', ko: 'AI 트렌드', en: 'AI Trends' },
-    { path: '/community/board', ko: '커뮤니티', en: 'Community' },
+    {
+      path: '/community/board', ko: '커뮤니티', en: 'Community',
+      children: [
+        { path: '/community/board', ko: '게시판', en: 'Board', icon: 'fa-comments' },
+        { path: '/prompt-practice', ko: '프롬프트 실습', en: 'Prompt Practice', icon: 'fa-terminal' },
+        { path: '/prompt-gallery', ko: '프롬프트 갤러리', en: 'Prompt Gallery', icon: 'fa-images' },
+      ],
+    },
   ];
 
   return (
@@ -75,7 +96,20 @@ export default function Navbar() {
                   className={`nav-link ${location.pathname.startsWith(item.path.split('?')[0]) ? 'active' : ''}`}
                 >
                   {isKo ? item.ko : item.en}
+                  {item.children && <i className="fa-solid fa-chevron-down arrow" />}
                 </Link>
+                {item.children && (
+                  <ul className="dropdown-menu">
+                    {item.children.map(child => (
+                      <li key={child.path}>
+                        <Link to={child.path} className="dropdown-item">
+                          <i className={`fa-solid ${child.icon} icon`} />
+                          {isKo ? child.ko : child.en}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>
@@ -151,9 +185,33 @@ export default function Navbar() {
         <ul className="mobile-nav-links">
           {NAV_ITEMS.map(item => (
             <li key={item.path}>
-              <Link to={item.path} className="mobile-nav-link">
-                {isKo ? item.ko : item.en}
-              </Link>
+              {item.children ? (
+                <>
+                  <button
+                    className="mobile-nav-link mobile-dropdown-toggle"
+                    onClick={() => setOpenDropdown(openDropdown === item.path ? null : item.path)}
+                  >
+                    {isKo ? item.ko : item.en}
+                    <i className={`fa-solid fa-chevron-down mobile-arrow ${openDropdown === item.path ? 'rotated' : ''}`} />
+                  </button>
+                  {openDropdown === item.path && (
+                    <ul className="mobile-dropdown-items">
+                      {item.children.map(child => (
+                        <li key={child.path}>
+                          <Link to={child.path} className="mobile-dropdown-item">
+                            <i className={`fa-solid ${child.icon}`} style={{ width: 18, fontSize: 12, opacity: 0.6 }} />
+                            {isKo ? child.ko : child.en}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              ) : (
+                <Link to={item.path} className="mobile-nav-link">
+                  {isKo ? item.ko : item.en}
+                </Link>
+              )}
             </li>
           ))}
         </ul>

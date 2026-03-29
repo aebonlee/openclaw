@@ -410,3 +410,18 @@
     .home-stats-grid { grid-template-columns: 1fr; }
     .oc-stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+@media (max-width: 360px) {
+    .home-tool-card { padding: 20px 16px; }
+    .home-tool-card h3 { font-size: 14px; }
+    .home-tool-card p { font-size: 12px; }
+    .home-workflow-icon { width: 48px; height: 48px; font-size: 16px; }
+    .home-feature-card { padding: 20px 16px; }
+    .home-feature-card h4 { font-size: 14px; }
+    .home-feature-card p { font-size: 12px; }
+    .home-stat-number { font-size: 26px; }
+    .home-stat-label { font-size: 12px; }
+    .home-cta-content h2 { font-size: 22px; }
+    .home-cta-content p { font-size: 13px; }
+    .oc-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}

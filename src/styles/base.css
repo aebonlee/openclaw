@@ -121,6 +121,7 @@ body {
     color: var(--text-primary);
     background: var(--bg-white);
     overflow-x: hidden;
+    min-width: 320px;
     word-break: keep-all;
     overflow-wrap: break-word;
     -webkit-font-smoothing: antialiased;

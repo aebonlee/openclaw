@@ -476,14 +476,24 @@
   .ck-og-2col { grid-template-columns: 1fr; }
 }
 
+/* Sidebar overlay backdrop */
+.ck-sidebar-overlay {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .ck-mobile-toggle { display: flex; }
   .ck-sidebar {
     position: fixed; left: -290px; top: var(--nav-height); z-index: 90;
     width: 272px; transition: left 0.3s ease;
     box-shadow: none; height: calc(100vh - var(--nav-height));
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
   }
   .ck-sidebar.open { left: 0; box-shadow: 4px 0 20px rgba(0,0,0,0.15); }
+  .ck-sidebar-overlay {
+    display: block; position: fixed; top: var(--nav-height); left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4); z-index: 89;
+  }
   .ck-main { padding: 16px 16px 80px; }
   .ck-content-header { padding: 18px 20px; }
   .ck-content-body { padding: 18px 20px; }
