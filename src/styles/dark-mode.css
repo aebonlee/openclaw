@@ -277,3 +277,23 @@
 [data-theme="dark"] .oc-guide-box-light {
     background: var(--bg-light-gray);
 }
+[data-theme="dark"] .oc-code-block {
+    background: #0F172A;
+    border-color: var(--border-light);
+    color: #E2E8F0;
+}
+[data-theme="dark"] .oc-external-link {
+    color: var(--primary-blue-light);
+}
+[data-theme="dark"] .oc-chip {
+    background: var(--bg-light-gray);
+    border-color: var(--border-light);
+    color: var(--text-primary);
+}
+[data-theme="dark"] .oc-chip--blue { background: rgba(59,130,246,0.15); color: #93C5FD; }
+[data-theme="dark"] .oc-chip--green { background: rgba(16,185,129,0.15); color: #6EE7B7; }
+[data-theme="dark"] .oc-chip--purple { background: rgba(139,92,246,0.15); color: #C4B5FD; }
+[data-theme="dark"] .oc-check-item { color: var(--text-primary); }
+[data-theme="dark"] .oc-guide-card h4 { color: var(--text-primary); }
+[data-theme="dark"] .oc-guide-card p { color: var(--text-secondary); }
+[data-theme="dark"] .oc-guide-table td[style*="color"] { color: var(--text-primary) !important; }
