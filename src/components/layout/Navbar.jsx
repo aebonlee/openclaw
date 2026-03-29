@@ -89,29 +89,32 @@ export default function Navbar() {
           </Link>
 
           <ul className="nav-links">
-            {NAV_ITEMS.map(item => (
-              <li key={item.path} className="nav-item">
-                <Link
-                  to={item.path}
-                  className={`nav-link ${location.pathname.startsWith(item.path.split('?')[0]) ? 'active' : ''}`}
-                >
-                  {isKo ? item.ko : item.en}
-                  {item.children && <i className="fa-solid fa-chevron-down arrow" />}
-                </Link>
-                {item.children && (
-                  <ul className="dropdown-menu">
-                    {item.children.map(child => (
-                      <li key={child.path}>
-                        <Link to={child.path} className="dropdown-item">
-                          <i className={`fa-solid ${child.icon} icon`} />
-                          {isKo ? child.ko : child.en}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
+            {NAV_ITEMS.map(item => {
+              const showDesktopDropdown = item.children && item.path !== '/openclaw-guide';
+              return (
+                <li key={item.path} className="nav-item">
+                  <Link
+                    to={item.path}
+                    className={`nav-link ${location.pathname.startsWith(item.path.split('?')[0]) ? 'active' : ''}`}
+                  >
+                    {isKo ? item.ko : item.en}
+                    {showDesktopDropdown && <i className="fa-solid fa-chevron-down arrow" />}
+                  </Link>
+                  {showDesktopDropdown && (
+                    <ul className="dropdown-menu">
+                      {item.children.map(child => (
+                        <li key={child.path}>
+                          <Link to={child.path} className="dropdown-item">
+                            <i className={`fa-solid ${child.icon} icon`} />
+                            {isKo ? child.ko : child.en}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
 
           <div className="navbar-actions">
