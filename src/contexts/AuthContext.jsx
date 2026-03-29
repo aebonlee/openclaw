@@ -40,18 +40,43 @@ export function AuthProvider({ children }) {
 
   async function loadProfile(userId) {
     try {
-      const { data: profileData } = await supabase
+      const { data: profileData, error: selectError } = await supabase
         .from('user_profiles')
         .select('*')
         .eq('id', userId)
         .single();
-      if (profileData) {
-        setProfile(profileData);
+
+      let activeProfile = profileData;
+
+      // 프로필이 없으면 자동 생성 (SQL 재설정 후 기존 유저 복구)
+      if (!activeProfile || selectError) {
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        if (authUser) {
+          const meta = authUser.user_metadata || {};
+          const newProfile = {
+            id: userId,
+            display_name: meta.full_name || meta.name || authUser.email?.split('@')[0] || '',
+            avatar_url: meta.avatar_url || meta.picture || '',
+            role: 'user',
+            signup_domain: window.location.hostname,
+            visited_sites: [window.location.hostname],
+          };
+          const { data: created } = await supabase
+            .from('user_profiles')
+            .upsert(newProfile, { onConflict: 'id' })
+            .select()
+            .single();
+          activeProfile = created;
+        }
+      }
+
+      if (activeProfile) {
+        setProfile(activeProfile);
 
         const currentDomain = window.location.hostname;
         const updates = {};
-        if (!profileData.signup_domain) updates.signup_domain = currentDomain;
-        const sites = Array.isArray(profileData.visited_sites) ? profileData.visited_sites : [];
+        if (!activeProfile.signup_domain) updates.signup_domain = currentDomain;
+        const sites = Array.isArray(activeProfile.visited_sites) ? activeProfile.visited_sites : [];
         if (!sites.includes(currentDomain)) {
           updates.visited_sites = [...sites, currentDomain];
         }

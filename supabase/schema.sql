@@ -223,3 +223,19 @@ BEGIN
   RETURN json_build_object('status', 'active');
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- ============================================
+-- 11. 기존 유저 프로필 백필 (SQL 재설정 후 복구용)
+-- auth.users에 있지만 user_profiles에 없는 유저 자동 생성
+-- ============================================
+
+INSERT INTO user_profiles (id, display_name, avatar_url, role)
+SELECT
+  au.id,
+  COALESCE(au.raw_user_meta_data->>'full_name', au.raw_user_meta_data->>'name', split_part(au.email, '@', 1)),
+  COALESCE(au.raw_user_meta_data->>'avatar_url', au.raw_user_meta_data->>'picture', ''),
+  'user'
+FROM auth.users au
+LEFT JOIN user_profiles up ON up.id = au.id
+WHERE up.id IS NULL
+ON CONFLICT (id) DO NOTHING;
