@@ -249,27 +249,45 @@ export default function OpenClawGuide() {
              ════════════════════════════════════════════════════════════════ */}
           {activeSection === 'slides' && (
             <div className="ck-content-box">
-              <div className="ck-content-header" style={{ background: 'linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light))', color: '#fff' }}>
-                <i className="fa-solid fa-file-pdf" style={{ color: '#fff' }} />
-                <div className="ck-ch-text" style={{ flex: 1 }}>
-                  <h2 style={{ color: '#fff' }}>{isKo ? <>'학습 자료' <span style={{ fontSize: '0.55em', fontWeight: 400, opacity: 0.85 }}>(2026 ICT이노베이션스퀘어 확산사업 : OpenClaw 기초 및 실무활용 특강 260330. 월 - 포항테크노파크)</span></> : <>'Study Material' <span style={{ fontSize: '0.55em', fontWeight: 400, opacity: 0.85 }}>(2026 ICT Innovation Square : OpenClaw Basics & Practical Training 260330 - Pohang Technopark)</span></>}</h2>
-                  <p style={{ color: 'rgba(255,255,255,0.8)' }}>{isKo ? 'OpenClaw & Genspark Claw 강의 프레젠테이션 자료' : 'OpenClaw & Genspark Claw lecture presentation material'}</p>
+              <div style={{
+                background: 'linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%)',
+                color: '#fff', borderRadius: '12px 12px 0 0', padding: '28px 32px 24px',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, marginBottom: 16 }}>
+                  <div style={{ flex: 1 }}>
+                    <h2 style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 800, margin: '0 0 8px', letterSpacing: '-0.02em' }}>
+                      {isKo ? '학습 자료' : 'Study Material'}
+                    </h2>
+                    <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.9375rem', margin: 0, lineHeight: 1.5 }}>
+                      {isKo ? 'OpenClaw & Genspark Claw 강의 프레젠테이션 자료' : 'OpenClaw & Genspark Claw lecture presentation material'}
+                    </p>
+                  </div>
+                  <a
+                    href="/files/openclaw_2631.pdf?v=20260331"
+                    download="OpenClaw_PT.pdf"
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 6,
+                      padding: '8px 18px', borderRadius: 8, fontSize: 13, fontWeight: 600,
+                      background: 'rgba(255,255,255,0.15)', color: '#fff',
+                      border: '1px solid rgba(255,255,255,0.4)', textDecoration: 'none',
+                      transition: 'all 0.2s ease', flexShrink: 0, whiteSpace: 'nowrap',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.3)'; e.currentTarget.style.borderColor = '#fff'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'; }}
+                  >
+                    <i className="fa-solid fa-download" /> {isKo ? '다운로드' : 'Download'}
+                  </a>
                 </div>
-                <a
-                  href="/files/openclaw_2631.pdf?v=20260331"
-                  download="OpenClaw_PT.pdf"
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 6,
-                    padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600,
-                    background: 'rgba(255,255,255,0.15)', color: '#fff',
-                    border: '1px solid rgba(255,255,255,0.4)', textDecoration: 'none',
-                    transition: 'all 0.2s ease', flexShrink: 0,
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.3)'; e.currentTarget.style.borderColor = '#fff'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'; }}
-                >
-                  <i className="fa-solid fa-download" /> {isKo ? '다운로드' : 'Download'}
-                </a>
+                <div style={{
+                  background: 'rgba(255,255,255,0.1)', borderRadius: 8, padding: '10px 14px',
+                  fontSize: '0.8125rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.6,
+                  border: '1px solid rgba(255,255,255,0.12)',
+                }}>
+                  <i className="fa-solid fa-calendar-check" style={{ marginRight: 6, opacity: 0.7 }} />
+                  {isKo
+                    ? '2026 ICT이노베이션스퀘어 확산사업 : OpenClaw 기초 및 실무활용 특강 260330. 월 - 포항테크노파크'
+                    : '2026 ICT Innovation Square : OpenClaw Basics & Practical Training 260330 - Pohang Technopark'}
+                </div>
               </div>
               <div className="ck-content-body" style={{ padding: 0 }}>
                 <iframe
