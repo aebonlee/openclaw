@@ -252,8 +252,8 @@ export default function OpenClawGuide() {
               <div className="ck-content-header" style={{ background: 'linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light))', color: '#fff' }}>
                 <i className="fa-solid fa-file-pdf" style={{ color: '#fff' }} />
                 <div className="ck-ch-text" style={{ flex: 1 }}>
-                  <h2 style={{ color: '#fff' }}>{isKo ? '학습 자료 : PT' : 'Slides : PT'}</h2>
-                  <p style={{ color: 'rgba(255,255,255,0.8)' }}>{isKo ? 'OpenClaw 강의 프레젠테이션 자료' : 'OpenClaw lecture presentation material'}</p>
+                  <h2 style={{ color: '#fff' }}>{isKo ? '학습 자료 : PT (Genspark Claw 포함)' : 'Slides : PT (incl. Genspark Claw)'}</h2>
+                  <p style={{ color: 'rgba(255,255,255,0.8)' }}>{isKo ? 'OpenClaw & Genspark Claw 강의 프레젠테이션 자료' : 'OpenClaw & Genspark Claw lecture presentation material'}</p>
                 </div>
                 <a
                   href="/files/openclaw_2631.pdf?v=20260331"
