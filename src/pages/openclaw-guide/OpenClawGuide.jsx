@@ -252,7 +252,7 @@ export default function OpenClawGuide() {
               <div className="ck-content-header" style={{ background: 'linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light))', color: '#fff' }}>
                 <i className="fa-solid fa-file-pdf" style={{ color: '#fff' }} />
                 <div className="ck-ch-text" style={{ flex: 1 }}>
-                  <h2 style={{ color: '#fff' }}>{isKo ? '학습 자료 (2026 ICT이노베이션스퀘어 확산사업 : OpenClaw 기초 및 실무활용 특강 260330. 월 - 포항테크노파크)' : 'Study Material (2026 ICT Innovation Square : OpenClaw Basics & Practical Training 260330 - Pohang Technopark)'}</h2>
+                  <h2 style={{ color: '#fff' }}>{isKo ? <>'학습 자료' <span style={{ fontSize: '0.55em', fontWeight: 400, opacity: 0.85 }}>(2026 ICT이노베이션스퀘어 확산사업 : OpenClaw 기초 및 실무활용 특강 260330. 월 - 포항테크노파크)</span></> : <>'Study Material' <span style={{ fontSize: '0.55em', fontWeight: 400, opacity: 0.85 }}>(2026 ICT Innovation Square : OpenClaw Basics & Practical Training 260330 - Pohang Technopark)</span></>}</h2>
                   <p style={{ color: 'rgba(255,255,255,0.8)' }}>{isKo ? 'OpenClaw & Genspark Claw 강의 프레젠테이션 자료' : 'OpenClaw & Genspark Claw lecture presentation material'}</p>
                 </div>
                 <a
