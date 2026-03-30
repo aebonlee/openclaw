@@ -256,7 +256,7 @@ export default function OpenClawGuide() {
                   <p style={{ color: 'rgba(255,255,255,0.8)' }}>{isKo ? 'OpenClaw 강의 프레젠테이션 자료' : 'OpenClaw lecture presentation material'}</p>
                 </div>
                 <a
-                  href="/files/openclaw_2603.pdf"
+                  href="/files/openclaw_2603.pdf?v=20260331"
                   download="OpenClaw_PT.pdf"
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: 6,
@@ -273,7 +273,7 @@ export default function OpenClawGuide() {
               </div>
               <div className="ck-content-body" style={{ padding: 0 }}>
                 <iframe
-                  src="/files/openclaw_2603.pdf#toolbar=1&navpanes=0&scrollbar=1"
+                  src="/files/openclaw_2603.pdf?v=20260331#toolbar=1&navpanes=0&scrollbar=1"
                   style={{
                     width: '100%',
                     height: 'calc(100vh - 200px)',
