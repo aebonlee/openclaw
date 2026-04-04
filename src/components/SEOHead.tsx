@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { SITE_CONFIG } from '../config/site';
 
-export default function SEOHead({ title, description, path = '/', image }) {
+export default function SEOHead({ title, description, path = '/', image }: { title?: string; description?: string; path?: string; image?: string }) {
   const fullTitle = title ? `${title} | ${SITE_CONFIG.name}` : `${SITE_CONFIG.name} - ${SITE_CONFIG.nameKo}`;
   const desc = description || SITE_CONFIG.description;
   const url = `${SITE_CONFIG.url}${path}`;
@@ -12,7 +12,7 @@ export default function SEOHead({ title, description, path = '/', image }) {
   useEffect(() => {
     document.title = fullTitle;
 
-    const setMeta = (property, content) => {
+    const setMeta = (property: string, content: string) => {
       let el = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
       if (!el) {
         el = document.createElement('meta');

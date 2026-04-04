@@ -995,7 +995,7 @@ openclaw secrets configure`}</pre>
                     { ko: '"팀 공용 봇처럼 쓸 때는 세션 분리만 믿으면 안 된다" - multi-user 시 별도 Gateway 운영을 고려하세요.', en: '"Don\'t rely solely on session isolation when using as a team bot" - Consider separate Gateway operation for multi-user scenarios.' },
                     { ko: '"API 키와 비밀값은 평문 노출을 최소화" - openclaw secrets configure로 안전하게 관리하세요.', en: '"Minimize plaintext exposure of API keys and secrets" - Manage safely with openclaw secrets configure.' },
                   ].map((item, idx) => (
-                    <div key={idx} style={{ ...checkItemStyle, padding: '10px 0', borderBottom: idx < 2 ? '1px solid var(--border-light)' : 'none' }}>
+                    <div key={idx} className="oc-check-item" style={{ padding: '10px 0', borderBottom: idx < 2 ? '1px solid var(--border-light)' : 'none' }}>
                       <strong style={{ color: 'var(--primary-blue)', fontSize: 16, flexShrink: 0 }}>{idx + 1}.</strong>
                       <span style={{ color: 'var(--text-primary)' }}>{isKo ? item.ko : item.en}</span>
                     </div>

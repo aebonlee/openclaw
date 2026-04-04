@@ -69,25 +69,25 @@ export default function Board() {
   const handleCategoryChange = (catId) => {
     setCategory(catId);
     setCurrentPage(1);
-    const params = {};
+    const params: Record<string, string> = {};
     if (catId !== 'all') params.category = catId;
     if (search) params.search = search;
     setSearchParams(params);
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: any) => {
     e.preventDefault();
     setSearch(searchInput);
     setCurrentPage(1);
-    const params = {};
+    const params: Record<string, string> = {};
     if (category !== 'all') params.category = category;
     if (searchInput) params.search = searchInput;
     setSearchParams(params);
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    const params = {};
+    const params: Record<string, string> = {};
     if (category !== 'all') params.category = category;
     if (search) params.search = search;
     if (page > 1) params.page = page.toString();
@@ -100,7 +100,7 @@ export default function Board() {
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     const now = new Date();
-    const diff = now - date;
+    const diff = now.getTime() - date.getTime();
     if (diff < 86400000) {
       const hours = Math.floor(diff / 3600000);
       if (hours < 1) return isKo ? '방금 전' : 'Just now';

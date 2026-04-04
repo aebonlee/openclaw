@@ -1,14 +1,27 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { supabase } from '../utils/supabase';
 import { isAdmin } from '../config/admin';
 
-const AuthContext = createContext();
+interface AuthContextType {
+  user: any;
+  profile: any;
+  loading: boolean;
+  accountBlock: { status: string; reason: string; suspended_until: string | null } | null;
+  clearAccountBlock: () => void;
+  isLoggedIn: boolean;
+  isAdmin: boolean;
+  signOut: () => Promise<void>;
+  updateProfile: (updates: Record<string, any>) => Promise<{ data: any; error: any }>;
+  refreshProfile: () => void;
+}
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
+const AuthContext = createContext<AuthContextType | null>(null);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<any>(null);
+  const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [accountBlock, setAccountBlock] = useState(null);
+  const [accountBlock, setAccountBlock] = useState<{ status: string; reason: string; suspended_until: string | null } | null>(null);
 
   const clearAccountBlock = () => setAccountBlock(null);
 
@@ -38,7 +51,7 @@ export function AuthProvider({ children }) {
     return () => subscription.unsubscribe();
   }, []);
 
-  async function loadProfile(userId) {
+  async function loadProfile(userId: string) {
     try {
       const { data: profileData, error: selectError } = await supabase
         .from('user_profiles')
@@ -48,7 +61,6 @@ export function AuthProvider({ children }) {
 
       let activeProfile = profileData;
 
-      // 프로필이 없으면 자동 생성 (SQL 재설정 후 기존 유저 복구)
       if (!activeProfile || selectError) {
         const { data: { user: authUser } } = await supabase.auth.getUser();
         if (authUser) {
@@ -74,7 +86,7 @@ export function AuthProvider({ children }) {
         setProfile(activeProfile);
 
         const currentDomain = window.location.hostname;
-        const updates = {};
+        const updates: Record<string, any> = {};
         if (!activeProfile.signup_domain) updates.signup_domain = currentDomain;
         const sites = Array.isArray(activeProfile.visited_sites) ? activeProfile.visited_sites : [];
         if (!sites.includes(currentDomain)) {
@@ -111,8 +123,8 @@ export function AuthProvider({ children }) {
     }
   }
 
-  async function updateProfile(updates) {
-    if (!user) return { error: 'Not authenticated' };
+  async function updateProfile(updates: Record<string, any>) {
+    if (!user) return { error: 'Not authenticated', data: null };
     const { data, error } = await supabase
       .from('user_profiles')
       .upsert({ id: user.id, ...updates }, { onConflict: 'id' })
@@ -128,7 +140,7 @@ export function AuthProvider({ children }) {
     setProfile(null);
   }
 
-  const value = {
+  const value: AuthContextType = {
     user,
     profile,
     loading,
