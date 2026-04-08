@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { supabase } from '../utils/supabase';
+import { supabase, setSharedSession, getSharedSession, clearSharedSession } from '../utils/supabase';
 import { isAdmin } from '../config/admin';
 
 interface AuthContextType {
@@ -26,15 +26,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const clearAccountBlock = () => setAccountBlock(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setUser(session?.user ?? null);
       if (session?.user) loadProfile(session.user.id);
+      if (!session?.user) {
+        const rt = getSharedSession();
+        if (rt) {
+          try {
+            const { data } = await supabase.auth.refreshSession({ refresh_token: rt });
+            if (!data.session) clearSharedSession();
+          } catch { clearSharedSession(); }
+        }
+      }
       setLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       const u = session?.user ?? null;
       setUser(u);
+      if (session?.refresh_token) setSharedSession(session.refresh_token);
+      if (event === 'SIGNED_OUT') clearSharedSession();
       if (u) {
         loadProfile(u.id);
         if (event === 'SIGNED_IN') {
