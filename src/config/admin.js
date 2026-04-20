@@ -1,7 +1,7 @@
 export const ADMIN_EMAILS = [
-  'aebonlee@gmail.com',
   'aebon@kakao.com',
-  'admin@dreamitbiz.com',
+  'radical8566@gmail.com',
+  'aebon@kyonggi.ac.kr',
 ];
 
 export function isAdmin(email) {
